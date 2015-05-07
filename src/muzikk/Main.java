@@ -1,4 +1,4 @@
-package sample;
+package muzikk;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
