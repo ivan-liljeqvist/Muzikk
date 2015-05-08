@@ -58,9 +58,10 @@ public class MuzikkAccessFetcher {
 
     /*
         Starts a thread and keeps pinging server until a user is logged in.
+        @return a Notifying Thread instance that runs the pinging.
      */
 
-    public static void keepPingingServerUntilUserLoggedIn(){
+    public static NotifyingThread keepPingingServerUntilUserLoggedIn(){
 
         /*
             This method will ping the server forever until a user is logged in.
@@ -68,40 +69,41 @@ public class MuzikkAccessFetcher {
             We start a thread.
          */
 
-        Thread t=new Thread(new Runnable() {
+        NotifyingThread thread=new NotifyingThread() {
+            private String [] user_info;
+
             @Override
-            public void run() {
-                //keep checking if logged in
-                boolean logged_in=false;
+            public String[] extractParams() {
+                return user_info;
+            }
 
-                String user_id="";
-                String user_email="";
+            @Override
+            public void doRun() {
+                    //keep checking if logged in
+                    boolean logged_in=false;
 
-                //if not logged in
-                while(!logged_in && (user_id.length() <= 0)){
-                    //keep pinging
-                    String [] user_info=attemptToGetLoggedInUser();
+                    //if not logged in
+                    while(!logged_in){
+                        //keep pinging
+                        user_info=attemptToGetLoggedInUser();
 
-                    //check if logged in
-                    if(user_info!=null){
-                        //the first element is the ID
-                        user_id=user_info[0];
-                        //the second element is the email
-                        user_email=user_info[1];
+                        //check if logged in
+                        if(user_info!=null){
+                            //this flag will stop the loop
+                            logged_in=true;
 
-                        //this flag will stop the loop
-                        logged_in=true;
+
+                        }
+
                     }
 
-                }
-
-                System.out.println(user_id);
-                System.out.println(user_email);
             }
-        });
+        };
 
-        //start the thread
-        t.start();
+        thread.start();
+
+        return thread;
+
 
     }
 

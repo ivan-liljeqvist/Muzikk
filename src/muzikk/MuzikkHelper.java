@@ -2,6 +2,8 @@ package muzikk;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
+import kaaes.spotify.webapi.android.models.Pager;
+import kaaes.spotify.webapi.android.models.PlaylistSimple;
 import kaaes.spotify.webapi.android.models.Track;
 import kaaes.spotify.webapi.android.models.TracksPager;
 import retrofit.Callback;
@@ -32,6 +34,15 @@ public class MuzikkHelper {
     }
 
 
+    public void printAllMyPlaylists(){
+        Pager<PlaylistSimple> pager = spotify.getPlaylists(MuzikkUserInfo.getUserId());
+
+        System.out.println(pager.items.size());
+
+        for(PlaylistSimple pl : pager.items){
+            System.out.println(pl.name);
+        }
+    }
 
     /*
         Takes a string as a parameter and returns a list with Track objects.
