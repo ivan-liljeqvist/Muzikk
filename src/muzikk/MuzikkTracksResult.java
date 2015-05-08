@@ -13,11 +13,11 @@ import java.util.List;
  *
  * Created by IvanLiljeqvist on 07/05/15.
  */
-public class SpotifyTracksResult {
+public class MuzikkTracksResult {
 
     private List<Track> tracksReturned;
 
-    SpotifyTracksResult(){
+    MuzikkTracksResult(){
         tracksReturned=null;
     }
 

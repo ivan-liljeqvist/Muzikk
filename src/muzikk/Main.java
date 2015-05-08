@@ -15,7 +15,13 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
 
-        SpotifyHelper helper=new SpotifyHelper();
+        //MuzikkHelper helper=new MuzikkHelper();
+
+        //open the webpage
+        MuzikkAccessFetcher.initiateLogin();
+        MuzikkAccessFetcher.keepPingingServerUntilUserLoggedIn();
+
+
     }
 
 
