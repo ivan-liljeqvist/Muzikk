@@ -1,14 +1,16 @@
 package muzikk;
 
+import javafx.scene.input.KeyCode;
+
 /**
  * Created by filip on 2015-05-07.
  */
 public class Player {
     private String name;
-    private String actionButton;
+    private KeyCode actionButton;
     private int score;
 
-    public Player(String name, String actionButton) {
+    public Player(String name, KeyCode actionButton) {
         try {
             setName(name);
             setActionButton(actionButton);
@@ -29,10 +31,10 @@ public class Player {
     public String getName(){
         return name;
     }
-    public void setActionButton(String key) throws IllegalArgumentException{
+    public void setActionButton(KeyCode key) throws IllegalArgumentException{
         actionButton = key;
     }
-    public String getActionButton(){
+    public KeyCode getActionButton(){
         return actionButton;
     }
     public void setScore(int score) throws IllegalArgumentException{
