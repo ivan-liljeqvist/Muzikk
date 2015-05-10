@@ -22,7 +22,10 @@ public class firstScreenController implements Initializable {
     private Stage prevStage;
     private FXMLLoader myLoader;
     private Pane myPane;
-    @FXML private Button singlePlayerButton;
+    @FXML
+    private Button singlePlayerButton;
+    @FXML
+    private Button multiPlayerButton;
 
     public void setPrevStage(Stage stage){
         this.prevStage = stage;
@@ -32,18 +35,19 @@ public class firstScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb){
         singlePlayerButton.setOnAction((event) -> goToSinglePlayer());
 
+        multiPlayerButton.setOnAction((event) -> goToMultiPlayer());
+
     }
-    public void goToSinglePlayer(){
-        /*Pane myPane = null;
-        FXMLLoader myLoader = new FXMLLoader(getClass().getResource("singlePlayerScreen.fxml"));
-        try {
-            myPane = myLoader.load();
-        }catch (IOException e) {
-            System.err.println("FXML file missing");
-        }*/
+    private void goToSinglePlayer(){
         singlePlayerScreenController controller = SceneLoader.spLoader.getController();
         controller.setPrevStage(prevStage);
         prevStage.setScene(new Scene(SceneLoader.spPane));
 
     }
+    private void goToMultiPlayer(){
+        multiPlayerScreenController controller = SceneLoader.mpLoader.getController();
+        controller.setPrevStage(prevStage);
+        prevStage.setScene(new Scene(SceneLoader.mpPane));
+    }
+
 }

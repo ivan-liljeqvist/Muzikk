@@ -7,10 +7,10 @@ import javafx.scene.input.KeyCode;
  */
 public class Player {
     private String name;
-    private KeyCode actionButton;
+    private String actionButton;
     private int score;
 
-    public Player(String name, KeyCode actionButton) {
+    public Player(String name, String actionButton) {
         try {
             setName(name);
             setActionButton(actionButton);
@@ -31,10 +31,10 @@ public class Player {
     public String getName(){
         return name;
     }
-    public void setActionButton(KeyCode key) throws IllegalArgumentException{
+    public void setActionButton(String key) throws IllegalArgumentException{
         actionButton = key;
     }
-    public KeyCode getActionButton(){
+    public String getActionButton(){
         return actionButton;
     }
     public void setScore(int score) throws IllegalArgumentException{

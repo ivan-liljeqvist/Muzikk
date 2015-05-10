@@ -1,5 +1,7 @@
 package muzikk;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,13 +31,17 @@ import java.util.ResourceBundle;
  */
 public class singlePlayerScreenController implements Initializable {
     Stage prevStage;
-    KeyCode key;
+    String key;
+
     @FXML
     private Button startGameButton;
     @FXML
     private ToggleButton setKeyToggleButton;
     @FXML
-    private TextField nameTextField;
+    private TextField nameTextField = new TextField();
+    @FXML
+    private TextField keyTextField = new TextField();
+
 
     public void setPrevStage(Stage stage){
         this.prevStage = stage;
@@ -43,30 +49,25 @@ public class singlePlayerScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        startGameButton.disableProperty().bind( //Binding for disabling button when nameTextField is empty
+                Bindings.isEmpty(nameTextField.textProperty()).or(Bindings.isEmpty(keyTextField.textProperty()))
+        );
         startGameButton.setOnAction((event) -> goTogame()); //start the game
-        setKeyToggleButton.setOnKeyPressed(event -> { //Sets the players button
+        setKeyToggleButton.setOnKeyTyped(event -> { //Sets the players button
             if (setKeyToggleButton.isSelected()) {
-                key = event.getCode();
-                setKeyToggleButton.setText(String.valueOf(key));
+                key = event.getCharacter().toLowerCase();
+                setKeyToggleButton.setText("Key: " + key.toUpperCase());
+                keyTextField.setText(String.valueOf(key));
                 setKeyToggleButton.fire();
-                if (nameTextField.getText().length() > 0)
-                    startGameButton.setDisable(false);
             }
         });
     }
     public void goTogame(){
-        if (key != null && nameTextField.getText().length() > 0){
-            Player player = new Player(nameTextField.getText(), key);
-            //starta spelet
-        }
-
-
-    }
-    @FXML
-    private void setKey(){
-
-
-
+        Player player = new Player(nameTextField.getText(), key);
+        gameController controller = SceneLoader.gameLoader.getController();
+        controller.initData(player);
+        controller.setPrevStage(prevStage);
+        prevStage.setScene(new Scene(SceneLoader.gamePane));
 
     }
 
