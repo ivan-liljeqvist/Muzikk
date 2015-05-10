@@ -25,8 +25,10 @@ public class MuzikkAccessFetcher {
 
     public static String getSpotifyAccessToken(){
 
+        final String GET_TOKEN_URL="http://simkoll.com/spotifyAccess.php";
+
         //send request to server
-        String JSONResponse=executePost("http://simkoll.com/spotifyAccess.php","");
+        String JSONResponse=executePost(GET_TOKEN_URL,"");
         JsonElement responseJson=new JsonParser().parse(JSONResponse);
 
         //get 'access_token' element in the JSON returned by the server
@@ -41,9 +43,10 @@ public class MuzikkAccessFetcher {
      */
     public static String[] attemptToGetLoggedInUser(){
 
+        final String USER_INFO_URL="http://simkoll.com/muzikk/hasUserInfo.php";
 
         //send request to the server
-        String loggedInUser=executePost("http://simkoll.com/muzikk/hasUserInfo.php", "");
+        String loggedInUser=executePost(USER_INFO_URL, "");
 
         //if the server returned 'no user' - no user is logged in
         if(loggedInUser.trim().equals("no user")){
@@ -134,7 +137,9 @@ public class MuzikkAccessFetcher {
      */
 
     private static void cleanUpUserInfoOnServer(){
-        executePost("http://simkoll.com/muzikk/cleanup.php","");
+
+        final String CLEAN_UP_URL="http://simkoll.com/muzikk/cleanup.php";
+        executePost(CLEAN_UP_URL,"");
     }
 
     /*
