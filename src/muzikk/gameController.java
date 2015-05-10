@@ -1,21 +1,31 @@
 package muzikk;
 
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
+import java.awt.*;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Created by filip on 2015-05-07.
  */
-public class gameController {
+public class gameController implements Initializable{
     private Stage prevStage;
     private ArrayList<Player> players;
     private ArrayList<String> genres = new ArrayList<String>(10);
     private ArrayList<String> songURLs = new ArrayList<String>(10);
+
     private int numSongs;
 
-    public gameController(){
-
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Label label = new Label("hej");
+        label.setLayoutX(100);
+        label.setLayoutY(200);
     }
 
     public void setPrevStage(Stage stage){
@@ -64,8 +74,10 @@ public class gameController {
      */
     public void initData(ArrayList<Player> playerList){
         players = new ArrayList<Player>(playerList);
-        for (Player p : players){
-            System.out.println(p.getName());
+        for (int i = 0;i<players.size();i++){
+            Label label = new Label(players.get(i).getName());
+            label.setLayoutX(100+50*i);
+            label.setLayoutY(200);
         }
     }
 

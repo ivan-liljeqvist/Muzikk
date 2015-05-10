@@ -63,11 +63,17 @@ public class multiPlayerScreenController implements Initializable {
         addPlayerButton.setOnAction(event1 -> addPlayer());
         startGameButton.setOnAction((event) -> goTogame()); //start the game
         setKeyToggleButton.setOnKeyTyped(event -> { //Sets the players button
-            if (setKeyToggleButton.isSelected()) {
+
+            if (setKeyToggleButton.isSelected() && !(keyList.contains(event.getCharacter().toUpperCase()))) {
+                setKeyToggleButton.setStyle("-fx-border-color: none");
                 key = event.getCharacter().toLowerCase();
                 setKeyToggleButton.setText("Key: " + key.toUpperCase());
                 keyTextField.setText(String.valueOf(key));
                 setKeyToggleButton.fire();
+            }
+            else if(keyList.contains(event.getCharacter().toUpperCase())){
+                setKeyToggleButton.setText("Key not availible");
+                setKeyToggleButton.setStyle("-fx-border-color: red");
             }
         });
     }
