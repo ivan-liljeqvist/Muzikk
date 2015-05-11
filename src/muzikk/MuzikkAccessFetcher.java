@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -41,7 +43,7 @@ public class MuzikkAccessFetcher {
         @return an array of String where the first element is the id of the user and the second is the email of the user.
         Returns null if no user information is found.
      */
-    public static String[] attemptToGetLoggedInUser(){
+    public static List<String> attemptToGetLoggedInUser(){
 
         final String USER_INFO_URL="http://simkoll.com/muzikk/hasUserInfo.php";
 
@@ -55,7 +57,13 @@ public class MuzikkAccessFetcher {
         else{
             //the response will be in the form: "ID EMAIL". Therefore we split the response string.
             String [] results= loggedInUser.split(" ");
-            return results;
+
+            //we need a list. convert array to list
+            ArrayList<String> resultsList=new ArrayList<String>();
+            resultsList.add(results[0]);
+            resultsList.add(results[1]);
+
+            return resultsList;
         }
     }
 
@@ -64,7 +72,7 @@ public class MuzikkAccessFetcher {
         @return a Notifying Thread instance that runs the pinging.
      */
 
-    public static NotifyingThread keepPingingServerUntilUserLoggedIn(){
+    public static NotifyingThread<String> keepPingingServerUntilUserLoggedIn(){
 
         /*
             This method will ping the server forever until a user is logged in.
@@ -72,11 +80,11 @@ public class MuzikkAccessFetcher {
             We start a thread.
          */
 
-        NotifyingThread thread=new NotifyingThread() {
-            private String [] user_info;
+        NotifyingThread<String> thread=new NotifyingThread<String>() {
+            private List<String> user_info;
 
             @Override
-            public String[] extractParams() {
+            public List<String> extractParams() {
                 return user_info;
             }
 

@@ -7,7 +7,7 @@ package muzikk;
  * interface that another thread has completed.
  */
 
-public interface ThreadCompleteListener {
+public interface ThreadCompleteListener<T> {
     //The listener function. Will be called when 'thread' has finished running.
-    void notifyOfThreadComplete(final NotifyingThread thread);
+    void notifyOfThreadComplete(final NotifyingThread<T> thread);
 }

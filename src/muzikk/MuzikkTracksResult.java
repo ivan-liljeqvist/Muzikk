@@ -2,6 +2,7 @@ package muzikk;
 
 import kaaes.spotify.webapi.android.models.Track;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class MuzikkTracksResult {
     private List<Track> tracksReturned;
 
     MuzikkTracksResult(){
-        tracksReturned=null;
+        tracksReturned=new ArrayList<Track>();
     }
 
     public void addTrack(Track t){

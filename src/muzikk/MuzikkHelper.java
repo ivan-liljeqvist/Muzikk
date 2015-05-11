@@ -1,5 +1,6 @@
 package muzikk;
 
+import jaco.mp3.player.MP3Player;
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.*;
@@ -7,6 +8,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -35,46 +37,101 @@ public class MuzikkHelper {
          playlists that are public.
      */
     public List<PlaylistSimple>getAllPlaylists(){
-        return spotify.getPlaylists(MuzikkUserInfo.getUserId()).items;
+        return spotify.getPlaylists(MuzikkGlobalInfo.getUserId()).items;
     }
 
     /*
         @return a List of Track with all the Tracks from all public Playlists
         that the user has.
      */
-    public MuzikkTracksResult getAllTracks(){
-        //get all of the user's playlists
-        List<PlaylistSimple> playlists=this.getAllPlaylists();
+    public NotifyingThread getAllTracksFromPlaylists(List<PlaylistSimple> playlists){
 
-        //container with all the tracks.
-        final MuzikkTracksResult tracksToReturn=new MuzikkTracksResult();
+        NotifyingThread<Track> thread=new NotifyingThread<Track>() {
 
-        for(PlaylistSimple pl : playlists){
-            //get all the tracks from this playlist
-            spotify.getPlaylistTracks(MuzikkUserInfo.getUserId(), pl.id, new Callback<Pager<PlaylistTrack>>() {
-                @Override
-                public void success(Pager<PlaylistTrack> playlistTrackPager, Response response) {
-                    List<PlaylistTrack> plTracks=playlistTrackPager.items;
+            //container with all the tracks.
+            final MuzikkTracksResult tracksToReturn=new MuzikkTracksResult();
 
-                    for(PlaylistTrack plTrack:plTracks){
-                        tracksToReturn.addTrack(plTrack.track);
+            @Override
+            public List<Track> extractParams() {
+                return tracksToReturn.getTrackReturned();
+            }
+
+            @Override
+            public void doRun() {
+
+                for(PlaylistSimple pl : playlists){
+
+                    Object playlistWaiter = new Object();
+
+                    if(pl.tracks.total<=0){
+                        continue;
+                    }
+                    //get all the tracks from this playlist
+                    spotify.getPlaylistTracks(MuzikkGlobalInfo.getUserId(), pl.id, new Callback<Pager<PlaylistTrack>>() {
+
+                        @Override
+                        public void success(Pager<PlaylistTrack> playlistTrackPager, Response response) {
+                            List<PlaylistTrack> plTracks=playlistTrackPager.items;
+
+                            for(PlaylistTrack plTrack:plTracks){
+
+                                if(plTrack!=null && plTrack.track!=null){
+                                    tracksToReturn.addTrack(plTrack.track);
+                                }
+
+                            }
+
+                              /*
+                                Notify the waiting object so that the thread can go on.
+                             */
+
+                            synchronized (playlistWaiter){
+                                playlistWaiter.notify();
+                            }
+
+
+                        }
+
+                        @Override
+                        public void failure(RetrofitError retrofitError) {
+                            System.out.println("Couldn't get tracks in playlist.");
+
+                            /*
+                                Notify the waiting object so that the thread can go on.
+                             */
+
+                            synchronized (playlistWaiter){
+                                playlistWaiter.notify();
+                            }
+                        }
+                    });
+
+                    /*
+                        Wait until all tracks from this playlists are fetched, or if the fetch fails
+                     */
+                    synchronized (playlistWaiter){
+                        try{
+                            playlistWaiter.wait();
+                        }catch(Exception e){
+                            System.out.println("error while waiting");
+                        }
                     }
 
-                }
 
-                @Override
-                public void failure(RetrofitError retrofitError) {
-                    System.out.println("Couldn't get tracks in playlist.");
                 }
-            });
-        }
+            }
+        };
 
-        return tracksToReturn;
+        thread.setName("getAllTracksThread");
+        thread.start();
+
+
+        return thread;
     }
 
     /*
         Takes a string as a parameter and returns a list with Track objects.
-        @param name - a string yuou want to use to search
+        @param name - a string yuu want to use to search
         @return List with Tracks. null if the search fails.
      */
     public List<Track> searchTrack(String name){
@@ -98,6 +155,24 @@ public class MuzikkHelper {
 
         return result.getTrackReturned();
 
+    }
+
+    /*
+        Plays the 30-seconds preview of the Track you pass in.
+        @param track - a Track object you want to play 30-second preview of.
+     */
+
+    public void playTrack(Track track){
+        URL trackURL=null;
+        try{
+            trackURL=new URL(track.preview_url);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        MP3Player player=new MP3Player(trackURL);
+        player.play();
     }
 
     /*

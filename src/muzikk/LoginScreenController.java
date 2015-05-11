@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 /**
  * Created by filip on 2015-05-11.
  */
-public class LoginScreenController implements Initializable, ThreadCompleteListener {
+public class LoginScreenController implements Initializable, ThreadCompleteListener<String> {
     Stage prevStage;
     @FXML
     private Button spotifyLoginButton;
@@ -32,12 +32,12 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
         noLoginButton.setOnAction(event -> goToModeSelection());
     }
     @Override
-    public void notifyOfThreadComplete(final NotifyingThread thread){
+    public void notifyOfThreadComplete(final NotifyingThread<String> thread){
         //extract the results from the thread
-        String user_id=thread.extractParams()[0];
-        String user_email=thread.extractParams()[1];
-        MuzikkUserInfo.setUserId(user_id);
-        MuzikkUserInfo.setUserEmail(user_email);
+        String user_id=thread.extractParams().get(0);
+        String user_email=thread.extractParams().get(1);
+        MuzikkGlobalInfo.setUserId(user_id);
+        MuzikkGlobalInfo.setUserEmail(user_email);
         //when the user has successfully logged in in the browser
         //we want to focus the Muzikk window, but we can't do it
         //on this secondary thread. All UI operations have to run on Main thread.
@@ -47,7 +47,7 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
             public void run() {
                 prevStage.requestFocus();
                 goToModeSelection();
-                System.out.println(MuzikkUserInfo.getUserId());
+                System.out.println(MuzikkGlobalInfo.getUserId());
             }
         });
 
