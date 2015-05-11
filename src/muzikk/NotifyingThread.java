@@ -1,5 +1,6 @@
 package muzikk;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -14,7 +15,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *
  */
 
-public abstract class NotifyingThread extends Thread {
+public abstract class NotifyingThread<T> extends Thread {
 
     /*
         A set with listeners to notify.
@@ -65,7 +66,7 @@ public abstract class NotifyingThread extends Thread {
         This method needs to be implemented in each particular NotifyingThread instance.
         Used to give some kind of data to the listeners once this thread has finished running.
      */
-    public abstract String[] extractParams();
+    public abstract List<T> extractParams();
     /*
         This method needs to be implemented in each particular NotifyingThread instance.
         What is the main task of this thread? Implement doRun and insert the task of this thread there.
