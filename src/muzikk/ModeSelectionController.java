@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 /**
  * Created by filip on 2015-05-07.
  */
-public class firstScreenController implements Initializable {
+public class ModeSelectionController implements Initializable {
     private Stage prevStage;
     private FXMLLoader myLoader;
     private Pane myPane;
@@ -29,7 +29,9 @@ public class firstScreenController implements Initializable {
 
     public void setPrevStage(Stage stage){
         this.prevStage = stage;
+
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb){

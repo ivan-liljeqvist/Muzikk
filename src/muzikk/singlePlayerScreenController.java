@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -35,13 +36,13 @@ public class singlePlayerScreenController implements Initializable {
 
     @FXML
     private Button startGameButton;
+    private StackPane stackpane;
     @FXML
     private ToggleButton setKeyToggleButton;
     @FXML
     private TextField nameTextField = new TextField();
     @FXML
     private TextField keyTextField = new TextField();
-
 
     public void setPrevStage(Stage stage){
         this.prevStage = stage;

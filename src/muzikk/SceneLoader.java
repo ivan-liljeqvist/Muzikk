@@ -1,32 +1,33 @@
 package muzikk;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Created by filip on 2015-05-07.
  */
 public class SceneLoader {
-    public static FXMLLoader firstScreenLoader;
-    public static Pane firstScreenPane;
+    public static FXMLLoader modeSelectionLoader;
+    public static Pane modeSelectionPane;
     public static FXMLLoader spLoader;
     public static FXMLLoader mpLoader;
     public static FXMLLoader gameLoader;
+    public static FXMLLoader loginScreenLoader;
     public static Pane spPane;
     public static Pane mpPane;
     public static Pane gamePane;
+    public static Pane loginScreenPane;
+
 
     public SceneLoader(){
 
     }
 
     public static void initializeScene() throws IOException{
-        firstScreenLoader = new FXMLLoader(firstScreenController.class.getResource("firstScreen.fxml"));
-        firstScreenPane = firstScreenLoader.load();
+        modeSelectionLoader = new FXMLLoader(ModeSelectionController.class.getResource("modeSelection.fxml"));
+        modeSelectionPane = modeSelectionLoader.load();
 
         spLoader = new FXMLLoader(singlePlayerScreenController.class.getResource("singlePlayerScreen.fxml"));
         spPane = spLoader.load();
@@ -36,5 +37,8 @@ public class SceneLoader {
 
         gameLoader = new FXMLLoader(gameController.class.getResource("gameScreen.fxml"));
         gamePane = gameLoader.load();
+
+        loginScreenLoader = new FXMLLoader(gameController.class.getResource("loginScreen.fxml"));
+        loginScreenPane = loginScreenLoader.load();
     }
 }
