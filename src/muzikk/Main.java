@@ -3,6 +3,8 @@ package muzikk;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import muzikk.gui.LoginScreenController;
+import muzikk.gui.SceneLoader;
 
 public class Main extends Application {
 

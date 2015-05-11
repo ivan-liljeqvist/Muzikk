@@ -1,7 +1,5 @@
 package muzikk;
 
-import javafx.scene.input.KeyCode;
-
 /**
  * Created by filip on 2015-05-07.
  */

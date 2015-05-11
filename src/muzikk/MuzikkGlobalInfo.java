@@ -1,6 +1,7 @@
 package muzikk;
 
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
+import muzikk.backend.MuzikkHelper;
 
 /**
  * Created by IvanLiljeqvist on 08/05/15.

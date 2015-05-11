@@ -1,12 +1,16 @@
-package muzikk;
+package muzikk.gui;
 
-import com.sun.tools.corba.se.idl.constExpr.Not;
 import jaco.mp3.player.MP3Player;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
 import kaaes.spotify.webapi.android.models.Track;
+import muzikk.backend.ThreadCompleteListener;
+import muzikk.Player;
+import muzikk.MuzikkGlobalInfo;
+import muzikk.backend.NotifyingThread;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ArrayList;
@@ -21,7 +25,7 @@ import java.util.ResourceBundle;
  * This is a controller represeting the in-game window.
  *
  */
-public class gameController implements Initializable, ThreadCompleteListener{
+public class gameController implements Initializable, ThreadCompleteListener {
     //the parent stage
     private Stage prevStage;
 
@@ -96,7 +100,7 @@ public class gameController implements Initializable, ThreadCompleteListener{
 
     private void onShowWindow(){
 
-        List<PlaylistSimple> playlists=MuzikkGlobalInfo.SpotifyAPI.getAllPlaylists();
+        List<PlaylistSimple> playlists= MuzikkGlobalInfo.SpotifyAPI.getAllPlaylists();
 
         NotifyingThread<Track> getAllTracksThread=MuzikkGlobalInfo.SpotifyAPI.getAllTracksFromPlaylists(playlists);
         getAllTracksThread.addListener(this);

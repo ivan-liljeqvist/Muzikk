@@ -1,8 +1,8 @@
-package muzikk;
+package muzikk.backend;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import java.awt.Desktop;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;

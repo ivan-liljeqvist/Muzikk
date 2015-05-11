@@ -1,11 +1,6 @@
-package muzikk;
+package muzikk.gui;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.IntegerBinding;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,9 +12,10 @@ import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 
 import javafx.scene.control.ListView;
+import muzikk.Player;
+
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 /**

@@ -1,9 +1,10 @@
-package muzikk;
+package muzikk.backend;
 
 import jaco.mp3.player.MP3Player;
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.*;
+import muzikk.MuzikkGlobalInfo;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -26,7 +27,7 @@ public class MuzikkHelper {
     private static SpotifyService spotify = api.getService();
 
 
-    MuzikkHelper(){
+    public MuzikkHelper(){
 
         updateAccessToken();
 
