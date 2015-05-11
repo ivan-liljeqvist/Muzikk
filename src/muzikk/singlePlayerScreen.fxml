@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.singlePlayerScreenController">
+   <children>
+      <Label text="SinglePlayer">
+         <font>
+            <Font size="72.0" />
+         </font>
+      </Label>
+      <Button fx:id="startGameButton" layoutX="341.0" layoutY="357.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game" />
+      <ToggleButton fx:id="setKeyToggleButton" layoutX="353.0" layoutY="283.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="136.0" text="Press to set key" />
+      <TextField fx:id="nameTextField" layoutX="354.0" layoutY="213.0" promptText="Namn" />
+      <TextField fx:id="keyTextField" editable="false" layoutX="678.0" layoutY="453.0" opacity="0.0" />
+   </children>
+</Pane>

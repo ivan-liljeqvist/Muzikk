@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gameController">
+    <children>
+        <Label prefHeight="51.0" prefWidth="198.0" text="Game">
+            <font>
+                <Font size="37.0" />
+            </font>
+        </Label>
+      <Label fx:id="questionLabel" alignment="CENTER" layoutX="308.0" layoutY="71.0" prefHeight="45.0" prefWidth="225.0" text="Fråga">
+         <font>
+            <Font size="45.0" />
+         </font>
+      </Label>
+    </children>
+</Pane>

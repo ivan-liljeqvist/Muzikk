@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.multiPlayerScreenController">
+   <children>
+      <Label text="MultiPlayer">
+         <font>
+            <Font size="72.0" />
+         </font>
+      </Label>
+      <Button fx:id="startGameButton" layoutX="346.0" layoutY="358.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game" />
+      <ToggleButton fx:id="setKeyToggleButton" layoutX="38.0" layoutY="282.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="136.0" text="Press to set key" />
+      <TextField fx:id="nameTextField" layoutX="39.0" layoutY="237.0" promptText="Namn" />
+      <TextField fx:id="keyTextField" editable="false" layoutX="678.0" layoutY="453.0" opacity="0.0" />
+      <Label layoutX="53.0" layoutY="193.0" text="Add a player">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="633.0" layoutY="46.0" text="Players">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Button fx:id="addPlayerButton" layoutX="38.0" layoutY="343.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="136.0" text="Add player" />
+      <ListView fx:id="playerListView" layoutX="563.0" layoutY="105.0" prefHeight="200.0" prefWidth="105.0" />
+      <ListView fx:id="keyListView" layoutX="668.0" layoutY="105.0" prefHeight="200.0" prefWidth="105.0" />
+      <Label layoutX="598.0" layoutY="82.0" text="Name" textFill="#00000083">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="709.0" layoutY="82.0" text="Key" textFill="#00000083">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

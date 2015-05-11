@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.ModeSelectionController">
+   <children>
+      <Label id="titleLabel" alignment="CENTER" layoutX="246.0" layoutY="46.0" prefHeight="61.0" prefWidth="369.0" text="MUZIKK" textAlignment="CENTER">
+         <font>
+            <Font size="87.0" />
+         </font>
+      </Label>
+      <Button fx:id="multiPlayerButton" layoutX="474.0" layoutY="289.0" mnemonicParsing="false" text="Multiplayer">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Button>
+      <Button fx:id="singlePlayerButton" layoutX="160.0" layoutY="289.0" mnemonicParsing="false" text="Singleplayer">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
