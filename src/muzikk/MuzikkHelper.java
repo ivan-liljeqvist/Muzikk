@@ -2,10 +2,7 @@ package muzikk;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
-import kaaes.spotify.webapi.android.models.Pager;
-import kaaes.spotify.webapi.android.models.PlaylistSimple;
-import kaaes.spotify.webapi.android.models.Track;
-import kaaes.spotify.webapi.android.models.TracksPager;
+import kaaes.spotify.webapi.android.models.*;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -33,15 +30,46 @@ public class MuzikkHelper {
 
     }
 
+    /*
+        @return a List of SimplePlaylist consisting of all of the logged in user's
+         playlists that are public.
+     */
+    public List<PlaylistSimple>getAllPlaylists(){
+        return spotify.getPlaylists(MuzikkUserInfo.getUserId()).items;
+    }
 
-    public void printAllMyPlaylists(){
-        Pager<PlaylistSimple> pager = spotify.getPlaylists(MuzikkUserInfo.getUserId());
+    /*
+        @return a List of Track with all the Tracks from all public Playlists
+        that the user has.
+     */
+    public MuzikkTracksResult getAllTracks(){
+        //get all of the user's playlists
+        List<PlaylistSimple> playlists=this.getAllPlaylists();
 
-        System.out.println(pager.items.size());
+        //container with all the tracks.
+        final MuzikkTracksResult tracksToReturn=new MuzikkTracksResult();
 
-        for(PlaylistSimple pl : pager.items){
-            System.out.println(pl.name);
+        for(PlaylistSimple pl : playlists){
+            //get all the tracks from this playlist
+            spotify.getPlaylistTracks(MuzikkUserInfo.getUserId(), pl.id, new Callback<Pager<PlaylistTrack>>() {
+                @Override
+                public void success(Pager<PlaylistTrack> playlistTrackPager, Response response) {
+                    List<PlaylistTrack> plTracks=playlistTrackPager.items;
+
+                    for(PlaylistTrack plTrack:plTracks){
+                        tracksToReturn.addTrack(plTrack.track);
+                    }
+
+                }
+
+                @Override
+                public void failure(RetrofitError retrofitError) {
+                    System.out.println("Couldn't get tracks in playlist.");
+                }
+            });
         }
+
+        return tracksToReturn;
     }
 
     /*

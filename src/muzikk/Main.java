@@ -53,8 +53,6 @@ public class Main extends Application implements ThreadCompleteListener{
         MuzikkUserInfo.setUserId(user_id);
         MuzikkUserInfo.setUserEmail(user_email);
 
-        this.helper.printAllMyPlaylists();
-
         //when the user has successfully logged in in the browser
         //we want to focus the Muzikk window, but we can't do it
         //on this secondary thread. All UI operations have to run on Main thread.

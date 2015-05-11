@@ -21,6 +21,10 @@ public class MuzikkTracksResult {
         tracksReturned=null;
     }
 
+    public void addTrack(Track t){
+        tracksReturned.add(t);
+    }
+
     public void setTracksReturned(List<Track> t){
         tracksReturned=t;
     }
