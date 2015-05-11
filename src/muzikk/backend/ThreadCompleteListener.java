@@ -1,4 +1,4 @@
-package muzikk;
+package muzikk.backend;
 
 /**
  * Created by IvanLiljeqvist on 08/05/15.

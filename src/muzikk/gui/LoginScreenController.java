@@ -1,4 +1,4 @@
-package muzikk;
+package muzikk.gui;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -7,6 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import muzikk.backend.MuzikkAccessFetcher;
+import muzikk.MuzikkGlobalInfo;
+import muzikk.backend.NotifyingThread;
+import muzikk.backend.ThreadCompleteListener;
 
 import java.net.URL;
 import java.util.ResourceBundle;

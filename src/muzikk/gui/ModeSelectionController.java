@@ -1,6 +1,5 @@
-package muzikk;
+package muzikk.gui;
 
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,9 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.io.IOError;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

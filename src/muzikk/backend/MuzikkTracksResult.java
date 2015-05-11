@@ -1,4 +1,4 @@
-package muzikk;
+package muzikk.backend;
 
 import kaaes.spotify.webapi.android.models.Track;
 

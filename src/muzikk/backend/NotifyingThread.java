@@ -1,4 +1,4 @@
-package muzikk;
+package muzikk.backend;
 
 import java.util.List;
 import java.util.Set;
