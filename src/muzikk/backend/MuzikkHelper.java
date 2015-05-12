@@ -41,8 +41,6 @@ public class MuzikkHelper {
         return spotify.getPlaylists(MuzikkGlobalInfo.getUserId()).items;
     }
 
-    public SpotifyService getService(){return spotify;}
-
     /*
         @return a List of Track with all the Tracks from all public Playlists
         that the user has.
