@@ -133,6 +133,13 @@ public class MuzikkHelper {
     }
 
     /*
+        Returns SpotifyService object.
+     */
+    public SpotifyService getService(){
+        return spotify;
+    }
+
+    /*
         Takes a string as a parameter and returns a list with Track objects.
         @param name - a string yuu want to use to search
         @return List with Tracks. null if the search fails.
