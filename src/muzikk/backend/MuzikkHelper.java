@@ -67,6 +67,9 @@ public class MuzikkHelper {
                     Object playlistWaiter = new Object();
 
                     if(pl.tracks.total<=0){
+
+                        System.out.println("no tracks found in playlist: "+pl.name);
+
                         synchronized (playlistWaiter){
                             playlistWaiter.notify();
                         }
