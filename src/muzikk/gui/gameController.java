@@ -1,6 +1,5 @@
 package muzikk.gui;
 
-import com.sun.tools.corba.se.idl.constExpr.Not;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,7 +45,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     private Track currentlyPlayingTrack;
 
-    private int numSongs;
+    private ImageView correctImageView;
 
     @FXML
     private ImageView artistImage0;
@@ -57,6 +56,11 @@ public class gameController implements Initializable, ThreadCompleteListener {
     @FXML
     private ImageView artistImage3;
 
+    ArtistImageView aiv0;
+    ArtistImageView aiv1;
+    ArtistImageView aiv2;
+    ArtistImageView aiv3;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Label label = new Label("hej");
@@ -66,6 +70,40 @@ public class gameController implements Initializable, ThreadCompleteListener {
         randomGenerator=new Random();
         currentlyPlayingTrack=new Track();
 
+        correctImageView=null;
+
+        artistImage0.setOnMouseClicked((event) -> artistViewClicked(artistImage0));
+        artistImage1.setOnMouseClicked((event) -> artistViewClicked(artistImage1));
+        artistImage2.setOnMouseClicked((event) -> artistViewClicked(artistImage2));
+        artistImage3.setOnMouseClicked((event) -> artistViewClicked(artistImage3));
+
+    }
+
+    private void artistViewClicked(ImageView iv){
+
+        ArtistImageView clickedOn=null;
+        /*
+            get ArtistImageView for this ImageView.
+         */
+        if(aiv0.getIv()==iv){
+            clickedOn=aiv0;
+        }
+        else if(aiv1.getIv()==iv){
+            clickedOn=aiv1;
+        }
+        else if(aiv2.getIv()==iv){
+            clickedOn=aiv2;
+        }
+        else if(aiv3.getIv()==iv){
+            clickedOn=aiv3;
+        }
+
+        if(aiv0.getArtistId().equals(clickedOn.getArtistId())){
+            System.out.println("CORRECT!!");
+            System.out.println("AIV0 id "+aiv0.getArtistId()+"   artist id: "+clickedOn.getArtistId());
+        }else{
+            System.out.println("WRONG");
+        }
     }
 
 
@@ -139,11 +177,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
         this.currentlyPlayingTrack = tracksToPlayWith.get(rand);
 
         System.out.println("START NEW QUESTION");
-        //MuzikkGlobalInfo.SpotifyAPI.playTrack(track);
 
-        /*Image img = new Image("http://mikecann.co.uk/wp-content/uploads/2009/12/javafx_logo_color_1.jpg");
-        artistImage0.setImage(img);*/
+        System.out.println("URL : "+currentlyPlayingTrack.preview_url);
 
+        MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
         this.startPopulatingArtistImages();
 
     }
@@ -175,12 +212,25 @@ public class gameController implements Initializable, ThreadCompleteListener {
         System.out.println("wrong artist3:  "+wrongArtist3.name+" list size: "+tracksToPlayWith.size());
 
 
+        List<ImageView> imageViews=new ArrayList<ImageView>();
+        imageViews.add(artistImage0);
+        imageViews.add(artistImage1);
+        imageViews.add(artistImage2);
+        imageViews.add(artistImage3);
 
+        Collections.shuffle(imageViews);
 
-        populateArtistImage(rightArtist,artistImage0);
-        populateArtistImage(wrongArtist1,artistImage1);
-        populateArtistImage(wrongArtist2,artistImage2);
-        populateArtistImage(wrongArtist3,artistImage3);
+        populateArtistImage(rightArtist, imageViews.get(0));
+        aiv0=new ArtistImageView(rightArtist.id,imageViews.get(0));
+
+        this.correctImageView=imageViews.get(0);
+
+        populateArtistImage(wrongArtist1,imageViews.get(1));
+        aiv1=new ArtistImageView(wrongArtist1.id,imageViews.get(1));
+        populateArtistImage(wrongArtist2,imageViews.get(2));
+        aiv2=new ArtistImageView(wrongArtist2.id,imageViews.get(2));
+        populateArtistImage(wrongArtist3,imageViews.get(3));
+        aiv3=new ArtistImageView(wrongArtist3.id,imageViews.get(3));
 
     }
 
@@ -280,14 +330,5 @@ public class gameController implements Initializable, ThreadCompleteListener {
         this.songURLs = songURLs;
     }
 
-    public int getNumSongs(){
-
-        return numSongs;
-    }
-
-    public void setNumSongs(int numSongs){
-
-        this.numSongs = numSongs;
-    }
 
 }
