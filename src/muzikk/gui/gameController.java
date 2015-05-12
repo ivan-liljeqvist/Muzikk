@@ -1,10 +1,14 @@
 package muzikk.gui;
 
-import jaco.mp3.player.MP3Player;
+import com.sun.tools.corba.se.idl.constExpr.Not;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import kaaes.spotify.webapi.android.models.Artist;
+import kaaes.spotify.webapi.android.models.ArtistSimple;
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
 import kaaes.spotify.webapi.android.models.Track;
 import muzikk.backend.ThreadCompleteListener;
@@ -12,12 +16,13 @@ import muzikk.Player;
 import muzikk.MuzikkGlobalInfo;
 import muzikk.backend.NotifyingThread;
 
-import javax.swing.text.html.ImageView;
+import javafx.scene.image.ImageView;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 import java.net.URL;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Authors Filip Martinsson and Ivan Liljeqvist.
@@ -39,6 +44,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     private Random randomGenerator;
 
+    private Track currentlyPlayingTrack;
+
     private int numSongs;
 
     @FXML
@@ -57,6 +64,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
         label.setLayoutY(200);
 
         randomGenerator=new Random();
+        currentlyPlayingTrack=new Track();
+
     }
 
 
@@ -102,6 +111,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
             this.tracksToPlayWith=thread.extractParams();
 
+            Collections.shuffle(this.tracksToPlayWith, new Random(System.nanoTime()));
+
             this.startNewQuestion();
         }
         else{
@@ -116,16 +127,134 @@ public class gameController implements Initializable, ThreadCompleteListener {
         NotifyingThread<Track> getAllTracksThread=MuzikkGlobalInfo.SpotifyAPI.getAllTracksFromPlaylists(playlists);
         getAllTracksThread.addListener(this);
 
-
     }
 
     public void startNewQuestion(){
 
-        int index = randomGenerator.nextInt(tracksToPlayWith.size());
-        Track track = tracksToPlayWith.get(index);
+        int rand = randomGenerator.nextInt(tracksToPlayWith.size());
+        this.currentlyPlayingTrack = tracksToPlayWith.get(rand);
 
         System.out.println("START NEW QUESTION");
-        MuzikkGlobalInfo.SpotifyAPI.playTrack(track);
+        //MuzikkGlobalInfo.SpotifyAPI.playTrack(track);
+
+        /*Image img = new Image("http://mikecann.co.uk/wp-content/uploads/2009/12/javafx_logo_color_1.jpg");
+        artistImage0.setImage(img);*/
+
+        this.startPopulatingArtistImages();
+
+    }
+
+    private void startPopulatingArtistImages(){
+
+
+
+        ArtistSimple rightArtist=this.currentlyPlayingTrack.artists.get(0);
+        System.out.println("Right artist:  "+rightArtist.name);
+
+        randomGenerator=new Random(System.nanoTime());
+
+        int rand = randomGenerator.nextInt(tracksToPlayWith.size());
+        ArtistSimple wrongArtist1=tracksToPlayWith.get(rand).artists.get(0);
+
+        while(wrongArtist1.id==rightArtist.id){
+            wrongArtist1=tracksToPlayWith.get(rand).artists.get(0);
+        }
+
+        System.out.println("wrong artist1:  "+wrongArtist1.name);
+
+
+        rand = randomGenerator.nextInt(tracksToPlayWith.size());
+        ArtistSimple wrongArtist2=tracksToPlayWith.get(rand).artists.get(0);
+
+        while(wrongArtist2.id==rightArtist.id || wrongArtist2.id==wrongArtist1.id){
+            wrongArtist2=tracksToPlayWith.get(rand).artists.get(0);
+        }
+
+        System.out.println("wrong artist2:  "+wrongArtist2.name);
+
+
+        rand = randomGenerator.nextInt(tracksToPlayWith.size());
+        ArtistSimple wrongArtist3=tracksToPlayWith.get(rand).artists.get(0);
+
+        while(wrongArtist3.id==rightArtist.id || wrongArtist3.id==wrongArtist1.id || wrongArtist3.id==wrongArtist2.id){
+            wrongArtist3=tracksToPlayWith.get(rand).artists.get(0);
+        }
+
+        System.out.println("wrong artist3:  "+wrongArtist3.name+" list size: "+tracksToPlayWith.size());
+
+
+
+
+        populateArtistImage(rightArtist,artistImage0);
+        populateArtistImage(wrongArtist1,artistImage1);
+        populateArtistImage(wrongArtist2,artistImage2);
+        populateArtistImage(wrongArtist3,artistImage3);
+
+    }
+
+
+
+    private void populateArtistImage(ArtistSimple artist, ImageView imgView){
+
+
+        NotifyingThread<String> thread=new NotifyingThread<String>() {
+
+            @Override
+            public List<String> extractParams() {
+                return null;
+            }
+
+            @Override
+            public void doRun() {
+                Object artistWaiter=new Object();
+
+
+                MuzikkGlobalInfo.SpotifyAPI.getService().getArtist(artist.id, new Callback<Artist>() {
+                    boolean succeeded=false;
+
+                    @Override
+                    public void success(Artist artistReturned, Response response) {
+                        System.out.println("Fetched artist!");
+
+                        synchronized (artistWaiter){
+                            artistWaiter.notify();
+                            succeeded=true;
+
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    imgView.setImage(new Image(artistReturned.images.get(0).url));
+                                    System.out.println("placing artist image in ImageView");
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        System.out.println("Couldn't get artist.");
+
+                        synchronized (artistWaiter){
+                            artistWaiter.notify();
+                        }
+                    }
+                });
+
+                synchronized (artistWaiter){
+                    try{
+                        artistWaiter.wait();
+                    }catch(Exception e){
+                        System.out.println("Error while waiting for artist.");
+                    }
+
+                }
+            }
+        };
+
+        thread.start();
+
+
 
     }
 
