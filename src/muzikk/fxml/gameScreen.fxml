@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -18,5 +19,9 @@
             <Font size="45.0" />
          </font>
       </Label>
+      <ImageView fx:id="artistImage0" fitHeight="150.0" fitWidth="173.0" layoutX="14.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="artistImage1" fitHeight="150.0" fitWidth="173.0" layoutX="208.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="artistImage2" fitHeight="150.0" fitWidth="173.0" layoutX="433.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="artistImage3" fitHeight="150.0" fitWidth="173.0" layoutX="639.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </Pane>

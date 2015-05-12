@@ -1,6 +1,7 @@
 package muzikk.gui;
 
 import jaco.mp3.player.MP3Player;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
@@ -11,6 +12,7 @@ import muzikk.Player;
 import muzikk.MuzikkGlobalInfo;
 import muzikk.backend.NotifyingThread;
 
+import javax.swing.text.html.ImageView;
 import java.net.URL;
 import java.util.List;
 import java.util.ArrayList;
@@ -38,6 +40,15 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private Random randomGenerator;
 
     private int numSongs;
+
+    @FXML
+    private ImageView artistImage0;
+    @FXML
+    private ImageView artistImage1;
+    @FXML
+    private ImageView artistImage2;
+    @FXML
+    private ImageView artistImage3;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
