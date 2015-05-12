@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 public class LoginScreenController implements Initializable, ThreadCompleteListener<String> {
     Stage prevStage;
     @FXML
-    private Button spotifyLoginButton;
+    private ImageView spotifyLoginImageView;
     @FXML
     private Button noLoginButton;
     @FXML
@@ -32,7 +32,7 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        spotifyLoginButton.setOnMouseClicked((event) -> loginSpotify()); //start the game
+        spotifyLoginImageView.setOnMouseClicked((event) -> loginSpotify()); //start the game
         noLoginButton.setOnAction(event -> goToModeSelection());
     }
     @Override
