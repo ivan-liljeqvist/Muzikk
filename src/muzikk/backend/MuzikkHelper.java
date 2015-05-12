@@ -26,6 +26,8 @@ public class MuzikkHelper {
     private static SpotifyApi api = new SpotifyApi();
     private static SpotifyService spotify = api.getService();
 
+    private static MP3Player player;
+
 
     public MuzikkHelper(){
 
@@ -188,7 +190,11 @@ public class MuzikkHelper {
             e.printStackTrace();
         }
 
-        MP3Player player=new MP3Player(trackURL);
+        if(player!=null){
+            player.pause();
+        }
+
+        player=new MP3Player(trackURL);
         player.play();
     }
 
