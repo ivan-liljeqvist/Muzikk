@@ -22,6 +22,10 @@ public class Player {
     }
     public void decreaseScore(){
         score--;
+
+        if(score<0){
+            score=0;
+        }
     }
     public void setName(String name) throws IllegalArgumentException {
         this.name = name;

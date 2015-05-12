@@ -1,10 +1,16 @@
 package muzikk.gui;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import kaaes.spotify.webapi.android.models.Artist;
@@ -67,14 +73,29 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private Label artistLabel2;
     @FXML
     private Label artistLabel3;
+    @FXML
+    private ListView nameListView;
+    @FXML
+    private ListView scoreListView;
+    @FXML
+    private Pane pane;
 
 
-    ArtistImageView aiv0;
-    ArtistImageView aiv1;
-    ArtistImageView aiv2;
-    ArtistImageView aiv3;
+    private ArtistImageView aiv0;
+    private ArtistImageView aiv1;
+    private ArtistImageView aiv2;
+    private ArtistImageView aiv3;
 
-    List<ImageView> imageViews;
+    private List<ImageView> imageViews;
+
+    private ObservableList<String> playerObsList= FXCollections.observableArrayList();
+    private ObservableList<Integer> scoreObsList= FXCollections.observableArrayList();
+
+    private boolean PAUSE_TIME=false;
+
+    private Player answeringPlayer;
+
+    private List<Player> playersInGame;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -93,6 +114,23 @@ public class gameController implements Initializable, ThreadCompleteListener {
         artistImage3.setOnMouseClicked((event) -> artistViewClicked(artistImage3));
 
         countdown_timer=new Timer();
+
+
+
+        answeringPlayer=null;
+
+        pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent ke) {
+
+                for (Player p : players) {
+                    if (ke.getCode().toString().toUpperCase().equals(p.getActionButton().toUpperCase())) {
+                        System.out.println(p.getName()+" PRESSEDAD!!");
+                        PAUSE_TIME=true;
+                        answeringPlayer=p;
+                    }
+                }
+            }
+        });
 
 
 
@@ -120,8 +158,17 @@ public class gameController implements Initializable, ThreadCompleteListener {
         if(aiv0.getArtistId().equals(clickedOn.getArtistId())){
             System.out.println("CORRECT!!");
             System.out.println("AIV0 id "+aiv0.getArtistId()+"   artist id: "+clickedOn.getArtistId());
+
+            answeringPlayer.increaseScore();
+            this.startNewQuestion();
+
+            this.refreshObservablePlayerLists();
         }else{
             System.out.println("WRONG");
+            answeringPlayer.decreaseScore();
+            this.startNewQuestion();
+
+            this.refreshObservablePlayerLists();
         }
     }
 
@@ -140,6 +187,11 @@ public class gameController implements Initializable, ThreadCompleteListener {
         }
 
         this.onShowWindow();
+
+        this.playersInGame=playerList;
+
+
+        this.refreshObservablePlayerLists();
     }
 
     /**
@@ -155,7 +207,25 @@ public class gameController implements Initializable, ThreadCompleteListener {
         }
 
         this.onShowWindow();
+        this.playersInGame=new ArrayList<>();
+        playersInGame.add(player);
 
+        this.refreshObservablePlayerLists();
+
+    }
+
+    private void refreshObservablePlayerLists(){
+
+        playerObsList=FXCollections.observableArrayList();
+        scoreObsList=FXCollections.observableArrayList();
+
+        nameListView.setItems(playerObsList);
+        scoreListView.setItems(scoreObsList);
+        
+        for(Player p:this.playersInGame){
+            playerObsList.add(p.getName());
+            scoreObsList.add(p.getScore());
+        }
     }
 
     @Override
@@ -203,12 +273,15 @@ public class gameController implements Initializable, ThreadCompleteListener {
                             @Override
                             public void run() {
 
-                                if(progressBar.getProgress() - 1.0 / 960>=0){
-                                    progressBar.setProgress(progressBar.getProgress() - 1.0 / 600);
+                                if(PAUSE_TIME==false){
+                                    if(progressBar.getProgress() - 1.0 / 960>=0){
+                                        progressBar.setProgress(progressBar.getProgress() - 1.0 / 600);
+                                    }
+                                    else{
+                                        progressBar.setProgress(0.0);
+                                    }
                                 }
-                                else{
-                                    progressBar.setProgress(0.0);
-                                }
+
                             }
                         });
 
@@ -226,9 +299,14 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
 
         countdownThread.start();
+
+
+
     }
 
     public void startNewQuestion(){
+
+        PAUSE_TIME=false;
 
         System.out.println("SIZE: "+tracksToPlayWith.size());
 
