@@ -25,5 +25,6 @@
       <Label fx:id="artistLabel1" layoutX="282.0" layoutY="251.0" text="Label" />
       <Label fx:id="artistLabel2" layoutX="495.0" layoutY="251.0" text="Label" />
       <Label fx:id="artistLabel3" layoutX="683.0" layoutY="251.0" text="Label" />
+        
     </children>
 </Pane>
