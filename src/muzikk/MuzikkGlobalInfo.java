@@ -14,6 +14,7 @@ public class MuzikkGlobalInfo {
 
     public static MuzikkHelper SpotifyAPI=new MuzikkHelper();
     private static int numberOfQuestions;
+    private static boolean ingoMode = false;
 
     private static ArrayList<Player> players;
 

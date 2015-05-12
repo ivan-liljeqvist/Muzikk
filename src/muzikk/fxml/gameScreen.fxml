@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane styleClass="whitePane"  stylesheets="@style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.gameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.gameController">
     <children>
       <Label fx:id="questionLabel" alignment="CENTER" layoutX="50.0" layoutY="67.0" prefHeight="57.0" prefWidth="489.0" text="Pick the correct artist">
          <font>
@@ -21,5 +21,9 @@
       <ListView fx:id="nameListView" layoutX="599.0" layoutY="14.0" prefHeight="200.0" prefWidth="97.0" />
       <ListView fx:id="scoreListView" layoutX="696.0" layoutY="14.0" prefHeight="200.0" prefWidth="97.0" />
       <ProgressBar fx:id="progressBar" layoutY="474.0" prefHeight="17.0" prefWidth="841.0" progress="1.0" />
+      <Label fx:id="artistLabel0" layoutX="88.0" layoutY="251.0" text="Label" />
+      <Label fx:id="artistLabel0" layoutX="282.0" layoutY="251.0" text="Label" />
+      <Label fx:id="artistLabel0" layoutX="495.0" layoutY="251.0" text="Label" />
+      <Label fx:id="artistLabel0" layoutX="683.0" layoutY="251.0" text="Label" />
     </children>
 </Pane>
