@@ -3,3 +3,5 @@ out/
 Muzikk.iml
 .DS_Store
 .idea/workspace.xml
+
+*.xml
