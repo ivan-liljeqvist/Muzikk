@@ -38,12 +38,14 @@ public class ModeSelectionController implements Initializable {
     }
     private void goToSinglePlayer(){
         singlePlayerScreenController controller = SceneLoader.spLoader.getController();
+        controller.initData();
         controller.setPrevStage(prevStage);
         prevStage.setScene(new Scene(SceneLoader.spPane));
 
     }
     private void goToMultiPlayer(){
         multiPlayerScreenController controller = SceneLoader.mpLoader.getController();
+        controller.initData();
         controller.setPrevStage(prevStage);
         prevStage.setScene(new Scene(SceneLoader.mpPane));
     }

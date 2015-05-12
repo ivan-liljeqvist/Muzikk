@@ -17,5 +17,11 @@
       <ToggleButton fx:id="setKeyToggleButton" layoutX="353.0" layoutY="283.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="136.0" text="Press to set key" />
       <TextField fx:id="nameTextField" layoutX="354.0" layoutY="213.0" promptText="Namn" />
       <TextField fx:id="keyTextField" editable="false" layoutX="678.0" layoutY="453.0" opacity="0.0" />
+      <ListView fx:id="playListListView" layoutX="71.0" layoutY="208.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label fx:id="playListLabel" layoutX="71.0" layoutY="172.0" text="Choose a playlist">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

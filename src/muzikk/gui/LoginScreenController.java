@@ -50,8 +50,8 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
             @Override
             public void run() {
                 prevStage.requestFocus();
+                MuzikkGlobalInfo.setLoggedIn(true);
                 goToModeSelection();
-                System.out.println(MuzikkGlobalInfo.getUserId());
             }
         });
 

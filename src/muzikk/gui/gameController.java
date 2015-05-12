@@ -11,8 +11,8 @@ import muzikk.backend.ThreadCompleteListener;
 import muzikk.Player;
 import muzikk.MuzikkGlobalInfo;
 import muzikk.backend.NotifyingThread;
+import javafx.scene.image.ImageView;
 
-import javax.swing.text.html.ImageView;
 import java.net.URL;
 import java.util.List;
 import java.util.ArrayList;
