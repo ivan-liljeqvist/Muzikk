@@ -60,11 +60,22 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private ImageView artistImage3;
     @FXML
     private ProgressBar progressBar;
+    @FXML
+    private Label artistLabel0;
+    @FXML
+    private Label artistLabel1;
+    @FXML
+    private Label artistLabel2;
+    @FXML
+    private Label artistLabel3;
+
 
     ArtistImageView aiv0;
     ArtistImageView aiv1;
     ArtistImageView aiv2;
     ArtistImageView aiv3;
+
+    List<ImageView> imageViews;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -177,23 +188,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
         NotifyingThread<Track> getAllTracksThread=MuzikkGlobalInfo.SpotifyAPI.getAllTracksFromPlaylists(playlists);
         getAllTracksThread.addListener(this);
 
-
-    }
-
-    public void startNewQuestion(){
-        System.out.println("SIZE: "+tracksToPlayWith.size());
-        int rand = randomGenerator.nextInt(tracksToPlayWith.size());
-        this.currentlyPlayingTrack = tracksToPlayWith.get(rand);
-
-        System.out.println("START NEW QUESTION");
-
-        System.out.println("URL : "+currentlyPlayingTrack.preview_url);
-
-        MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
-        this.startPopulatingArtistImages();
-
-        progressBar.setProgress(1.0);
-
         NotifyingThread countdownThread=new NotifyingThread() {
             @Override
             public List extractParams() {
@@ -205,12 +199,24 @@ public class gameController implements Initializable, ThreadCompleteListener {
                 TimerTask task=new TimerTask() {
                     @Override
                     public void run() {
+
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                progressBar.setProgress(progressBar.getProgress() - 1.0 / 960);
+
+                                if(progressBar.getProgress() - 1.0 / 960>=0){
+                                    progressBar.setProgress(progressBar.getProgress() - 1.0 / 600);
+                                }
+                                else{
+                                    progressBar.setProgress(0.0);
+                                }
                             }
                         });
+
+                        if(progressBar.getProgress()<=0){
+                            startNewQuestion();
+
+                        }
 
                     }
                 };
@@ -221,6 +227,41 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
 
         countdownThread.start();
+    }
+
+    public void startNewQuestion(){
+
+        System.out.println("SIZE: "+tracksToPlayWith.size());
+
+        int rand=0;
+
+        URL url=null;
+
+        /*
+            Don't proceed if the URL is invalid, choose another song.
+         */
+        while(url==null){
+            rand = randomGenerator.nextInt(tracksToPlayWith.size());
+            this.currentlyPlayingTrack = tracksToPlayWith.get(rand);
+            try{
+                url=new URL(currentlyPlayingTrack.preview_url);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+
+        System.out.println("START NEW QUESTION");
+
+        System.out.println("URL : "+currentlyPlayingTrack.preview_url);
+
+        MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
+        this.startPopulatingArtistImages();
+
+        progressBar.setProgress(1.0);
+
+
 
 
     }
@@ -252,7 +293,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
         System.out.println("wrong artist3:  "+wrongArtist3.name+" list size: "+tracksToPlayWith.size());
 
 
-        List<ImageView> imageViews=new ArrayList<ImageView>();
+        imageViews=new ArrayList<ImageView>();
         imageViews.add(artistImage0);
         imageViews.add(artistImage1);
         imageViews.add(artistImage2);
@@ -271,6 +312,35 @@ public class gameController implements Initializable, ThreadCompleteListener {
         aiv2=new ArtistImageView(wrongArtist2.id,imageViews.get(2));
         populateArtistImage(wrongArtist3,imageViews.get(3));
         aiv3=new ArtistImageView(wrongArtist3.id,imageViews.get(3));
+
+        String[] artistNames={rightArtist.name,wrongArtist1.name,wrongArtist2.name,wrongArtist3.name};
+
+        placeLabels(artistNames);
+
+    }
+
+    private void placeLabels(String[] names){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+
+                for(int i=0;i<=3;i++){
+                    if(artistImage0==imageViews.get(i)){
+                        artistLabel0.setText(names[i]);
+                    }
+                    else if(artistImage1==imageViews.get(i)){
+                        artistLabel1.setText(names[i]);
+                    }
+                    else if(artistImage2==imageViews.get(i)){
+                        artistLabel2.setText(names[i]);
+                    }
+                    else if(artistImage3==imageViews.get(i)){
+                        artistLabel3.setText(names[i]);
+                    }
+                }
+
+            }
+        });
 
     }
 
