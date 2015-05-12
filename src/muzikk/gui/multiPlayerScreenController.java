@@ -10,12 +10,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import kaaes.spotify.webapi.android.models.Playlist;
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
+import kaaes.spotify.webapi.android.models.PlaylistTracksInformation;
 import muzikk.MuzikkGlobalInfo;
 import muzikk.Player;
+import muzikk.backend.NotifyingThread;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -93,9 +100,75 @@ public class multiPlayerScreenController implements Initializable {
     private void goTogame() {
         gameController controller = SceneLoader.gameLoader.getController();
         MuzikkGlobalInfo.setNumberOfQuestions(numberOfQuestionsChoiceBox.getSelectionModel().getSelectedItem().intValue());
+        String genreKey=playListListView.getSelectionModel().getSelectedItem();
+        String playlistID=observableMapGenres.get(genreKey);
+
+        Object playlistWaiter=new Object();
 
         if (MuzikkGlobalInfo.isLoggedIn()){ //Set chosen playlist if the user is logged in
             MuzikkGlobalInfo.setChosenPlaylist(playLists.get(playListListView.focusModelProperty().get().getFocusedIndex()));
+        }
+        /*
+            NOT LOGGED IN - make a playlist from genre user picked
+         */
+        else
+        {
+
+
+            NotifyingThread thread=new NotifyingThread() {
+                @Override
+                public List extractParams() {
+                    return null;
+                }
+
+                @Override
+                public void doRun() {
+                    System.out.println("PLAYLIST ID: "+playlistID);
+                    MuzikkGlobalInfo.SpotifyAPI.getService().getPlaylist("spotify", playlistID, new Callback<Playlist>() {
+                        @Override
+                        public void success(Playlist playlist, Response response) {
+                            PlaylistSimple pls=new PlaylistSimple();
+                            pls.name=playlist.name;
+                            pls.owner=playlist.owner;
+                            pls.id=playlist.id;
+                            PlaylistTracksInformation tracksInfo=new PlaylistTracksInformation();
+                            tracksInfo.total=playlist.tracks.total;
+                            pls.tracks=tracksInfo;
+
+
+                            MuzikkGlobalInfo.setChosenPlaylist(pls);
+
+                            System.out.println("Converted genre to playlist.");
+
+                            synchronized (playlistWaiter){
+                                playlistWaiter.notify();
+                            }
+                        }
+
+                        @Override
+                        public void failure(RetrofitError retrofitError) {
+                            System.out.println("Couldn't conver genre to playlisr");
+                            synchronized (playlistWaiter){
+                                playlistWaiter.notify();
+                            }
+                        }
+                    });
+                }
+
+
+
+            };
+
+            thread.start();
+
+        }
+
+        synchronized (playlistWaiter){
+            try{
+                playlistWaiter.wait();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         controller.initData(playerList); //Initializes scene data
@@ -144,17 +217,17 @@ public class multiPlayerScreenController implements Initializable {
             observableMapGenres.put("Metal", "2k2AuaynH7E2v8mwvhpeAO");
             observableMapGenres.put("Indie", "4wtLaWQcPct5tlAWTxqjMD");
             observableMapGenres.put("Soul", "0UUovM2yGwRThZSy9BvADQ");
-            observableMapGenres.put("R&B", "36scvoM0cRA50MCZGhv3wo");
+            observableMapGenres.put("R&B", "06CemleTteSalaVGVMbgFy");
             observableMapGenres.put("Reggae", "0ifGUu1vx6PVcCASyG3t8m");
             observableMapGenres.put("Country", "4ecQaDJHF55Ls9m2lKIXbI");
             observableMapGenres.put("Jazz", "5O2ERf8kAYARVVdfCKZ9G7");
-            observableMapGenres.put("Blues", "5TkTomPbQuSNDxdlWg2fCx");
+            observableMapGenres.put("Blues", "0BTnoKdfv5Y60EK5o5bGaq");
             observableMapGenres.put("Punk", "5TuWj7WbayVcr6KbwJ5sBQ");
-            observableMapGenres.put("00-tal", "2f6tXtN0XesjONxicAzMIw");
-            observableMapGenres.put("90-tal", "3C64V048fGyQfCjmu9TIGA");
-            observableMapGenres.put("80-tal", "1TkCnVCBt7HzhGaNzPj2Tg");
-            observableMapGenres.put("70-tal", "5KmBulox9POMt9hOt3VV1x");
-            observableMapGenres.put("60-tal", "5n6Qo8WNYc5oVBmGbO2iYG");
+            observableMapGenres.put("00-tal", "3UybCDm2O3JPQChfCG02EG");
+            observableMapGenres.put("90-tal", "2uAichKSjJSyrmal8Kb3W9");
+            observableMapGenres.put("80-tal", "6brdrOKuFPmcIlf3jwgV1n");
+            observableMapGenres.put("70-tal", "1o4av4ikKDbiUFdTfPdBkL");
+            observableMapGenres.put("60-tal", "2NFOUmp2wyR5CrXtKDkUkB");
             observableMapGenres.put("50-tal", "7xADHS7Ryc6oMdqBVhNVQ9");
             playListListView.getItems().addAll(observableMapGenres.keySet());
             playListLabel.setText("Choose genre");

@@ -1,8 +1,10 @@
 package muzikk.gui;
 
+import com.sun.tools.corba.se.idl.constExpr.Not;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
@@ -46,6 +48,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private Track currentlyPlayingTrack;
 
     private ImageView correctImageView;
+    private Timer countdown_timer;
 
     @FXML
     private ImageView artistImage0;
@@ -55,6 +58,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private ImageView artistImage2;
     @FXML
     private ImageView artistImage3;
+    @FXML
+    private ProgressBar progressBar;
 
     ArtistImageView aiv0;
     ArtistImageView aiv1;
@@ -76,6 +81,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
         artistImage1.setOnMouseClicked((event) -> artistViewClicked(artistImage1));
         artistImage2.setOnMouseClicked((event) -> artistViewClicked(artistImage2));
         artistImage3.setOnMouseClicked((event) -> artistViewClicked(artistImage3));
+
+        countdown_timer=new Timer();
+
+
 
     }
 
@@ -154,7 +163,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
             this.startNewQuestion();
         }
         else{
-
+            //other threads that just finished
         }
     }
 
@@ -182,6 +191,37 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
         this.startPopulatingArtistImages();
+
+        progressBar.setProgress(1.0);
+
+        NotifyingThread countdownThread=new NotifyingThread() {
+            @Override
+            public List extractParams() {
+                return null;
+            }
+
+            @Override
+            public void doRun() {
+                TimerTask task=new TimerTask() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setProgress(progressBar.getProgress() - 1.0 / 960);
+                            }
+                        });
+
+                    }
+                };
+
+                countdown_timer.scheduleAtFixedRate(task,0,36);
+            }
+        };
+
+
+        countdownThread.start();
+
 
     }
 
@@ -260,17 +300,33 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
                         synchronized (artistWaiter) {
                             artistWaiter.notify();
-                            succeeded = true;
-
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    imgView.setImage(new Image(artistReturned.images.get(0).url));
-                                    System.out.println("placing artist image in ImageView");
-                                }
-                            });
                         }
+
+                        succeeded = true;
+
+                        Image artistImage=null;
+
+                        NotifyingThread thread=new NotifyingThread() {
+                            @Override
+                            public List extractParams() {
+                                return null;
+                            }
+
+                            @Override
+                            public void doRun() {
+                                Image artistImage=new Image(artistReturned.images.get(0).url);
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        imgView.setImage(artistImage);
+                                        System.out.println("placing artist image in ImageView");
+                                    }
+                                });
+                            }
+                        };
+
+                        thread.start();
                     }
 
                     @Override
@@ -304,31 +360,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
         this.prevStage = stage;
     }
 
-    public ArrayList<Player> getPlayers(){
-        return players;
-    }
-
-    public void setPlayers(ArrayList<Player> players){
-        this.players = players;
-    }
-
-    public ArrayList<String> getGenres(){
-        return genres;
-    }
-
-    public void setGenres(ArrayList<String> genres){
-
-        this.genres = genres;
-    }
-    public ArrayList<String> getSongURLs(){
-
-        return songURLs;
-    }
-
-    public void setSongURLs(ArrayList<String> songURLs){
-
-        this.songURLs = songURLs;
-    }
 
 
 }
