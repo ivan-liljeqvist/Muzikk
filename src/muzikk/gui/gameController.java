@@ -115,7 +115,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         countdown_timer=new Timer();
 
-
+        nameListView.setItems(playerObsList);
+        scoreListView.setItems(scoreObsList);
 
         answeringPlayer=null;
 
@@ -195,8 +196,12 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         this.playersInGame=playerList;
 
+        for(Player p:playersInGame){
+            playerObsList.add(p.getName());
+            scoreObsList.add(p.getScore());
+        }
 
-        this.refreshObservablePlayerLists();
+
     }
 
     /**
@@ -215,21 +220,16 @@ public class gameController implements Initializable, ThreadCompleteListener {
         this.playersInGame=new ArrayList<>();
         playersInGame.add(player);
 
-        this.refreshObservablePlayerLists();
+        playerObsList.add(player.getName());
+        scoreObsList.add(player.getScore());
 
     }
 
     private void refreshObservablePlayerLists(){
 
-        playerObsList=FXCollections.observableArrayList();
-        scoreObsList=FXCollections.observableArrayList();
 
-        nameListView.setItems(playerObsList);
-        scoreListView.setItems(scoreObsList);
-        
-        for(Player p:this.playersInGame){
-            playerObsList.add(p.getName());
-            scoreObsList.add(p.getScore());
+        for(int i=0; i<playersInGame.size();i++){
+            scoreObsList.set(i,playersInGame.get(i).getScore());
         }
     }
 
@@ -292,23 +292,25 @@ public class gameController implements Initializable, ThreadCompleteListener {
                                 }
                                 else{
                                     progressBar.setProgress(0.0);
+
+                                    if(progressBar.getProgress()<=0){
+
+                                        if(answeringPlayer!=null){
+                                            answeringPlayer.decreaseScore();
+                                            System.out.println(answeringPlayer.getScore()+ " SCOREEE");
+                                            refreshObservablePlayerLists();
+                                        }
+
+                                        startNewQuestion();
+
+                                    }
                                 }
 
 
                             }
                         });
 
-                        if(progressBar.getProgress()<=0){
 
-                            if(answeringPlayer!=null){
-                                answeringPlayer.decreaseScore();
-                                System.out.println(answeringPlayer.getScore()+ " SCOREEE");
-                                refreshObservablePlayerLists();
-                            }
-
-                            startNewQuestion();
-
-                        }
 
                     }
                 };
