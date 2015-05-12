@@ -69,4 +69,10 @@ public class MuzikkGlobalInfo {
     public static ArrayList<Player> getPlayers(){
         return players;
     }
+    public static void setIngoMode(boolean b){
+        ingoMode = b;
+    }
+    public static boolean getIngoMode(){
+        return ingoMode;
+    }
 }

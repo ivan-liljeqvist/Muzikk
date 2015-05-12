@@ -78,6 +78,9 @@ public class singlePlayerScreenController implements Initializable {
 
     }
     public void goTogame(){
+        if (nameTextField.getText().toLowerCase() == "ingemar"){
+            MuzikkGlobalInfo.setIngoMode(true);
+        }
         Player player = new Player(nameTextField.getText(), key);
         MuzikkGlobalInfo.setNumberOfQuestions(numberOfQuestionsChoiceBox.getSelectionModel().getSelectedItem().intValue());
         String genreKey=playListListView.getSelectionModel().getSelectedItem();

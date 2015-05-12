@@ -25,14 +25,14 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
     @FXML
     private Button noLoginButton;
     @FXML
-    private ImageView i;
+    //private ImageView i;
     public void setPrevStage(Stage stage){
         this.prevStage = stage;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        i.setOnMouseClicked((event) -> loginSpotify()); //start the game
+        spotifyLoginButton.setOnMouseClicked((event) -> loginSpotify()); //start the game
         noLoginButton.setOnAction(event -> goToModeSelection());
     }
     @Override
