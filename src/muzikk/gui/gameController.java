@@ -91,7 +91,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private ObservableList<String> playerObsList= FXCollections.observableArrayList();
     private ObservableList<Integer> scoreObsList= FXCollections.observableArrayList();
 
-    private boolean PAUSE_TIME=false;
+    private boolean PLAYER_ANSWERING =false;
 
     private Player answeringPlayer;
 
@@ -125,8 +125,9 @@ public class gameController implements Initializable, ThreadCompleteListener {
                 for (Player p : players) {
                     if (ke.getCode().toString().toUpperCase().equals(p.getActionButton().toUpperCase())) {
                         System.out.println(p.getName()+" PRESSEDAD!!");
-                        PAUSE_TIME=true;
+                        PLAYER_ANSWERING =true;
                         answeringPlayer=p;
+                        progressBar.setProgress(1.0);
                     }
                 }
             }
@@ -137,6 +138,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
     }
 
     private void artistViewClicked(ImageView iv){
+
+        if(PLAYER_ANSWERING ==false){
+            return;
+        }
 
         ArtistImageView clickedOn=null;
         /*
@@ -273,19 +278,34 @@ public class gameController implements Initializable, ThreadCompleteListener {
                             @Override
                             public void run() {
 
-                                if(PAUSE_TIME==false){
-                                    if(progressBar.getProgress() - 1.0 / 960>=0){
-                                        progressBar.setProgress(progressBar.getProgress() - 1.0 / 600);
+
+                                if(progressBar.getProgress() - 1.0 / 960>=0){
+
+                                    double remove=1.0 / 600;
+
+                                    if(PLAYER_ANSWERING){
+                                        remove*=7;
                                     }
-                                    else{
-                                        progressBar.setProgress(0.0);
-                                    }
+                                    progressBar.setProgress(progressBar.getProgress() - remove);
+
+
                                 }
+                                else{
+                                    progressBar.setProgress(0.0);
+                                }
+
 
                             }
                         });
 
                         if(progressBar.getProgress()<=0){
+
+                            if(answeringPlayer!=null){
+                                answeringPlayer.decreaseScore();
+                                System.out.println(answeringPlayer.getScore()+ " SCOREEE");
+                                refreshObservablePlayerLists();
+                            }
+
                             startNewQuestion();
 
                         }
@@ -306,7 +326,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     public void startNewQuestion(){
 
-        PAUSE_TIME=false;
+        PLAYER_ANSWERING =false;
+        answeringPlayer=null;
 
         System.out.println("SIZE: "+tracksToPlayWith.size());
 
