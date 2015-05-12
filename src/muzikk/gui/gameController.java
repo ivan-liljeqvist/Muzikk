@@ -122,15 +122,19 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     private void onShowWindow(){
 
-        List<PlaylistSimple> playlists= MuzikkGlobalInfo.SpotifyAPI.getAllPlaylists();
+        List<PlaylistSimple> playlists= new ArrayList<>();
+        playlists.add(MuzikkGlobalInfo.getChosenPlaylist());
+
+        System.out.println(playlists.get(0).name);
 
         NotifyingThread<Track> getAllTracksThread=MuzikkGlobalInfo.SpotifyAPI.getAllTracksFromPlaylists(playlists);
         getAllTracksThread.addListener(this);
 
+
     }
 
     public void startNewQuestion(){
-
+        System.out.println("SIZE: "+tracksToPlayWith.size());
         int rand = randomGenerator.nextInt(tracksToPlayWith.size());
         this.currentlyPlayingTrack = tracksToPlayWith.get(rand);
 
@@ -156,29 +160,17 @@ public class gameController implements Initializable, ThreadCompleteListener {
         int rand = randomGenerator.nextInt(tracksToPlayWith.size());
         ArtistSimple wrongArtist1=tracksToPlayWith.get(rand).artists.get(0);
 
-        while(wrongArtist1.id==rightArtist.id){
-            wrongArtist1=tracksToPlayWith.get(rand).artists.get(0);
-        }
-
         System.out.println("wrong artist1:  "+wrongArtist1.name);
 
 
         rand = randomGenerator.nextInt(tracksToPlayWith.size());
         ArtistSimple wrongArtist2=tracksToPlayWith.get(rand).artists.get(0);
 
-        while(wrongArtist2.id==rightArtist.id || wrongArtist2.id==wrongArtist1.id){
-            wrongArtist2=tracksToPlayWith.get(rand).artists.get(0);
-        }
-
         System.out.println("wrong artist2:  "+wrongArtist2.name);
 
 
         rand = randomGenerator.nextInt(tracksToPlayWith.size());
         ArtistSimple wrongArtist3=tracksToPlayWith.get(rand).artists.get(0);
-
-        while(wrongArtist3.id==rightArtist.id || wrongArtist3.id==wrongArtist1.id || wrongArtist3.id==wrongArtist2.id){
-            wrongArtist3=tracksToPlayWith.get(rand).artists.get(0);
-        }
 
         System.out.println("wrong artist3:  "+wrongArtist3.name+" list size: "+tracksToPlayWith.size());
 
@@ -210,15 +202,15 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
 
                 MuzikkGlobalInfo.SpotifyAPI.getService().getArtist(artist.id, new Callback<Artist>() {
-                    boolean succeeded=false;
+                    boolean succeeded = false;
 
                     @Override
                     public void success(Artist artistReturned, Response response) {
                         System.out.println("Fetched artist!");
 
-                        synchronized (artistWaiter){
+                        synchronized (artistWaiter) {
                             artistWaiter.notify();
-                            succeeded=true;
+                            succeeded = true;
 
                             Platform.runLater(new Runnable() {
                                 @Override
@@ -235,7 +227,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
                     public void failure(RetrofitError retrofitError) {
                         System.out.println("Couldn't get artist.");
 
-                        synchronized (artistWaiter){
+                        synchronized (artistWaiter) {
                             artistWaiter.notify();
                         }
                     }
