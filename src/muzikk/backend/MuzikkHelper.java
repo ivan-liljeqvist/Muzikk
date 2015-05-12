@@ -62,13 +62,19 @@ public class MuzikkHelper {
 
                 for(PlaylistSimple pl : playlists){
 
+
+
                     Object playlistWaiter = new Object();
 
                     if(pl.tracks.total<=0){
+                        synchronized (playlistWaiter){
+                            playlistWaiter.notify();
+                        }
+
                         continue;
                     }
                     //get all the tracks from this playlist
-                    spotify.getPlaylistTracks(MuzikkGlobalInfo.getUserId(), pl.id, new Callback<Pager<PlaylistTrack>>() {
+                    spotify.getPlaylistTracks(pl.owner.id, pl.id, new Callback<Pager<PlaylistTrack>>() {
 
                         @Override
                         public void success(Pager<PlaylistTrack> playlistTrackPager, Response response) {
