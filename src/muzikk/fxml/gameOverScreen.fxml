@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.gameController">
+    <children>
+        <Label fx:id="titleLabel" alignment="CENTER" layoutX="176.0" layoutY="44.0" prefHeight="57.0" prefWidth="489.0" text="Game over">
+            <font>
+                <Font size="45.0" />
+            </font>
+        </Label>
+      <ListView fx:id="highScoreNamesListView" layoutX="305.0" layoutY="148.0" prefHeight="200.0" prefWidth="116.0" />
+      <ListView fx:id="highScorePointsListView" layoutX="421.0" layoutY="148.0" prefHeight="200.0" prefWidth="116.0" />
+      <Button fx:id="backToMainMenuButton" layoutX="231.0" layoutY="398.0" mnemonicParsing="false" text="Back to main menu">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="playAgainButton" layoutX="493.0" layoutY="398.0" mnemonicParsing="false" text="Play again">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+    </children>
+</Pane>

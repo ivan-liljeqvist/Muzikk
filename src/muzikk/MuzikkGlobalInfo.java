@@ -3,6 +3,8 @@ package muzikk;
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
 import muzikk.backend.MuzikkHelper;
 
+import java.util.ArrayList;
+
 /**
  * Created by IvanLiljeqvist on 08/05/15.
  *
@@ -12,6 +14,9 @@ public class MuzikkGlobalInfo {
 
     public static MuzikkHelper SpotifyAPI=new MuzikkHelper();
     private static int numberOfQuestions;
+
+    private static ArrayList<Player> players;
+
     private static PlaylistSimple chosenPlaylist;
 
     private static String user_id;
@@ -56,5 +61,11 @@ public class MuzikkGlobalInfo {
 
     public static void setNumberOfQuestions(int numberOfQuestions) {
         MuzikkGlobalInfo.numberOfQuestions = numberOfQuestions;
+    }
+    public static void setPlayers(ArrayList<Player> pl){
+        players = pl;
+    }
+    public static ArrayList<Player> getPlayers(){
+        return players;
     }
 }
