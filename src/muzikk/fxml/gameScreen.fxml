@@ -9,35 +9,17 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.gameController">
     <children>
-        <Label prefHeight="51.0" prefWidth="198.0" text="Game">
-            <font>
-                <Font size="37.0" />
-            </font>
-        </Label>
-      <Label fx:id="questionLabel" alignment="CENTER" layoutX="308.0" layoutY="71.0" prefHeight="45.0" prefWidth="225.0" text="Fråga">
+      <Label fx:id="questionLabel" alignment="CENTER" layoutX="50.0" layoutY="67.0" prefHeight="57.0" prefWidth="489.0" text="Pick the correct artist">
          <font>
             <Font size="45.0" />
          </font>
       </Label>
-      <ImageView fx:id="artistImage0" fitHeight="150.0" fitWidth="173.0" layoutX="14.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@../assets/loading-animation.gif" />
-        </image>
-      </ImageView>
-      <ImageView fx:id="artistImage1" fitHeight="150.0" fitWidth="173.0" layoutX="208.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
-          <image>
-              <Image url="@../assets/loading-animation.gif" />
-          </image>
-      </ImageView>
-      <ImageView fx:id="artistImage2" fitHeight="150.0" fitWidth="173.0" layoutX="433.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
-          <image>
-              <Image url="@../assets/loading-animation.gif" />
-          </image>
-      </ImageView>
-      <ImageView fx:id="artistImage3" fitHeight="150.0" fitWidth="173.0" layoutX="639.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
-          <image>
-              <Image url="@../assets/loading-animation.gif" />
-          </image>
-      </ImageView>
+      <ImageView fx:id="artistImage0" fitHeight="150.0" fitWidth="173.0" layoutX="14.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="artistImage1" fitHeight="150.0" fitWidth="173.0" layoutX="208.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="artistImage2" fitHeight="150.0" fitWidth="173.0" layoutX="421.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="artistImage3" fitHeight="150.0" fitWidth="173.0" layoutX="639.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+      <ListView fx:id="nameListView" layoutX="599.0" layoutY="14.0" prefHeight="200.0" prefWidth="97.0" />
+      <ListView fx:id="scoreListView" layoutX="696.0" layoutY="14.0" prefHeight="200.0" prefWidth="97.0" />
+      <ProgressBar fx:id="progressBar" layoutY="474.0" prefHeight="17.0" prefWidth="841.0" progress="1.0" />
     </children>
 </Pane>

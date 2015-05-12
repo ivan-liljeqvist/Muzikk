@@ -25,6 +25,7 @@ public class multiPlayerScreenController implements Initializable {
 
     private Stage prevStage;
     private String key;
+    private int counter;
     private ObservableList<String> nameList = FXCollections.observableArrayList();
     private ObservableList<String> keyList = FXCollections.observableArrayList();
     private ArrayList<Player> playerList = new ArrayList<Player>(10);
@@ -43,6 +44,8 @@ public class multiPlayerScreenController implements Initializable {
     @FXML
     private TextField nameTextField = new TextField();
     @FXML
+    private ChoiceBox<Integer> numberOfQuestionsChoiceBox;
+    @FXML
     private TextField keyTextField = new TextField();
     @FXML
     private ListView<String> playerListView;
@@ -58,6 +61,9 @@ public class multiPlayerScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        numberOfQuestionsChoiceBox.getItems().addAll(5, 10, 15, 20);
+        startGameButton.disableProperty().setValue(true);
+        numberOfQuestionsChoiceBox.getSelectionModel().select(0);
         playListListView.setItems(observablePlayLists);
         playerListView.setItems(nameList);
         keyListView.setItems(keyList);
@@ -74,8 +80,7 @@ public class multiPlayerScreenController implements Initializable {
                 setKeyToggleButton.setText("Key: " + key.toUpperCase());
                 keyTextField.setText(String.valueOf(key));
                 setKeyToggleButton.fire();
-            }
-            else if(keyList.contains(event.getCharacter().toUpperCase())){
+            } else if (keyList.contains(event.getCharacter().toUpperCase())) {
                 setKeyToggleButton.setText("Key not availible");
                 setKeyToggleButton.setStyle("-fx-border-color: red");
             }
@@ -87,6 +92,7 @@ public class multiPlayerScreenController implements Initializable {
      */
     private void goTogame() {
         gameController controller = SceneLoader.gameLoader.getController();
+        MuzikkGlobalInfo.setNumberOfQuestions(numberOfQuestionsChoiceBox.getSelectionModel().getSelectedItem().intValue());
 
         if (MuzikkGlobalInfo.isLoggedIn()){ //Set chosen playlist if the user is logged in
             MuzikkGlobalInfo.setChosenPlaylist(playLists.get(playListListView.focusModelProperty().get().getFocusedIndex()));
@@ -101,6 +107,10 @@ public class multiPlayerScreenController implements Initializable {
      * Will create and add a new player to the game
      */
     private void addPlayer() {
+        counter++;
+        if (counter > 1){
+            startGameButton.disableProperty().setValue(false);
+        }
         playerList.add(new Player(nameTextField.getText(), key)); //Adds a new player to the list of players
         keyList.add(key.toUpperCase());
         nameList.add(nameTextField.getText()); //Adds the players name to the observable list
@@ -112,6 +122,7 @@ public class multiPlayerScreenController implements Initializable {
      */
     private void resetForm(){
         nameTextField.setText("");
+        keyTextField.setText("");
         setKeyToggleButton.setText("Press to set key");
         key = null;
     }
@@ -148,6 +159,7 @@ public class multiPlayerScreenController implements Initializable {
             playListListView.getItems().addAll(observableMapGenres.keySet());
             playListLabel.setText("Choose genre");
         }
+        playListListView.getSelectionModel().select(0); //select the top playlist by default
     }
 
 }

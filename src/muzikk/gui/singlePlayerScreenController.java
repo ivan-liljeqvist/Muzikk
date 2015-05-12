@@ -34,6 +34,8 @@ public class singlePlayerScreenController implements Initializable {
     @FXML
     private Button startGameButton;
     @FXML
+    private ChoiceBox<Integer> numberOfQuestionsChoiceBox;
+    @FXML
     private Label playListLabel;
     @FXML
     private ToggleButton setKeyToggleButton;
@@ -50,6 +52,8 @@ public class singlePlayerScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        numberOfQuestionsChoiceBox.getItems().addAll(5, 10, 15, 20);
+        numberOfQuestionsChoiceBox.getSelectionModel().select(0);
         playListListView.setItems(observablePlayLists);
         startGameButton.disableProperty().bind( //Binding for disabling button when nameTextField is empty
                 Bindings.isEmpty(nameTextField.textProperty()).or(Bindings.isEmpty(keyTextField.textProperty()))
@@ -63,11 +67,12 @@ public class singlePlayerScreenController implements Initializable {
                 setKeyToggleButton.fire();
             }
         });
-        //Add the genres
+
 
     }
     public void goTogame(){
         Player player = new Player(nameTextField.getText(), key);
+        MuzikkGlobalInfo.setNumberOfQuestions(numberOfQuestionsChoiceBox.getSelectionModel().getSelectedItem().intValue());
 
         if (MuzikkGlobalInfo.isLoggedIn()){ //Set chosen playlist if the user is logged in
             MuzikkGlobalInfo.setChosenPlaylist(playLists.get(playListListView.focusModelProperty().get().getFocusedIndex()));
@@ -93,6 +98,7 @@ public class singlePlayerScreenController implements Initializable {
                 playLists.add(pl);
                 observablePlayLists.add(pl.name);
             }
+            playListListView.getSelectionModel().select(0);
         }
         else{
             observableMapGenres.put("Rock", "2Qi8yAzfj1KavAhWz1gaem");
@@ -114,6 +120,7 @@ public class singlePlayerScreenController implements Initializable {
             observableMapGenres.put("60-tal", "5n6Qo8WNYc5oVBmGbO2iYG");
             observableMapGenres.put("50-tal", "7xADHS7Ryc6oMdqBVhNVQ9");
             playListListView.getItems().addAll(observableMapGenres.keySet());
+            playListListView.getSelectionModel().select(0);
             playListLabel.setText("Choose genre");
         }
     }

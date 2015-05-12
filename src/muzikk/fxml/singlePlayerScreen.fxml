@@ -13,12 +13,18 @@
             <Font size="72.0" />
          </font>
       </Label>
-      <Button fx:id="startGameButton" layoutX="341.0" layoutY="357.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game" />
-      <ToggleButton fx:id="setKeyToggleButton" layoutX="353.0" layoutY="283.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="136.0" text="Press to set key" />
-      <TextField fx:id="nameTextField" layoutX="354.0" layoutY="213.0" promptText="Namn" />
+      <Button fx:id="startGameButton" layoutX="637.0" layoutY="340.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game" />
+      <ToggleButton fx:id="setKeyToggleButton" layoutX="637.0" layoutY="248.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Press to set key" />
+      <TextField fx:id="nameTextField" layoutX="635.0" layoutY="208.0" prefHeight="22.0" prefWidth="160.0" promptText="Namn" />
       <TextField fx:id="keyTextField" editable="false" layoutX="678.0" layoutY="453.0" opacity="0.0" />
       <ListView fx:id="playListListView" layoutX="71.0" layoutY="208.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label fx:id="playListLabel" layoutX="71.0" layoutY="172.0" text="Choose a playlist">
+      <Label fx:id="playListLabel" layoutX="71.0" layoutY="172.0" prefHeight="32.0" prefWidth="200.0" text="Välj en spellista">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="numberOfQuestionsChoiceBox" layoutX="310.0" layoutY="208.0" prefWidth="150.0" />
+      <Label fx:id="numberOfQuestionsLabel" layoutX="310.0" layoutY="166.0" prefHeight="32.0" prefWidth="200.0" text="Antal frågor">
          <font>
             <Font size="25.0" />
          </font>

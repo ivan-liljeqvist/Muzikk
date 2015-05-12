@@ -13,11 +13,11 @@
             <Font size="72.0" />
          </font>
       </Label>
-      <Button fx:id="startGameButton" layoutX="583.0" layoutY="364.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game" />
-      <ToggleButton fx:id="setKeyToggleButton" layoutX="362.0" layoutY="187.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="136.0" text="Press to set key" />
-      <TextField fx:id="nameTextField" layoutX="362.0" layoutY="137.0" promptText="Namn" />
+      <Button fx:id="startGameButton" layoutX="588.0" layoutY="360.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game" />
+      <ToggleButton fx:id="setKeyToggleButton" layoutX="361.0" layoutY="248.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="136.0" text="Press to set key" />
+      <TextField fx:id="nameTextField" layoutX="363.0" layoutY="194.0" promptText="Name" />
       <TextField fx:id="keyTextField" editable="false" layoutX="678.0" layoutY="453.0" opacity="0.0" />
-      <Label layoutX="376.0" layoutY="79.0" text="Add a player">
+      <Label layoutX="377.0" layoutY="136.0" text="Add a player">
          <font>
             <Font size="19.0" />
          </font>
@@ -27,7 +27,7 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <Button fx:id="addPlayerButton" layoutX="361.0" layoutY="263.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="136.0" text="Add player" />
+      <Button fx:id="addPlayerButton" layoutX="361.0" layoutY="317.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="136.0" text="Add player" />
       <ListView fx:id="playerListView" layoutX="563.0" layoutY="105.0" prefHeight="200.0" prefWidth="105.0" />
       <ListView fx:id="keyListView" layoutX="668.0" layoutY="105.0" prefHeight="200.0" prefWidth="105.0" />
       <Label layoutX="598.0" layoutY="82.0" text="Name" textFill="#00000083">
@@ -40,11 +40,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ListView fx:id="playListListView" layoutX="71.0" layoutY="208.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label fx:id="playListLabel" layoutX="71.0" layoutY="172.0" text="Choose a playlist">
+      <ListView fx:id="playListListView" layoutX="73.0" layoutY="172.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label fx:id="playListLabel" layoutX="71.0" layoutY="132.0" text="Choose a playlist">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
+      <Label fx:id="numberOfQuestionsLabel" layoutX="71.0" layoutY="382.0" text="Number of questions">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="numberOfQuestionsChoiceBox" layoutX="73.0" layoutY="405.0" prefHeight="22.0" prefWidth="200.0" />
    </children>
 </Pane>

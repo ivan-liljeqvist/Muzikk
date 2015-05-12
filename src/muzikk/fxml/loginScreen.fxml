@@ -16,12 +16,12 @@
                 <Font size="87.0" />
             </font>
         </Label>
-        <Button fx:id="noLoginButton" layoutX="238.0" layoutY="331.0" mnemonicParsing="false" text="Fortsätt utan att logga in">
+        <Button fx:id="noLoginButton" layoutX="250.0" layoutY="320.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="309.0" text="Fortsätt utan att logga in">
             <font>
                 <Font size="27.0" />
             </font>
         </Button>
-            <ImageView fx:id="i" layoutX="296.0" layoutY="207.0">
+            <ImageView fx:id="i" fitHeight="74.0" fitWidth="309.0" layoutX="250.0" layoutY="220.0">
                 <image>
                     <Image url="@../assets/spotify-login.png" />
                 </image>

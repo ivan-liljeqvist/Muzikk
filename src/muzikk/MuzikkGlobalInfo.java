@@ -11,7 +11,7 @@ import muzikk.backend.MuzikkHelper;
 public class MuzikkGlobalInfo {
 
     public static MuzikkHelper SpotifyAPI=new MuzikkHelper();
-
+    private static int numberOfQuestions;
     private static PlaylistSimple chosenPlaylist;
 
     private static String user_id;
@@ -48,5 +48,13 @@ public class MuzikkGlobalInfo {
 
     public static PlaylistSimple getChosenPlaylist(){
         return chosenPlaylist;
+    }
+
+    public static int getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public static void setNumberOfQuestions(int numberOfQuestions) {
+        MuzikkGlobalInfo.numberOfQuestions = numberOfQuestions;
     }
 }
