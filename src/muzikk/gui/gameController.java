@@ -97,6 +97,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     private List<Player> playersInGame;
 
+    /**
+     * Initialize the controller.
+     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Label label = new Label("hej");
@@ -136,46 +140,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
 
 
-    }
-
-    private void artistViewClicked(ImageView iv){
-
-        if(PLAYER_ANSWERING ==false){
-            return;
-        }
-
-        ArtistImageView clickedOn=null;
-        /*
-            get ArtistImageView for this ImageView.
-         */
-        if(aiv0.getIv()==iv){
-            clickedOn=aiv0;
-        }
-        else if(aiv1.getIv()==iv){
-            clickedOn=aiv1;
-        }
-        else if(aiv2.getIv()==iv){
-            clickedOn=aiv2;
-        }
-        else if(aiv3.getIv()==iv){
-            clickedOn=aiv3;
-        }
-
-        if(aiv0.getArtistId().equals(clickedOn.getArtistId())){
-            System.out.println("CORRECT!!");
-            System.out.println("AIV0 id "+aiv0.getArtistId()+"   artist id: "+clickedOn.getArtistId());
-
-            answeringPlayer.increaseScore();
-            this.startNewQuestion();
-
-            this.refreshObservablePlayerLists();
-        }else{
-            System.out.println("WRONG");
-            answeringPlayer.decreaseScore();
-            this.startNewQuestion();
-
-            this.refreshObservablePlayerLists();
-        }
     }
 
 
@@ -225,7 +189,13 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
-
+    /**
+     * Thread listener.
+     * When a Notifying thread that has this class as listener
+     * has finished running this method will be called.
+     *
+     * @param thread - the thread that has finished running.
+     */
 
     @Override
     public void notifyOfThreadComplete(final NotifyingThread thread){
@@ -245,6 +215,54 @@ public class gameController implements Initializable, ThreadCompleteListener {
             //other threads that just finished
         }
     }
+
+    /**
+        Resets values from the last question and starts a new question.
+     */
+
+    public void startNewQuestion(){
+
+        PLAYER_ANSWERING =false;
+        answeringPlayer=null;
+
+        System.out.println("SIZE: "+tracksToPlayWith.size());
+
+        int rand=0;
+
+        URL url=null;
+
+        /*
+            Don't proceed if the URL is invalid, choose another song.
+         */
+        while(url==null){
+            rand = randomGenerator.nextInt(tracksToPlayWith.size());
+            this.currentlyPlayingTrack = tracksToPlayWith.get(rand);
+            try{
+                url=new URL(currentlyPlayingTrack.preview_url);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+
+        System.out.println("START NEW QUESTION");
+
+        System.out.println("URL : "+currentlyPlayingTrack.preview_url);
+
+        MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
+        this.startPopulatingArtistImages();
+
+        progressBar.setProgress(1.0);
+
+
+
+
+    }
+
+    /**
+        Runs when the controller has initalized and received game data.
+     */
 
     private void onShowWindow(){
 
@@ -320,47 +338,59 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
-    public void startNewQuestion(){
+    /**
+     * Decides whether the clicked image view is right or wrong and act accordingly.
+     * If right - increase score and start new question.
+     * If wrong - decrease score and start new question.
+     * @param iv - the ImageView that has been clicked.
+     */
 
-        PLAYER_ANSWERING =false;
-        answeringPlayer=null;
+    private void artistViewClicked(ImageView iv){
 
-        System.out.println("SIZE: "+tracksToPlayWith.size());
-
-        int rand=0;
-
-        URL url=null;
-
-        /*
-            Don't proceed if the URL is invalid, choose another song.
-         */
-        while(url==null){
-            rand = randomGenerator.nextInt(tracksToPlayWith.size());
-            this.currentlyPlayingTrack = tracksToPlayWith.get(rand);
-            try{
-                url=new URL(currentlyPlayingTrack.preview_url);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-
+        if(PLAYER_ANSWERING ==false){
+            return;
         }
 
+        ArtistImageView clickedOn=null;
+        /*
+            get ArtistImageView for this ImageView.
+         */
+        if(aiv0.getIv()==iv){
+            clickedOn=aiv0;
+        }
+        else if(aiv1.getIv()==iv){
+            clickedOn=aiv1;
+        }
+        else if(aiv2.getIv()==iv){
+            clickedOn=aiv2;
+        }
+        else if(aiv3.getIv()==iv){
+            clickedOn=aiv3;
+        }
 
-        System.out.println("START NEW QUESTION");
+        /*
+            Decide whether right or wrong.
+         */
 
-        System.out.println("URL : "+currentlyPlayingTrack.preview_url);
+        if(aiv0.getArtistId().equals(clickedOn.getArtistId())){
+            System.out.println("CORRECT!!");
+            System.out.println("AIV0 id "+aiv0.getArtistId()+"   artist id: "+clickedOn.getArtistId());
 
-        MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
-        this.startPopulatingArtistImages();
+            answeringPlayer.increaseScore();
+            this.startNewQuestion();
 
-        progressBar.setProgress(1.0);
+            this.refreshObservablePlayerLists();
+        }else{
+            System.out.println("WRONG");
+            answeringPlayer.decreaseScore();
+            this.startNewQuestion();
 
-
-
-
+            this.refreshObservablePlayerLists();
+        }
     }
 
-     /*
+
+     /**
         Refreshes observable lists so that the player and score table refreshes.
         Should run on the UI thread.
      */
@@ -374,6 +404,11 @@ public class gameController implements Initializable, ThreadCompleteListener {
     }
 
 
+    /**
+        Decides which artist is right/wrong.
+        Starts threads to populate images.
+        Places the artist labels.
+     */
 
     private void startPopulatingArtistImages(){
 
@@ -428,6 +463,11 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
+    /**
+     *
+     * @param names - the names of the artist that will be placed out as labels.
+     */
+
     private void placeLabels(String[] names){
         Platform.runLater(new Runnable() {
             @Override
@@ -453,7 +493,11 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
-
+    /**
+     *
+     * @param artist - artist Object that the image will represent
+     * @param imgView - the view which will contain the image
+     */
 
     private void populateArtistImage(ArtistSimple artist, ImageView imgView){
 
@@ -535,6 +579,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
+    /**
+     * Sets previous stage.
+     * @param stage - the stage to set as previous.
+     */
     public void setPrevStage(Stage stage){
         this.prevStage = stage;
     }
