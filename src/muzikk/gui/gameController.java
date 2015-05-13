@@ -84,7 +84,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
     @FXML
     private ListView scoreListView;
     @FXML
-    private Pane pane;
+    private AnchorPane pane;
     @FXML
     private Label questionNumberLabel;
 
