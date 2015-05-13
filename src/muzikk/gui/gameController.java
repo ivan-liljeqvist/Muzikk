@@ -43,17 +43,26 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private Stage prevStage;
 
     private ArrayList<Player> players;
-    private ArrayList<String> genres = new ArrayList<String>(10);
-    private ArrayList<String> songURLs = new ArrayList<String>(10);
 
+
+    /**
+     * List with tracks from the playlists that is chosen for this game.
+     */
     private List<Track> tracksToPlayWith;
 
     private Random randomGenerator;
 
+    /**
+     * Track that is randomly chosen from tracksToPlayWith
+     */
     private Track currentlyPlayingTrack;
 
     private ImageView correctImageView;
     private Timer countdown_timer;
+
+    /**
+     * Controllers defined in the fxml file.
+     */
 
     @FXML
     private ImageView artistImage0;
@@ -80,7 +89,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
     @FXML
     private Pane pane;
 
-
+    /**
+     * Artist view containers containing the ImageView and artist Id.
+     * Used to decide if the ImageView clicked is the correct one.
+     */
     private ArtistImageView aiv0;
     private ArtistImageView aiv1;
     private ArtistImageView aiv2;
@@ -88,14 +100,25 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     private List<ImageView> imageViews;
 
+    /**
+     * Lists for populating the table with the scores and the players.
+     */
+
     private ObservableList<String> playerObsList= FXCollections.observableArrayList();
     private ObservableList<Integer> scoreObsList= FXCollections.observableArrayList();
 
     private boolean PLAYER_ANSWERING =false;
 
+    /**
+     * The player that has pressed his actionbutton and is answerting.
+     */
     private Player answeringPlayer;
 
     private List<Player> playersInGame;
+
+    /**
+     * Initialize the controller.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -108,6 +131,9 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         correctImageView=null;
 
+        /*
+            Connect the image views with click listeners
+         */
         artistImage0.setOnMouseClicked((event) -> artistViewClicked(artistImage0));
         artistImage1.setOnMouseClicked((event) -> artistViewClicked(artistImage1));
         artistImage2.setOnMouseClicked((event) -> artistViewClicked(artistImage2));
@@ -120,14 +146,22 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         answeringPlayer=null;
 
+        /*
+            Connect the pane with the keyboard listener.
+         */
         pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
 
+                /*
+                    Check if the button pressed matches any action button
+                 */
                 for (Player p : players) {
                     if (ke.getCode().toString().toUpperCase().equals(p.getActionButton().toUpperCase())) {
                         System.out.println(p.getName()+" PRESSEDAD!!");
+                        //action button detected!
                         PLAYER_ANSWERING =true;
                         answeringPlayer=p;
+                        //reset progress bar to 1 - it will quickly go down from one.
                         progressBar.setProgress(1.0);
                     }
                 }
@@ -138,8 +172,265 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
+
+    /**
+     * Initializes the game and imports the players from the multiplayer setup.
+     * @param playerList List of players
+     */
+    public void initData(ArrayList<Player> playerList){
+        this.players = playerList;
+
+
+        this.onShowWindow();
+
+        this.playersInGame=playerList;
+
+        /*
+            Populate the UI table with players names and scores.
+         */
+        for(Player p:playersInGame){
+            playerObsList.add(p.getName());
+            scoreObsList.add(p.getScore());
+        }
+
+
+    }
+
+    /**
+     * Initializes the game and import the player from the singleplayer setup
+     * @param player The player
+     */
+    public void initData(Player player){
+
+        this.onShowWindow();
+        this.playersInGame=new ArrayList<>();
+        playersInGame.add(player);
+
+        /*
+            Populate the UI list with name and score.
+         */
+        playerObsList.add(player.getName());
+        scoreObsList.add(player.getScore());
+
+    }
+
+    /**
+     * Thread listener.
+     * When a Notifying thread that has this class as listener
+     * has finished running this method will be called.
+     *
+     * @param thread - the thread that has finished running.
+     */
+
+    @Override
+    public void notifyOfThreadComplete(final NotifyingThread thread){
+
+        /*
+            A thread fetching the tracks has finished.
+         */
+        if(thread.getName().equals("getAllTracksThread")){
+            //print out some info
+            System.out.println("All trakcs received");
+            System.out.println(thread.extractParams().size()+" songs extracted");
+
+            //save extracted tracks.
+            this.tracksToPlayWith=thread.extractParams();
+
+            //shuffle tracks
+            Collections.shuffle(this.tracksToPlayWith, new Random(System.nanoTime()));
+
+            //start new question
+            this.startNewQuestion();
+        }
+        /*
+            Some other thread has finished.
+         */
+        else{
+            //other threads that just finished
+        }
+    }
+
+    /**
+        Resets values from the last question and starts a new question.
+     */
+
+    public void startNewQuestion(){
+
+        /*
+            Reset values.
+         */
+        PLAYER_ANSWERING =false;
+        answeringPlayer=null;
+
+        System.out.println("SIZE: "+tracksToPlayWith.size());
+
+        int rand=0;
+
+        URL url=null;
+
+        /*
+            Start making new question
+         */
+
+        /*
+            Choose a song. Sometimes the URL will be invalid.
+            Don't proceed if the URL is invalid, choose another song.
+         */
+        while(url==null){
+            rand = randomGenerator.nextInt(tracksToPlayWith.size());
+            this.currentlyPlayingTrack = tracksToPlayWith.get(rand);
+            try{
+                url=new URL(currentlyPlayingTrack.preview_url);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
+
+        System.out.println("START NEW QUESTION");
+        System.out.println("URL : "+currentlyPlayingTrack.preview_url);
+
+        /*
+            Start playing the track and showing the artist images.
+         */
+        MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
+        this.startPopulatingArtistImages();
+
+        /*
+            Reset progress bar.
+         */
+
+        progressBar.setProgress(1.0);
+
+
+
+
+    }
+
+    /**
+        Runs when the controller has initalized and received game data.
+     */
+
+    private void onShowWindow(){
+
+        /*
+           Create a list of playlists used in the game.
+           We will only put one playlist - the chosen one.
+           It's easy to expand this and make so it's possible to play with many
+           playlists in the future.
+         */
+
+        List<PlaylistSimple> playlists= new ArrayList<>();
+        playlists.add(MuzikkGlobalInfo.getChosenPlaylist());
+
+        System.out.println(playlists.get(0).name);
+
+        /*
+            Start getting the tracks for the playlists.
+         */
+        NotifyingThread<Track> getAllTracksThread=MuzikkGlobalInfo.SpotifyAPI.getAllTracksFromPlaylists(playlists);
+        /*
+            Set this class as a listener.
+            It will be notified when the tracks have been fetched.
+         */
+        getAllTracksThread.addListener(this);
+
+        /*
+            Create and start the thread that will manage the countdown.
+            This will update the progress bar at the bottom.
+            Used to set a timer before a player has to answer.
+         */
+
+        NotifyingThread countdownThread=new NotifyingThread() {
+            @Override
+            public List extractParams() {
+                //this thread doesn't return anything.
+                return null;
+            }
+
+            @Override
+            public void doRun() {
+                //create a timer task that will be run each time
+                TimerTask task=new TimerTask() {
+                    @Override
+                    public void run() {
+
+                        /*
+                            Go to the UI thread.
+                         */
+
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                /*
+                                    If we can still decrease progress bar -  dot.
+                                 */
+                                if(progressBar.getProgress() - 1.0 / 960>=0){
+
+                                    double remove=1.0 / 600;
+
+                                    //move fast if a player is answering.
+                                    if(PLAYER_ANSWERING){
+                                        remove*=7;
+                                    }
+                                    progressBar.setProgress(progressBar.getProgress() - remove);
+
+
+                                }
+                                /*
+                                    If the progress bar is too low we can't decrease it.
+                                    THE TIME FOR THIS QUESTION HAS RUN OUT!
+                                 */
+                                else{
+                                    progressBar.setProgress(0.0);
+
+                                    if(progressBar.getProgress()<=0){
+
+                                        //if any player has pressed his/her action button - decrease score and update UI table.
+                                        if(answeringPlayer!=null){
+                                            answeringPlayer.decreaseScore();
+                                            System.out.println(answeringPlayer.getScore()+ " SCOREEE");
+                                            refreshObservablePlayerLists();
+                                        }
+                                        //start new question
+                                        startNewQuestion();
+
+                                    }
+                                }
+
+
+                            }
+                        });
+
+
+
+                    }
+                };
+                //call the task often-
+                countdown_timer.scheduleAtFixedRate(task,0,36);
+            }
+        };
+
+
+        countdownThread.start();
+
+
+
+    }
+
+    /**
+     * Decides whether the clicked image view is right or wrong and act accordingly.
+     * If right - increase score and start new question.
+     * If wrong - decrease score and start new question.
+     * @param iv - the ImageView that has been clicked.
+     */
+
     private void artistViewClicked(ImageView iv){
 
+        /*
+            Ignore this is no one has pressed an action button.
+         */
         if(PLAYER_ANSWERING ==false){
             return;
         }
@@ -161,206 +452,31 @@ public class gameController implements Initializable, ThreadCompleteListener {
             clickedOn=aiv3;
         }
 
+        /*
+            Decide whether right or wrong.
+         */
+
         if(aiv0.getArtistId().equals(clickedOn.getArtistId())){
             System.out.println("CORRECT!!");
             System.out.println("AIV0 id "+aiv0.getArtistId()+"   artist id: "+clickedOn.getArtistId());
 
+            //INCREASE SCORE
             answeringPlayer.increaseScore();
             this.startNewQuestion();
-
+            //UPDATE THE UI TABLE
             this.refreshObservablePlayerLists();
         }else{
             System.out.println("WRONG");
             answeringPlayer.decreaseScore();
             this.startNewQuestion();
 
+            //UPDATE UI TABLE
             this.refreshObservablePlayerLists();
         }
     }
 
 
-    /**
-     * Initializes the game and imports the players from the multiplayer setup.
-     * @param playerList List of players
-     */
-    public void initData(ArrayList<Player> playerList){
-        this.players = playerList;
-
-        for (int i = 0;i<players.size();i++){
-            Label label = new Label(players.get(i).getName());
-            label.setLayoutX(100+50*i);
-            label.setLayoutY(200);
-        }
-
-        this.onShowWindow();
-
-        this.playersInGame=playerList;
-
-        for(Player p:playersInGame){
-            playerObsList.add(p.getName());
-            scoreObsList.add(p.getScore());
-        }
-
-
-    }
-
-    /**
-     * Initializes the game and import the player from the singleplayer setup
-     * @param player The player
-     */
-    public void initData(Player player){
-        players = new ArrayList<Player>(1);
-        players.add(player);
-
-        for (Player p : players){
-            System.out.println(p.getName());
-        }
-
-        this.onShowWindow();
-        this.playersInGame=new ArrayList<>();
-        playersInGame.add(player);
-
-        playerObsList.add(player.getName());
-        scoreObsList.add(player.getScore());
-
-    }
-
-
-
-    @Override
-    public void notifyOfThreadComplete(final NotifyingThread thread){
-
-        if(thread.getName().equals("getAllTracksThread")){
-            //all tracks received
-            System.out.println("All trakcs received");
-            System.out.println(thread.extractParams().size()+" songs extracted");
-
-            this.tracksToPlayWith=thread.extractParams();
-
-            Collections.shuffle(this.tracksToPlayWith, new Random(System.nanoTime()));
-
-            this.startNewQuestion();
-        }
-        else{
-            //other threads that just finished
-        }
-    }
-
-    private void onShowWindow(){
-
-        List<PlaylistSimple> playlists= new ArrayList<>();
-        playlists.add(MuzikkGlobalInfo.getChosenPlaylist());
-
-        System.out.println(playlists.get(0).name);
-
-        NotifyingThread<Track> getAllTracksThread=MuzikkGlobalInfo.SpotifyAPI.getAllTracksFromPlaylists(playlists);
-        getAllTracksThread.addListener(this);
-
-        NotifyingThread countdownThread=new NotifyingThread() {
-            @Override
-            public List extractParams() {
-                return null;
-            }
-
-            @Override
-            public void doRun() {
-                TimerTask task=new TimerTask() {
-                    @Override
-                    public void run() {
-
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-
-
-                                if(progressBar.getProgress() - 1.0 / 960>=0){
-
-                                    double remove=1.0 / 600;
-
-                                    if(PLAYER_ANSWERING){
-                                        remove*=7;
-                                    }
-                                    progressBar.setProgress(progressBar.getProgress() - remove);
-
-
-                                }
-                                else{
-                                    progressBar.setProgress(0.0);
-
-                                    if(progressBar.getProgress()<=0){
-
-                                        if(answeringPlayer!=null){
-                                            answeringPlayer.decreaseScore();
-                                            System.out.println(answeringPlayer.getScore()+ " SCOREEE");
-                                            refreshObservablePlayerLists();
-                                        }
-
-                                        startNewQuestion();
-
-                                    }
-                                }
-
-
-                            }
-                        });
-
-
-
-                    }
-                };
-
-                countdown_timer.scheduleAtFixedRate(task,0,36);
-            }
-        };
-
-
-        countdownThread.start();
-
-
-
-    }
-
-    public void startNewQuestion(){
-
-        PLAYER_ANSWERING =false;
-        answeringPlayer=null;
-
-        System.out.println("SIZE: "+tracksToPlayWith.size());
-
-        int rand=0;
-
-        URL url=null;
-
-        /*
-            Don't proceed if the URL is invalid, choose another song.
-         */
-        while(url==null){
-            rand = randomGenerator.nextInt(tracksToPlayWith.size());
-            this.currentlyPlayingTrack = tracksToPlayWith.get(rand);
-            try{
-                url=new URL(currentlyPlayingTrack.preview_url);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-
-        }
-
-
-        System.out.println("START NEW QUESTION");
-
-        System.out.println("URL : "+currentlyPlayingTrack.preview_url);
-
-        MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
-        this.startPopulatingArtistImages();
-
-        progressBar.setProgress(1.0);
-
-
-
-
-    }
-
-     /*
+     /**
         Refreshes observable lists so that the player and score table refreshes.
         Should run on the UI thread.
      */
@@ -374,10 +490,18 @@ public class gameController implements Initializable, ThreadCompleteListener {
     }
 
 
+    /**
+        Decides which artist is right/wrong.
+        Starts threads to populate images.
+        Places the artist labels.
+     */
 
     private void startPopulatingArtistImages(){
 
-
+        /*
+            Chose the wrong artists and the right artist.
+            Randomly choose wrong artists.
+         */
 
         ArtistSimple rightArtist=this.currentlyPlayingTrack.artists.get(0);
         System.out.println("Right artist:  "+rightArtist.name);
@@ -401,6 +525,9 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         System.out.println("wrong artist3:  "+wrongArtist3.name+" list size: "+tracksToPlayWith.size());
 
+        /*
+            Add all image views that will contain the artist images in a list
+         */
 
         imageViews=new ArrayList<ImageView>();
         imageViews.add(artistImage0);
@@ -408,8 +535,14 @@ public class gameController implements Initializable, ThreadCompleteListener {
         imageViews.add(artistImage2);
         imageViews.add(artistImage3);
 
+        /*
+            Shuffle the list. WE want the artists to appear in random order.
+         */
         Collections.shuffle(imageViews);
 
+        /*
+            Populate the Image Views with the images.
+         */
         populateArtistImage(rightArtist, imageViews.get(0));
         aiv0=new ArtistImageView(rightArtist.id,imageViews.get(0));
 
@@ -424,11 +557,25 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         String[] artistNames={rightArtist.name,wrongArtist1.name,wrongArtist2.name,wrongArtist3.name};
 
+        /*
+            Place the artist names as labels above the Image Views.
+         */
         placeLabels(artistNames);
 
     }
 
+    /**
+     *
+     * @param names - the names of the artist that will be placed out as labels.
+     */
+
     private void placeLabels(String[] names){
+
+        /*
+            We want to change the labels.
+            Do it on the UI thread.
+         */
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -453,13 +600,27 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
-
+    /**
+     *
+     * @param artist - artist Object that the image will represent
+     * @param imgView - the view which will contain the image
+     */
 
     private void populateArtistImage(ArtistSimple artist, ImageView imgView){
 
+        /*
+            We'll need two thread to accomplish this.
+            One thread will fetch the Artist using ArtistSimple.
+
+            If succeed - we start another thread that will down load the image
+            using the URL from Artist.
+
+            We then go to UI thread and update the image.
+         */
 
         NotifyingThread<String> thread=new NotifyingThread<String>() {
 
+            //this thread won't return anything.
             @Override
             public List<String> extractParams() {
                 return null;
@@ -467,9 +628,11 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
             @Override
             public void doRun() {
+
+                //waiter object that makes so this thread waits for the image to be fetched.
                 Object artistWaiter=new Object();
 
-
+                //get artist with the right id
                 MuzikkGlobalInfo.SpotifyAPI.getService().getArtist(artist.id, new Callback<Artist>() {
                     boolean succeeded = false;
 
@@ -477,14 +640,18 @@ public class gameController implements Initializable, ThreadCompleteListener {
                     public void success(Artist artistReturned, Response response) {
                         System.out.println("Fetched artist!");
 
+                        //notify the waiter so that this thread can continue.
                         synchronized (artistWaiter) {
                             artistWaiter.notify();
                         }
 
                         succeeded = true;
 
+                        /*
+                            We've now fetched the artist and we have the URL to the image.
+                            Start a new thread and download the image.
+                         */
                         Image artistImage=null;
-
                         NotifyingThread thread=new NotifyingThread() {
                             @Override
                             public List extractParams() {
@@ -493,7 +660,11 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
                             @Override
                             public void doRun() {
+                                
+                                //download the image.
                                 Image artistImage=new Image(artistReturned.images.get(0).url);
+
+                                //go to UI thread and update the image
                                 Platform.runLater(new Runnable() {
                                     @Override
                                     public void run() {
@@ -535,6 +706,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
+    /**
+     * Sets previous stage.
+     * @param stage - the stage to set as previous.
+     */
     public void setPrevStage(Stage stage){
         this.prevStage = stage;
     }
