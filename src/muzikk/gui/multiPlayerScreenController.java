@@ -163,11 +163,13 @@ public class multiPlayerScreenController implements Initializable {
 
         }
 
-        synchronized (playlistWaiter){
-            try{
-                playlistWaiter.wait();
-            }catch (Exception e){
-                e.printStackTrace();
+        if(MuzikkGlobalInfo.isLoggedIn()==false) {
+            synchronized (playlistWaiter) {
+                try {
+                    playlistWaiter.wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 

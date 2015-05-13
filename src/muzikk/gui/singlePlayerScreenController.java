@@ -78,9 +78,9 @@ public class singlePlayerScreenController implements Initializable {
 
     }
     public void goTogame(){
-        /*if (nameTextField.getText().toLowerCase() == "ingemar"){
+        if (nameTextField.getText().toLowerCase() == "ingemar"){
             MuzikkGlobalInfo.setIngoMode(true);
-        }*/
+        }
         Player player = new Player(nameTextField.getText(), key);
         MuzikkGlobalInfo.setNumberOfQuestions(numberOfQuestionsChoiceBox.getSelectionModel().getSelectedItem().intValue());
         String genreKey=playListListView.getSelectionModel().getSelectedItem();
@@ -178,9 +178,11 @@ public class singlePlayerScreenController implements Initializable {
         prevStage.setScene(new Scene(SceneLoader.gamePane));
 
     }
+
     /**
      * Initializes data for the this scene. Gets playlists from SpotifyAPI.
      */
+
     public void initData() {
         if (MuzikkGlobalInfo.isLoggedIn()) {
 
