@@ -8,46 +8,46 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="pane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.gameController">
+<AnchorPane fx:id="pane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@../assets/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.gameController">
     <children>
-      <Label fx:id="questionLabel" alignment="CENTER" layoutX="53.0" layoutY="21.0" prefHeight="57.0" prefWidth="489.0" text="Pick the correct artist">
+      <Label fx:id="questionLabel" alignment="CENTER" layoutX="53.0" layoutY="21.0" prefHeight="57.0" prefWidth="489.0" text="Pick the correct artist" AnchorPane.leftAnchor="53.0" AnchorPane.topAnchor="21.0">
          <font>
             <Font size="45.0" />
          </font>
       </Label>
-      <ListView fx:id="nameListView" focusTraversable="false" layoutX="599.0" layoutY="14.0" prefHeight="200.0" prefWidth="97.0" />
-      <ListView fx:id="scoreListView" focusTraversable="false" layoutX="696.0" layoutY="14.0" prefHeight="200.0" prefWidth="97.0" />
-      <ProgressBar fx:id="progressBar" layoutY="474.0" prefHeight="17.0" prefWidth="841.0" progress="1.0" />
+      <ListView fx:id="nameListView" focusTraversable="false" layoutX="599.0" layoutY="14.0" prefHeight="200.0" prefWidth="97.0" AnchorPane.rightAnchor="145.0" AnchorPane.topAnchor="14.0" />
+      <ListView fx:id="scoreListView" focusTraversable="false" layoutX="696.0" layoutY="14.0" prefHeight="200.0" prefWidth="97.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="14.0" />
+      <ProgressBar fx:id="progressBar" layoutY="474.0" prefHeight="17.0" prefWidth="841.0" progress="1.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <ListView layoutX="8120.0" layoutY="14.0" prefHeight="200.0" prefWidth="17.0" />
       <Label fx:id="questionNumberLabel" layoutX="52.0" layoutY="81.0" prefHeight="57.0" prefWidth="489.0" text="Question">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutY="271.0" prefHeight="175.0" prefWidth="841.0" spacing="20.0">
+      <HBox alignment="CENTER" layoutY="271.0" prefHeight="175.0" prefWidth="841.0" spacing="20.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <VBox>
+            <VBox alignment="CENTER" styleClass="vBox">
                <children>
                   <Label fx:id="artistLabel0" alignment="CENTER" prefHeight="15.0" prefWidth="170.0" text="Label" textAlignment="CENTER" />
-                  <ImageView fx:id="artistImage0" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="artistImage0" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="artistImage" />
                </children>
             </VBox>
-            <VBox>
+            <VBox alignment="CENTER" styleClass="vBox">
                <children>
                   <Label fx:id="artistLabel1" alignment="CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="171.0" text="Label" />
-                  <ImageView fx:id="artistImage1" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="artistImage1" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="artistImage" />
                </children>
             </VBox>
-            <VBox>
+            <VBox alignment="CENTER" styleClass="vBox">
                <children>
                   <Label fx:id="artistLabel2" alignment="CENTER" prefHeight="15.0" prefWidth="168.0" text="Label" />
-                  <ImageView fx:id="artistImage2" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="artistImage2" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="artistImage" />
                </children>
             </VBox>
-            <VBox>
+            <VBox alignment="CENTER" styleClass="vBox">
                <children>
                   <Label fx:id="artistLabel3" alignment="CENTER" prefHeight="15.0" prefWidth="168.0" text="Label" />
-                  <ImageView fx:id="artistImage3" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="artistImage3" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="artistImage" />
                </children>
             </VBox>
          </children>
@@ -55,6 +55,11 @@
             <Insets top="10.0" />
          </padding>
       </HBox>
+      <Label fx:id="personWhoAnsweredLabel" alignment="CENTER" layoutX="150.0" layoutY="214.0" prefHeight="57.0" prefWidth="489.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
 
     </children>
-</Pane>
+</AnchorPane>

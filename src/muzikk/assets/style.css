@@ -7,3 +7,11 @@
     -fx-background-insets: 0 0 0 0, 0, 0, 0;
     -fx-background-radius: 0px, 0px, 0px, 0px;
 }
+.vBox{
+    -fx-border-radius:3px;
+    -fx-padding:8px;
+    -fx-border-color:black;
+}
+.artistImage{
+
+}
