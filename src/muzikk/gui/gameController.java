@@ -42,8 +42,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
     //the parent stage
     private Stage prevStage;
 
-    private ArrayList<Player> players;
-
 
     /**
      * List with tracks from the playlists that is chosen for this game.
@@ -57,7 +55,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
      */
     private Track currentlyPlayingTrack;
 
-    private ImageView correctImageView;
     private Timer countdown_timer;
 
     /**
@@ -129,7 +126,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
         randomGenerator=new Random();
         currentlyPlayingTrack=new Track();
 
-        correctImageView=null;
 
         /*
             Connect the image views with click listeners
@@ -155,7 +151,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
                 /*
                     Check if the button pressed matches any action button
                  */
-                for (Player p : players) {
+                for (Player p : playersInGame) {
                     if (ke.getCode().toString().toUpperCase().equals(p.getActionButton().toUpperCase())) {
                         System.out.println(p.getName()+" PRESSEDAD!!");
                         //action button detected!
@@ -178,9 +174,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
      * @param playerList List of players
      */
     public void initData(ArrayList<Player> playerList){
-        this.players = playerList;
-
-
         this.onShowWindow();
 
         this.playersInGame=playerList;
@@ -660,7 +653,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
                             @Override
                             public void doRun() {
-                                
+
                                 //download the image.
                                 Image artistImage=new Image(artistReturned.images.get(0).url);
 
