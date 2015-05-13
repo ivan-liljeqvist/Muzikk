@@ -85,6 +85,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private ListView scoreListView;
     @FXML
     private Pane pane;
+    @FXML
+    private Label questionNumberLabel;
 
     /**
      * Artist view containers containing the ImageView and artist Id.
@@ -275,7 +277,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
             try{
                 url=new URL(currentlyPlayingTrack.preview_url);
             }catch(Exception e){
-                e.printStackTrace();
+                System.out.println("Caught URL == null exception. Try with another song.");
             }
 
         }
@@ -285,8 +287,24 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         /*
             Start playing the track and showing the artist images.
+
+            Surround with try-catch because it will sometimes fail even if the URL
+            object is not null.
          */
-        MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
+
+        try{
+            //try to play the track.
+            MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
+        }catch(Exception e){
+
+            System.out.println("Caught URL is Malformed exception! start new question");
+
+            //the tracks couldn't be played.
+            //we can't proceed with this question.
+            //start a new question
+            this.startNewQuestion();
+        }
+
         this.startPopulatingArtistImages();
 
         /*
@@ -539,7 +557,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
         populateArtistImage(rightArtist, imageViews.get(0));
         aiv0=new ArtistImageView(rightArtist.id,imageViews.get(0));
 
-        this.correctImageView=imageViews.get(0);
 
         populateArtistImage(wrongArtist1,imageViews.get(1));
         aiv1=new ArtistImageView(wrongArtist1.id,imageViews.get(1));
