@@ -225,13 +225,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
-    private void refreshObservablePlayerLists(){
 
-
-        for(int i=0; i<playersInGame.size();i++){
-            scoreObsList.set(i,playersInGame.get(i).getScore());
-        }
-    }
 
     @Override
     public void notifyOfThreadComplete(final NotifyingThread thread){
@@ -365,6 +359,21 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
 
     }
+
+     /*
+        Refreshes observable lists so that the player and score table refreshes.
+        Should run on the UI thread.
+     */
+
+    private void refreshObservablePlayerLists(){
+
+
+        for(int i=0; i<playersInGame.size();i++){
+            scoreObsList.set(i,playersInGame.get(i).getScore());
+        }
+    }
+
+
 
     private void startPopulatingArtistImages(){
 

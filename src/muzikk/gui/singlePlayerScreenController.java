@@ -78,9 +78,9 @@ public class singlePlayerScreenController implements Initializable {
 
     }
     public void goTogame(){
-        if (nameTextField.getText().toLowerCase() == "ingemar"){
+        /*if (nameTextField.getText().toLowerCase() == "ingemar"){
             MuzikkGlobalInfo.setIngoMode(true);
-        }
+        }*/
         Player player = new Player(nameTextField.getText(), key);
         MuzikkGlobalInfo.setNumberOfQuestions(numberOfQuestionsChoiceBox.getSelectionModel().getSelectedItem().intValue());
         String genreKey=playListListView.getSelectionModel().getSelectedItem();
@@ -88,11 +88,20 @@ public class singlePlayerScreenController implements Initializable {
 
         Object playlistWaiter=new Object();
 
+
         /*
             LOGGED IN - use the playlist user chose
          */
         if (MuzikkGlobalInfo.isLoggedIn()){ //Set chosen playlist if the user is logged in
-            MuzikkGlobalInfo.setChosenPlaylist(playLists.get(playListListView.focusModelProperty().get().getFocusedIndex()));
+            int a=playListListView.focusModelProperty().get().getFocusedIndex();
+            System.out.println("AA: "+a);
+            PlaylistSimple pls=playLists.get(a);
+            System.out.println("PLS: "+pls.name);
+            MuzikkGlobalInfo.setChosenPlaylist(pls);
+
+            synchronized (playlistWaiter){
+                playlistWaiter.notify();
+            }
         }
         /*
             NOT LOGGED IN - make a playlist from genre user picked
@@ -149,13 +158,18 @@ public class singlePlayerScreenController implements Initializable {
 
         }
 
-        synchronized (playlistWaiter){
-            try{
-                playlistWaiter.wait();
-            }catch (Exception e){
-                e.printStackTrace();
+
+        if(MuzikkGlobalInfo.isLoggedIn()==false){
+            synchronized (playlistWaiter){
+                try{
+                    playlistWaiter.wait();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
+
         }
+
 
 
         gameController controller = SceneLoader.gameLoader.getController(); //create the game controller
