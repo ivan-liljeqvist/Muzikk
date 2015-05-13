@@ -42,8 +42,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
     //the parent stage
     private Stage prevStage;
 
-    private ArrayList<Player> players;
-
 
     /**
      * List with tracks from the playlists that is chosen for this game.
@@ -57,7 +55,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
      */
     private Track currentlyPlayingTrack;
 
-    private ImageView correctImageView;
     private Timer countdown_timer;
 
     /**
@@ -87,7 +84,9 @@ public class gameController implements Initializable, ThreadCompleteListener {
     @FXML
     private ListView scoreListView;
     @FXML
-    private Pane pane;
+    private AnchorPane pane;
+    @FXML
+    private Label questionNumberLabel;
 
     /**
      * Artist view containers containing the ImageView and artist Id.
@@ -129,7 +128,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
         randomGenerator=new Random();
         currentlyPlayingTrack=new Track();
 
-        correctImageView=null;
 
         /*
             Connect the image views with click listeners
@@ -155,7 +153,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
                 /*
                     Check if the button pressed matches any action button
                  */
-                for (Player p : players) {
+                for (Player p : playersInGame) {
                     if (ke.getCode().toString().toUpperCase().equals(p.getActionButton().toUpperCase())) {
                         System.out.println(p.getName()+" PRESSEDAD!!");
                         //action button detected!
@@ -178,9 +176,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
      * @param playerList List of players
      */
     public void initData(ArrayList<Player> playerList){
-        this.players = playerList;
-
-
         this.onShowWindow();
 
         this.playersInGame=playerList;
@@ -282,7 +277,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
             try{
                 url=new URL(currentlyPlayingTrack.preview_url);
             }catch(Exception e){
-                e.printStackTrace();
+                System.out.println("Caught URL == null exception. Try with another song.");
             }
 
         }
@@ -292,8 +287,24 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         /*
             Start playing the track and showing the artist images.
+
+            Surround with try-catch because it will sometimes fail even if the URL
+            object is not null.
          */
-        MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
+
+        try{
+            //try to play the track.
+            MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
+        }catch(Exception e){
+
+            System.out.println("Caught URL is Malformed exception! start new question");
+
+            //the tracks couldn't be played.
+            //we can't proceed with this question.
+            //start a new question
+            this.startNewQuestion();
+        }
+
         this.startPopulatingArtistImages();
 
         /*
@@ -546,7 +557,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
         populateArtistImage(rightArtist, imageViews.get(0));
         aiv0=new ArtistImageView(rightArtist.id,imageViews.get(0));
 
-        this.correctImageView=imageViews.get(0);
 
         populateArtistImage(wrongArtist1,imageViews.get(1));
         aiv1=new ArtistImageView(wrongArtist1.id,imageViews.get(1));
@@ -660,7 +670,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
                             @Override
                             public void doRun() {
-                                
+
                                 //download the image.
                                 Image artistImage=new Image(artistReturned.images.get(0).url);
 
