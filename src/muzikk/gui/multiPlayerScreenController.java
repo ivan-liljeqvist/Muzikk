@@ -206,6 +206,8 @@ public class multiPlayerScreenController implements Initializable {
      * Initializes data for the this scene. Gets playlists from SpotifyAPI.
      */
     public void initData() {
+        prevStage.setMinWidth(841);
+        prevStage.setMinHeight(496);
         if (MuzikkGlobalInfo.isLoggedIn()) {
             for (PlaylistSimple pl : MuzikkGlobalInfo.SpotifyAPI.getAllPlaylists()) {
                 playLists.add(pl);

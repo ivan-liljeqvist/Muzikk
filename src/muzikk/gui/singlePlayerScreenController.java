@@ -173,8 +173,8 @@ public class singlePlayerScreenController implements Initializable {
 
 
         gameController controller = SceneLoader.gameLoader.getController(); //create the game controller
-        controller.initData(player); //Initializes scene data
         controller.setPrevStage(prevStage);
+        controller.initData(player); //Initializes scene data
         prevStage.setScene(new Scene(SceneLoader.gamePane));
 
     }
@@ -184,6 +184,8 @@ public class singlePlayerScreenController implements Initializable {
      */
 
     public void initData() {
+        prevStage.setMinWidth(841);
+        prevStage.setMinHeight(496);
         if (MuzikkGlobalInfo.isLoggedIn()) {
 
             for (PlaylistSimple pl : MuzikkGlobalInfo.SpotifyAPI.getAllPlaylists()) {

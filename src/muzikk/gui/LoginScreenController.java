@@ -60,14 +60,17 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
     private void goToModeSelection(){
         ModeSelectionController controller = SceneLoader.modeSelectionLoader.getController();
         controller.setPrevStage(prevStage);
+        controller.initData();
         prevStage.setScene(new Scene(SceneLoader.modeSelectionPane));
     }
     private void loginSpotify(){
         MuzikkAccessFetcher.initiateLogin();
         NotifyingThread thread = MuzikkAccessFetcher.keepPingingServerUntilUserLoggedIn();
         thread.addListener(this);
-
-
+    }
+    public void initData(){
+        prevStage.setMinWidth(380);
+        prevStage.setMinHeight(496);
     }
 
 }

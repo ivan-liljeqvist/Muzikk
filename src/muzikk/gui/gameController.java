@@ -84,7 +84,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
     @FXML
     private ListView scoreListView;
     @FXML
-    private AnchorPane pane;
+    private Pane pane;
     @FXML
     private Label questionNumberLabel;
 
@@ -121,6 +121,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         Label label = new Label("hej");
         label.setLayoutX(100);
         label.setLayoutY(200);
@@ -323,6 +324,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
      */
 
     private void onShowWindow(){
+        prevStage.setMinWidth(841);
+        prevStage.setMinHeight(496);
 
         /*
            Create a list of playlists used in the game.

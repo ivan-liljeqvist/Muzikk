@@ -6,28 +6,28 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane styleClass="whitePane" stylesheets="@style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.singlePlayerScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.singlePlayerScreenController">
    <children>
-      <Label text="SinglePlayer">
+      <Label text="SinglePlayer" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="72.0" />
          </font>
       </Label>
-      <Button fx:id="startGameButton" layoutX="637.0" layoutY="340.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game" />
-      <ToggleButton fx:id="setKeyToggleButton" layoutX="637.0" layoutY="248.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Press to set key" />
-      <TextField fx:id="nameTextField" layoutX="635.0" layoutY="208.0" prefHeight="22.0" prefWidth="160.0" promptText="Namn" />
+      <Button fx:id="startGameButton" layoutX="637.0" layoutY="340.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="637.0" AnchorPane.rightAnchor="44.0" />
+      <ToggleButton fx:id="setKeyToggleButton" layoutX="637.0" layoutY="248.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Press to set key" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="637.0" AnchorPane.rightAnchor="44.0" />
+      <TextField fx:id="nameTextField" layoutX="635.0" layoutY="208.0" prefHeight="22.0" prefWidth="160.0" promptText="Namn" AnchorPane.bottomAnchor="266.0" AnchorPane.leftAnchor="635.0" AnchorPane.rightAnchor="46.0" />
       <TextField fx:id="keyTextField" editable="false" layoutX="678.0" layoutY="453.0" opacity="0.0" />
-      <ListView fx:id="playListListView" layoutX="71.0" layoutY="208.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label fx:id="playListLabel" layoutX="71.0" layoutY="172.0" prefHeight="32.0" prefWidth="200.0" text="Välj en spellista">
+      <ListView fx:id="playListListView" layoutX="71.0" layoutY="208.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="71.0" AnchorPane.topAnchor="208.0" />
+      <Label fx:id="playListLabel" layoutX="71.0" layoutY="172.0" prefHeight="32.0" prefWidth="200.0" text="Välj en spellista" AnchorPane.leftAnchor="71.0">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="numberOfQuestionsChoiceBox" layoutX="310.0" layoutY="208.0" prefWidth="150.0" />
-      <Label fx:id="numberOfQuestionsLabel" layoutX="310.0" layoutY="166.0" prefHeight="32.0" prefWidth="200.0" text="Antal frågor">
+      <ChoiceBox fx:id="numberOfQuestionsChoiceBox" layoutX="310.0" layoutY="208.0" prefWidth="150.0" AnchorPane.leftAnchor="310.0" />
+      <Label fx:id="numberOfQuestionsLabel" layoutX="310.0" layoutY="166.0" prefHeight="32.0" prefWidth="200.0" text="Antal frågor" AnchorPane.leftAnchor="310.0">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
    </children>
-</Pane>
+</AnchorPane>

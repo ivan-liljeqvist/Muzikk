@@ -20,6 +20,7 @@ public class Main extends Application {
 
         LoginScreenController controller = (LoginScreenController) SceneLoader.loginScreenLoader.getController();
         controller.setPrevStage(primaryStage);
+        controller.initData();
         primaryStage.setScene(new Scene(SceneLoader.loginScreenPane));
         primaryStage.show();
 
