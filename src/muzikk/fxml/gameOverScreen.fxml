@@ -7,24 +7,24 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.gameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.gameController">
     <children>
-        <Label fx:id="titleLabel" alignment="CENTER" layoutX="176.0" layoutY="44.0" prefHeight="57.0" prefWidth="489.0" text="Game over">
+        <Label fx:id="titleLabel" alignment="CENTER" layoutX="176.0" layoutY="44.0" prefHeight="57.0" prefWidth="489.0" text="Game over" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="176.0" AnchorPane.topAnchor="44.0">
             <font>
-                <Font size="45.0" />
+                <Font name="BigNoodleTitling" size="75.0" />
             </font>
         </Label>
-      <ListView fx:id="highScoreNamesListView" layoutX="305.0" layoutY="148.0" prefHeight="200.0" prefWidth="116.0" />
-      <ListView fx:id="highScorePointsListView" layoutX="421.0" layoutY="148.0" prefHeight="200.0" prefWidth="116.0" />
-      <Button fx:id="backToMainMenuButton" layoutX="231.0" layoutY="398.0" mnemonicParsing="false" text="Back to main menu">
+      <ListView fx:id="highScoreNamesListView" layoutX="305.0" layoutY="148.0" prefHeight="200.0" prefWidth="116.0" AnchorPane.bottomAnchor="148.0" AnchorPane.leftAnchor="305.0" AnchorPane.rightAnchor="420.0" AnchorPane.topAnchor="148.0" />
+      <ListView fx:id="highScorePointsListView" layoutX="421.0" layoutY="148.0" prefHeight="200.0" prefWidth="116.0" AnchorPane.bottomAnchor="148.0" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="305.0" AnchorPane.topAnchor="148.0" />
+      <Button fx:id="backToMainMenuButton" layoutX="472.0" layoutY="398.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Main menu" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="472.0" AnchorPane.rightAnchor="229.0">
          <font>
-            <Font size="15.0" />
+            <Font name="Generica" size="23.0" />
          </font>
       </Button>
-      <Button fx:id="playAgainButton" layoutX="493.0" layoutY="398.0" mnemonicParsing="false" text="Play again">
+      <Button fx:id="playAgainButton" layoutX="232.0" layoutY="398.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Play again" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="232.0" AnchorPane.rightAnchor="469.0">
          <font>
-            <Font size="15.0" />
+            <Font name="Generica" size="23.0" />
          </font>
       </Button>
     </children>
-</Pane>
+</AnchorPane>

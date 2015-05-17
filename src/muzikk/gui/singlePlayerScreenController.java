@@ -184,6 +184,7 @@ public class singlePlayerScreenController implements Initializable {
      */
 
     public void initData() {
+        prevStage.setFullScreen(true);
         prevStage.setMinWidth(841);
         prevStage.setMinHeight(496);
         if (MuzikkGlobalInfo.isLoggedIn()) {

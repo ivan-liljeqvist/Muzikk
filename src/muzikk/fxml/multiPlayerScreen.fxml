@@ -6,28 +6,37 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane styleClass="whitePane" stylesheets="@style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.multiPlayerScreenController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.multiPlayerScreenController">
    <children>
       <Label text="MultiPlayer">
          <font>
-            <Font size="72.0" />
+            <Font name="BigNoodleTitling" size="89.0" />
          </font>
       </Label>
-      <Button fx:id="startGameButton" layoutX="588.0" layoutY="360.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game" />
-      <ToggleButton fx:id="setKeyToggleButton" layoutX="361.0" layoutY="248.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="136.0" text="Press to set key" />
+      <Button fx:id="startGameButton" layoutX="588.0" layoutY="360.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game">
+         <font>
+            <Font name="Generica" size="16.0" />
+         </font></Button>
+      <ToggleButton fx:id="setKeyToggleButton" layoutX="361.0" layoutY="248.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="136.0" text="Press to set key">
+         <font>
+            <Font name="Generica" size="16.0" />
+         </font></ToggleButton>
       <TextField fx:id="nameTextField" layoutX="363.0" layoutY="194.0" promptText="Name" />
       <TextField fx:id="keyTextField" editable="false" layoutX="678.0" layoutY="453.0" opacity="0.0" />
-      <Label layoutX="377.0" layoutY="136.0" text="Add a player">
+      <Label layoutX="364.0" layoutY="152.0" text="Add a player">
          <font>
-            <Font size="19.0" />
+            <Font name="Garuda Bold" size="21.0" />
          </font>
       </Label>
       <Label layoutX="633.0" layoutY="46.0" text="Players">
          <font>
-            <Font size="19.0" />
+            <Font name="Garuda Bold" size="21.0" />
          </font>
       </Label>
-      <Button fx:id="addPlayerButton" layoutX="361.0" layoutY="317.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="136.0" text="Add player" />
+      <Button fx:id="addPlayerButton" layoutX="361.0" layoutY="317.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="136.0" text="Add player">
+         <font>
+            <Font name="Generica" size="16.0" />
+         </font></Button>
       <ListView fx:id="playerListView" layoutX="563.0" layoutY="105.0" prefHeight="200.0" prefWidth="105.0" />
       <ListView fx:id="keyListView" layoutX="668.0" layoutY="105.0" prefHeight="200.0" prefWidth="105.0" />
       <Label layoutX="598.0" layoutY="82.0" text="Name" textFill="#00000083">
@@ -41,14 +50,14 @@
          </font>
       </Label>
       <ListView fx:id="playListListView" layoutX="73.0" layoutY="172.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label fx:id="playListLabel" layoutX="71.0" layoutY="132.0" text="Choose a playlist">
+      <Label fx:id="playListLabel" layoutX="71.0" layoutY="132.0" prefHeight="30.0" prefWidth="200.0" text="Choose a playlist">
          <font>
-            <Font size="25.0" />
+            <Font name="Garuda Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="numberOfQuestionsLabel" layoutX="71.0" layoutY="382.0" text="Number of questions">
+      <Label fx:id="numberOfQuestionsLabel" layoutX="75.0" layoutY="373.0" prefHeight="36.0" prefWidth="192.0" text="Number of questions">
          <font>
-            <Font size="18.0" />
+            <Font name="Garuda Bold" size="21.0" />
          </font>
       </Label>
       <ChoiceBox fx:id="numberOfQuestionsChoiceBox" layoutX="73.0" layoutY="405.0" prefHeight="22.0" prefWidth="200.0" />

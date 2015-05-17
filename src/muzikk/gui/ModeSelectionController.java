@@ -39,8 +39,11 @@ public class ModeSelectionController implements Initializable {
     private void goToSinglePlayer(){
         singlePlayerScreenController controller = SceneLoader.spLoader.getController();
         controller.setPrevStage(prevStage);
-        controller.initData();
+        prevStage.hide();
         prevStage.setScene(new Scene(SceneLoader.spPane));
+        controller.initData();
+        prevStage.show();
+
 
     }
     private void goToMultiPlayer(){
@@ -52,6 +55,7 @@ public class ModeSelectionController implements Initializable {
     public void initData(){
         prevStage.setMinHeight(496);
         prevStage.setMinWidth(841);
+        prevStage.setFullScreen(true);
 
     }
 

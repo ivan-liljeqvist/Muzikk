@@ -10,18 +10,18 @@
 
 <AnchorPane fx:id="pane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="496.0" minWidth="841.0" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@../assets/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.gameController">
     <children>
-      <Label fx:id="questionLabel" alignment="CENTER" layoutX="53.0" layoutY="21.0" prefHeight="57.0" prefWidth="489.0" text="Pick the correct artist" AnchorPane.leftAnchor="53.0" AnchorPane.topAnchor="21.0">
+      <Label fx:id="questionLabel" alignment="CENTER" layoutX="33.0" layoutY="21.0" prefHeight="57.0" prefWidth="489.0" text="Pick the correct artist" AnchorPane.leftAnchor="33.0" AnchorPane.topAnchor="21.0">
          <font>
-            <Font size="45.0" />
+            <Font name="BigNoodleTitling" size="63.0" />
          </font>
       </Label>
       <ListView fx:id="nameListView" focusTraversable="false" layoutX="599.0" layoutY="14.0" prefHeight="200.0" prefWidth="97.0" AnchorPane.rightAnchor="145.0" AnchorPane.topAnchor="14.0" />
       <ListView fx:id="scoreListView" focusTraversable="false" layoutX="696.0" layoutY="14.0" prefHeight="200.0" prefWidth="97.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="14.0" />
       <ProgressBar fx:id="progressBar" layoutY="474.0" prefHeight="17.0" prefWidth="841.0" progress="1.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <ListView layoutX="8120.0" layoutY="14.0" prefHeight="200.0" prefWidth="17.0" />
-      <Label fx:id="questionNumberLabel" layoutX="52.0" layoutY="81.0" prefHeight="57.0" prefWidth="489.0" text="Question">
+      <Label fx:id="questionNumberLabel" layoutX="52.0" layoutY="81.0" prefHeight="57.0" prefWidth="489.0" text="Question" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="80.0">
          <font>
-            <Font size="30.0" />
+            <Font name="Cabin-Regular" size="30.0" />
          </font>
       </Label>
       <HBox alignment="CENTER" layoutY="271.0" prefHeight="175.0" prefWidth="841.0" spacing="20.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
