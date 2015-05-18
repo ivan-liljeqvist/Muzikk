@@ -5,13 +5,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import muzikk.backend.MuzikkAccessFetcher;
 import muzikk.MuzikkGlobalInfo;
 import muzikk.backend.NotifyingThread;
 import muzikk.backend.ThreadCompleteListener;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,7 +30,8 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
     @FXML
     private Button noLoginButton;
     @FXML
-    //private ImageView i;
+    private Label titleLabel;
+
     public void setPrevStage(Stage stage){
         this.prevStage = stage;
     }
@@ -34,6 +40,10 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
     public void initialize(URL url, ResourceBundle rb) {
         spotifyLoginImageView.setOnMouseClicked((event) -> loginSpotify()); //start the game
         noLoginButton.setOnAction(event -> goToModeSelection());
+
+        //Font.loadFont(LoginScreenController.class.getResource("../gui/HACKED:TTF").toExternalForm(), 80);
+        //titleLabel.setStyle("-fx-font-family: HACKED");
+
     }
     @Override
     public void notifyOfThreadComplete(final NotifyingThread<String> thread){
@@ -74,6 +84,7 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
     public void initData(){
         prevStage.setMinWidth(380);
         prevStage.setMinHeight(496);
+
     }
 
 }

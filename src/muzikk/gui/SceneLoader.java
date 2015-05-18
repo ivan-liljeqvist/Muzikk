@@ -26,6 +26,7 @@ public class SceneLoader {
     }
 
     public static void initializeScene() throws IOException{
+
         modeSelectionLoader = new FXMLLoader(ModeSelectionController.class.getResource("../fxml/modeSelection.fxml"));
         modeSelectionPane = modeSelectionLoader.load();
 

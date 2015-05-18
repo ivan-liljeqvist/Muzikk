@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'big_noodle_titling.ttf';
+    src: url('../fonts/big_noodle_titling.ttf');
+}
 .buttonSpot {
     -fx-background-color:
     -fx-shadow-highlight-color,
@@ -15,3 +19,8 @@
 .artistImage{
 
 }
+.titleLabel {
+
+    /*-fx-font: 80px HACKED;*/
+}
+

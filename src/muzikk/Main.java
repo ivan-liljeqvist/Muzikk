@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import muzikk.gui.LoginScreenController;
 import muzikk.gui.SceneLoader;
@@ -17,6 +18,7 @@ public class Main extends Application {
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         SceneLoader.initializeScene();
         primaryStage.setTitle("main");
+
 
         LoginScreenController controller = (LoginScreenController) SceneLoader.loginScreenLoader.getController();
         controller.setPrevStage(primaryStage);
