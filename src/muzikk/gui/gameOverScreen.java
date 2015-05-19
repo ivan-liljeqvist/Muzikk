@@ -59,7 +59,7 @@ public class gameOverScreen implements Initializable {
      * Will initialize the players once again if there are multiple players
      * @param players list of players
      */
-    public void initData(ArrayList<Player> players){
+    public void initData(List<Player> players){
         for (Player p :players){
             playerList.add(p);
             scoreList.add(p.getScore());
@@ -90,13 +90,10 @@ public class gameOverScreen implements Initializable {
      * Restarts the game, same players, same keys, same playlist.
      */
     public void goTogame(){
-        gameController controller = SceneLoader.gameLoader.getController(); //create the game controller
-        controller.setPrevStage(prevStage);
-        if (playerList.size() == 1)
-            controller.initData(playerList.get(0)); //Initializes scene data for singleplayer
-        else if (playerList.size() > 1)
-            controller.initData(playerList); //Initilizes scene data for multiplayer
-        prevStage.setScene(new Scene(SceneLoader.gamePane));
+
+
+        prevStage.setScene(SceneLoader.gameScene);
+
 
     }
 
@@ -105,6 +102,14 @@ public class gameOverScreen implements Initializable {
      */
     private void quit(){
         prevStage.setOnCloseRequest(e -> Platform.exit());
+    }
+
+    /**
+     * Sets previous stage.
+     * @param stage - the stage to set as previous.
+     */
+    public void setPrevStage(Stage stage){
+        this.prevStage = stage;
     }
 
 }

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -62,14 +63,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
      * Controllers defined in the fxml file.
      */
 
-    @FXML
-    private ImageView artistImage0;
-    @FXML
-    private ImageView artistImage1;
-    @FXML
-    private ImageView artistImage2;
-    @FXML
-    private ImageView artistImage3;
     @FXML
     private ProgressBar progressBar;
     @FXML
@@ -208,7 +201,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
             scoreObsList.add(p.getScore());
         }
 
-
+        number_of_answered_questions=0;
     }
 
     /**
@@ -226,6 +219,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
          */
         playerObsList.add(player.getName());
         scoreObsList.add(player.getScore());
+
+        number_of_answered_questions=0;
 
     }
 
@@ -448,7 +443,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
                                         }
                                         //start new question
                                         startNewQuestion();
-                                        number_of_answered_questions++;
+                                        questionComplete();
 
                                     }
                                 }
@@ -520,7 +515,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
             //UPDATE THE UI TABLE
             this.refreshObservablePlayerLists();
 
-            number_of_answered_questions++;
+            questionComplete();
         }else{
             System.out.println("WRONG");
             answeringPlayer.decreaseScore();
@@ -529,7 +524,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
             //UPDATE UI TABLE
             this.refreshObservablePlayerLists();
 
-            number_of_answered_questions++;
+            questionComplete();
+
         }
     }
 
@@ -718,7 +714,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
                             @Override
                             public void doRun() {
 
-                                //download the image.
+                                //download the image. HÄR ÄR FEL IBLAND!!
                                 Image artistImage=new Image(artistReturned.images.get(0).url);
 
                                 //go to UI thread and update the image
@@ -764,6 +760,34 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
 
 
+    }
+
+    /**
+     * Increases the number of answered questions and goes to game over screen
+     * if the number of answered questions exceeds the number of questions set for this game.
+     */
+
+    private void questionComplete(){
+        number_of_answered_questions++;
+
+        if(number_of_answered_questions+1>MuzikkGlobalInfo.getNumberOfQuestions()){
+            goToGameOver();
+        }
+    }
+
+    private void goToGameOver(){
+        gameOverScreen controller = SceneLoader.gameOverLoader.getController(); //create the game controller
+        controller.setPrevStage(prevStage);
+
+        if(playersInGame.size()==1){
+            controller.initData(playersInGame.get(0));
+        }
+        else{
+            controller.initData(playersInGame);
+        }
+
+
+        prevStage.setScene(new Scene(SceneLoader.gameOverPane));
     }
 
     /**
