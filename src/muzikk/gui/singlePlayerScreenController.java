@@ -78,7 +78,7 @@ public class singlePlayerScreenController implements Initializable {
 
     }
     public void goTogame(){
-        if (nameTextField.getText().toLowerCase() == "ingemar"){
+        if (nameTextField.getText().toLowerCase().equals("ingemar")){
             MuzikkGlobalInfo.setIngoMode(true);
         }
         Player player = new Player(nameTextField.getText(), key);
@@ -170,12 +170,25 @@ public class singlePlayerScreenController implements Initializable {
 
         }
 
+        gameController controller;
+        if (MuzikkGlobalInfo.getIngoMode()){
+            controller = SceneLoader.ingoGameLoader.getController();
+            System.out.println("ingemar");
+        }
+        else{
+            controller = SceneLoader.gameLoader.getController();
+        }
 
-
-        gameController controller = SceneLoader.gameLoader.getController(); //create the game controller
         controller.setPrevStage(prevStage);
         controller.initData(player); //Initializes scene data
-        prevStage.setScene(new Scene(SceneLoader.gamePane));
+        if (MuzikkGlobalInfo.getIngoMode()){
+            prevStage.setScene(new Scene(SceneLoader.ingoGamePane));
+            System.out.println("ingemar");
+
+        }
+        else{
+            prevStage.setScene(new Scene(SceneLoader.gamePane));
+        }
 
     }
 

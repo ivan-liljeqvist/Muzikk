@@ -181,7 +181,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
                         //reset progress bar to 1 - it will quickly go down from one.
                         progressBar.setProgress(1.0);
 
-                        personWhoAnsweredLabel.setText(answeringPlayer.getName()+" pressed!");
+                        personWhoAnsweredLabel.setText(answeringPlayer.getName() + " pressed!");
                     }
                 }
             }
