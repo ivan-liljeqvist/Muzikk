@@ -15,11 +15,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         SceneLoader.initializeScene();
-        primaryStage.setTitle("main");
-
-        //Font.loadFont(Main.class.getResource("fonts/HACKED.ttf").toExternalForm(), 80);
+        primaryStage.setTitle("MUZIKK");
 
         LoginScreenController controller = (LoginScreenController) SceneLoader.loginScreenLoader.getController();
         controller.setPrevStage(primaryStage);

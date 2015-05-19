@@ -179,7 +179,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
      */
     public void initData(ArrayList<Player> playerList){
         this.onShowWindow();
-
         this.playersInGame=playerList;
 
         /*

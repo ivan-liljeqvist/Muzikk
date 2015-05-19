@@ -1,17 +1,28 @@
 package muzikk.gui;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import kaaes.spotify.webapi.android.models.Playlist;
+import kaaes.spotify.webapi.android.models.PlaylistSimple;
+import kaaes.spotify.webapi.android.models.PlaylistTracksInformation;
 import muzikk.MuzikkGlobalInfo;
 import muzikk.Player;
+import muzikk.backend.NotifyingThread;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -19,6 +30,7 @@ import java.util.ResourceBundle;
  */
 public class gameOverScreen implements Initializable {
 
+    private Stage prevStage;
     private ObservableList<String> nameList = FXCollections.observableArrayList();
     private ObservableList<Integer> scoreList = FXCollections.observableArrayList();
     private ArrayList<Player> playerList = new ArrayList<Player>(10);
@@ -30,18 +42,69 @@ public class gameOverScreen implements Initializable {
     private Button backToMainMenuButton;
     @FXML
     private Button playAgainButton;
+    @FXML
+    private Button quitButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-
-        for (Player p : MuzikkGlobalInfo.getPlayers()){
-            nameList.add(p.getName());
-            scoreList.add(p.getScore());
-        }
         highScoreNamesListView.setItems(nameList);
         highScorePointsListView.setItems(scoreList);
-        //backToMainMenuButton.setOnAction(event -> backtoMainMenu());
-        //playAgainButton.setOnAction(event -> playAgain());
+        backToMainMenuButton.setOnAction(event -> backtoModeSelection());
+        playAgainButton.setOnAction(event -> goTogame());
+        quitButton.setOnAction(event -> quit());
+
     }
+
+    /**
+     * Will initialize the players once again if there are multiple players
+     * @param players list of players
+     */
+    public void initData(ArrayList<Player> players){
+        for (Player p :players){
+            playerList.add(p);
+            scoreList.add(p.getScore());
+        }
+    }
+
+    /**
+     * Will initialize the player once again if there are just one player
+     * @param player the player
+     */
+    public void initData(Player player){
+        playerList.add(player);
+        scoreList.add(player.getScore());
+
+    }
+
+    /**
+     * Takes the user back to the mode selection
+     */
+    public void backtoModeSelection(){
+        ModeSelectionController controller = SceneLoader.modeSelectionLoader.getController();
+        controller.setPrevStage(prevStage);
+        prevStage.setScene(new Scene(SceneLoader.modeSelectionPane));
+        controller.initData();
+    }
+
+    /**
+     * Restarts the game, same players, same keys, same playlist.
+     */
+    public void goTogame(){
+        gameController controller = SceneLoader.gameLoader.getController(); //create the game controller
+        controller.setPrevStage(prevStage);
+        if (playerList.size() == 1)
+            controller.initData(playerList.get(0)); //Initializes scene data for singleplayer
+        else if (playerList.size() > 1)
+            controller.initData(playerList); //Initilizes scene data for multiplayer
+        prevStage.setScene(new Scene(SceneLoader.gamePane));
+
+    }
+
+    /**
+     * Exits the game
+     */
+    private void quit(){
+        prevStage.setOnCloseRequest(e -> Platform.exit());
+    }
+
 }
