@@ -2,21 +2,21 @@ package muzikk.gui;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.layout.VBox;
 
 
 /**
  * Created by IvanLiljeqvist on 12/05/15.
  */
-public class ArtistImageView {
+public class ArtistBoxView {
 
-    private ImageView iv;
+    private VBox box;
     private String artistId;
     private Label artistLabel;
 
-    public ArtistImageView(String artistId,ImageView iv){
+    public ArtistBoxView(String artistId, VBox box){
         this.artistId=artistId;
-        this.iv=iv;
+        this.box=box;
        // this.artistLabel=artistLabel;
     }
 
@@ -29,12 +29,12 @@ public class ArtistImageView {
     }
 
 
-    public void setIv(ImageView iv){
-        this.iv=iv;
+    public void setBox(VBox box){
+        this.box=box;
     }
 
-    public ImageView getIv(){
-        return iv;
+    public VBox getBox(){
+        return box;
     }
 
     public void setArtistId(String id){
