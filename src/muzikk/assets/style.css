@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'big_noodle_titling.ttf';
-    src: url('../fonts/big_noodle_titling.ttf');
+    font-family: 'HACKED';
+    src: url('../fonts/HACKED.ttf');
 }
 .buttonSpot {
     -fx-background-color:
@@ -21,6 +21,7 @@
 }
 .titleLabel {
 
-    /*-fx-font: 80px HACKED;*/
+    -fx-font-family: HACKED;
+    -fx-font-size:80px;
 }
 
