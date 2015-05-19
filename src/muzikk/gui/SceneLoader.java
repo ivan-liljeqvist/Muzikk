@@ -1,6 +1,7 @@
 package muzikk.gui;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -15,10 +16,15 @@ public class SceneLoader {
     public static FXMLLoader mpLoader;
     public static FXMLLoader gameLoader;
     public static FXMLLoader loginScreenLoader;
+    public static FXMLLoader gameOverLoader;
     public static Pane spPane;
     public static Pane mpPane;
     public static Pane gamePane;
     public static Pane loginScreenPane;
+    public static Pane gameOverPane;
+
+    public static Scene gameScene;
+
 
 
     public SceneLoader(){
@@ -38,8 +44,14 @@ public class SceneLoader {
 
         gameLoader = new FXMLLoader(gameController.class.getResource("../fxml/gameScreen.fxml"));
         gamePane = gameLoader.load();
+        gameScene=new Scene(gamePane);
 
         loginScreenLoader = new FXMLLoader(gameController.class.getResource("../fxml/loginScreen.fxml"));
         loginScreenPane = loginScreenLoader.load();
+
+        gameOverLoader = new FXMLLoader(gameOverScreen.class.getResource("../fxml/gameOverScreen.fxml"));
+        gameOverPane = gameOverLoader.load();
     }
+
+
 }

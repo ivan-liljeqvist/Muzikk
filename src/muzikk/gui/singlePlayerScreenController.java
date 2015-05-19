@@ -175,7 +175,7 @@ public class singlePlayerScreenController implements Initializable {
         gameController controller = SceneLoader.gameLoader.getController(); //create the game controller
         controller.setPrevStage(prevStage);
         controller.initData(player); //Initializes scene data
-        prevStage.setScene(new Scene(SceneLoader.gamePane));
+        prevStage.setScene(SceneLoader.gameScene);
 
     }
 
