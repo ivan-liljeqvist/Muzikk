@@ -92,7 +92,7 @@ public class gameOverScreen implements Initializable {
     public void goTogame(){
 
 
-        prevStage.setScene(SceneLoader.gameScene);
+        //prevStage.setScene(SceneLoader.gameScene);
 
 
     }

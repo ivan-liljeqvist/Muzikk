@@ -12,10 +12,14 @@ public class SceneLoader {
     public static FXMLLoader modeSelectionLoader;
     public static Pane modeSelectionPane;
     public static FXMLLoader spLoader;
+    public static FXMLLoader ingoGameLoader;
+    public static FXMLLoader gameOverLoader;
     public static FXMLLoader mpLoader;
     public static FXMLLoader gameLoader;
     public static FXMLLoader loginScreenLoader;
     public static Pane spPane;
+    public static Pane gameOverPane;
+    public static Pane ingoGamePane;
     public static Pane mpPane;
     public static Pane gamePane;
     public static Pane loginScreenPane;
@@ -41,5 +45,11 @@ public class SceneLoader {
 
         loginScreenLoader = new FXMLLoader(gameController.class.getResource("../fxml/loginScreen.fxml"));
         loginScreenPane = loginScreenLoader.load();
+
+        ingoGameLoader = new FXMLLoader(gameController.class.getResource("../fxml/ingoGameScreen.fxml"));
+        ingoGamePane = ingoGameLoader.load();
+
+        gameOverLoader = new FXMLLoader(gameOverScreen.class.getResource("../fxml/gameOverScreen.fxml"));
+        gameOverPane = gameOverLoader.load();
     }
 }
