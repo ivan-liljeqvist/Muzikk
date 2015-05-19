@@ -10,8 +10,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import kaaes.spotify.webapi.android.models.Artist;
@@ -88,17 +88,28 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private Pane pane;
     @FXML
     private Label questionNumberLabel;
+    @FXML
+    private Label personWhoAnsweredLabel;
+    @FXML
+    private VBox artistBox0;
+    @FXML
+    private VBox artistBox1;
+    @FXML
+    private VBox artistBox2;
+    @FXML
+    private VBox artistBox3;
+
 
     /**
      * Artist view containers containing the ImageView and artist Id.
      * Used to decide if the ImageView clicked is the correct one.
      */
-    private ArtistImageView aiv0;
-    private ArtistImageView aiv1;
-    private ArtistImageView aiv2;
-    private ArtistImageView aiv3;
+    private ArtistBoxView abv0;
+    private ArtistBoxView abv1;
+    private ArtistBoxView abv2;
+    private ArtistBoxView abv3;
 
-    private List<ImageView> imageViews;
+    private List<VBox> artistBoxViews;
 
     /**
      * Lists for populating the table with the scores and the players.
@@ -115,6 +126,12 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private Player answeringPlayer;
 
     private List<Player> playersInGame;
+
+    /**
+     * The number of questions the player has answered.
+     */
+
+    private int number_of_answered_questions=0;
 
     /**
      * Initialize the controller.
@@ -134,10 +151,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
         /*
             Connect the image views with click listeners
          */
-        artistImage0.setOnMouseClicked((event) -> artistViewClicked(artistImage0));
-        artistImage1.setOnMouseClicked((event) -> artistViewClicked(artistImage1));
-        artistImage2.setOnMouseClicked((event) -> artistViewClicked(artistImage2));
-        artistImage3.setOnMouseClicked((event) -> artistViewClicked(artistImage3));
+        artistBox0.setOnMouseClicked((event) -> artistBoxClicked(artistBox0));
+        artistBox1.setOnMouseClicked((event) -> artistBoxClicked(artistBox1));
+        artistBox2.setOnMouseClicked((event) -> artistBoxClicked(artistBox2));
+        artistBox3.setOnMouseClicked((event) -> artistBoxClicked(artistBox3));
 
         countdown_timer=new Timer();
 
@@ -163,6 +180,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
                         answeringPlayer=p;
                         //reset progress bar to 1 - it will quickly go down from one.
                         progressBar.setProgress(1.0);
+
+                        personWhoAnsweredLabel.setText(answeringPlayer.getName()+" pressed!");
                     }
                 }
             }
@@ -284,8 +303,20 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         }
 
-        System.out.println("START NEW QUESTION");
-        System.out.println("URL : "+currentlyPlayingTrack.preview_url);
+        /*
+            Update GUI element on the UI thread
+         */
+            Platform.runLater(new Runnable() {
+                  @Override
+                  public void run() {
+                      personWhoAnsweredLabel.setText("");
+                      questionNumberLabel.setText("Question "+(number_of_answered_questions+1)+" of "+MuzikkGlobalInfo.getNumberOfQuestions());
+                  }
+            });
+
+
+            System.out.println("START NEW QUESTION");
+            System.out.println("URL : "+currentlyPlayingTrack.preview_url);
 
         /*
             Start playing the track and showing the artist images.
@@ -294,35 +325,43 @@ public class gameController implements Initializable, ThreadCompleteListener {
             object is not null.
          */
 
-        try{
-            //try to play the track.
-            MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
-        }catch(Exception e){
+            try
 
-            System.out.println("Caught URL is Malformed exception! start new question");
+            {
+                //try to play the track.
+                MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
+            }
 
-            //the tracks couldn't be played.
-            //we can't proceed with this question.
-            //start a new question
-            this.startNewQuestion();
-        }
+            catch(
+            Exception e
+            )
 
-        this.startPopulatingArtistImages();
+            {
+
+                System.out.println("Caught URL is Malformed exception! start new question");
+
+                //the tracks couldn't be played.
+                //we can't proceed with this question.
+                //start a new question
+                this.startNewQuestion();
+            }
+
+            this.
+
+            startPopulatingArtistImages();
 
         /*
             Reset progress bar.
          */
 
-        progressBar.setProgress(1.0);
+            progressBar.setProgress(1.0);
 
 
+        }
 
-
-    }
-
-    /**
-        Runs when the controller has initalized and received game data.
-     */
+                /**
+                 Runs when the controller has initalized and received game data.
+                 */
 
     private void onShowWindow(){
         prevStage.setMinWidth(841);
@@ -410,6 +449,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
                                         }
                                         //start new question
                                         startNewQuestion();
+                                        number_of_answered_questions++;
 
                                     }
                                 }
@@ -435,13 +475,13 @@ public class gameController implements Initializable, ThreadCompleteListener {
     }
 
     /**
-     * Decides whether the clicked image view is right or wrong and act accordingly.
+     * Decides whether the clicked artist box is right or wrong and acts accordingly.
      * If right - increase score and start new question.
      * If wrong - decrease score and start new question.
-     * @param iv - the ImageView that has been clicked.
+     * @param ab - the artist box that has been clicked.
      */
 
-    private void artistViewClicked(ImageView iv){
+    private void artistBoxClicked(VBox ab){
 
         /*
             Ignore this is no one has pressed an action button.
@@ -450,36 +490,38 @@ public class gameController implements Initializable, ThreadCompleteListener {
             return;
         }
 
-        ArtistImageView clickedOn=null;
+        ArtistBoxView clickedOn=null;
         /*
             get ArtistImageView for this ImageView.
          */
-        if(aiv0.getIv()==iv){
-            clickedOn=aiv0;
+        if(abv0.getBox()==ab){
+            clickedOn=abv0;
         }
-        else if(aiv1.getIv()==iv){
-            clickedOn=aiv1;
+        else if(abv1.getBox()==ab){
+            clickedOn=abv1;
         }
-        else if(aiv2.getIv()==iv){
-            clickedOn=aiv2;
+        else if(abv2.getBox()==ab){
+            clickedOn=abv2;
         }
-        else if(aiv3.getIv()==iv){
-            clickedOn=aiv3;
+        else if(abv3.getBox()==ab){
+            clickedOn=abv3;
         }
 
         /*
             Decide whether right or wrong.
          */
 
-        if(aiv0.getArtistId().equals(clickedOn.getArtistId())){
+        if(abv0.getArtistId().equals(clickedOn.getArtistId())){
             System.out.println("CORRECT!!");
-            System.out.println("AIV0 id "+aiv0.getArtistId()+"   artist id: "+clickedOn.getArtistId());
+            System.out.println("AIV0 id "+abv0.getArtistId()+"   artist id: "+clickedOn.getArtistId());
 
             //INCREASE SCORE
             answeringPlayer.increaseScore();
             this.startNewQuestion();
             //UPDATE THE UI TABLE
             this.refreshObservablePlayerLists();
+
+            number_of_answered_questions++;
         }else{
             System.out.println("WRONG");
             answeringPlayer.decreaseScore();
@@ -487,6 +529,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
             //UPDATE UI TABLE
             this.refreshObservablePlayerLists();
+
+            number_of_answered_questions++;
         }
     }
 
@@ -544,30 +588,30 @@ public class gameController implements Initializable, ThreadCompleteListener {
             Add all image views that will contain the artist images in a list
          */
 
-        imageViews=new ArrayList<ImageView>();
-        imageViews.add(artistImage0);
-        imageViews.add(artistImage1);
-        imageViews.add(artistImage2);
-        imageViews.add(artistImage3);
+        artistBoxViews =new ArrayList<VBox>();
+        artistBoxViews.add(artistBox0);
+        artistBoxViews.add(artistBox1);
+        artistBoxViews.add(artistBox2);
+        artistBoxViews.add(artistBox3);
 
         /*
             Shuffle the list. WE want the artists to appear in random order.
          */
-        Collections.shuffle(imageViews);
+        Collections.shuffle(artistBoxViews);
 
         /*
             Populate the Image Views with the images.
          */
-        populateArtistImage(rightArtist, imageViews.get(0));
-        aiv0=new ArtistImageView(rightArtist.id,imageViews.get(0));
+        populateArtistImage(rightArtist, artistBoxViews.get(0));
+        abv0=new ArtistBoxView(rightArtist.id, artistBoxViews.get(0));
 
 
-        populateArtistImage(wrongArtist1,imageViews.get(1));
-        aiv1=new ArtistImageView(wrongArtist1.id,imageViews.get(1));
-        populateArtistImage(wrongArtist2,imageViews.get(2));
-        aiv2=new ArtistImageView(wrongArtist2.id,imageViews.get(2));
-        populateArtistImage(wrongArtist3,imageViews.get(3));
-        aiv3=new ArtistImageView(wrongArtist3.id,imageViews.get(3));
+        populateArtistImage(wrongArtist1, artistBoxViews.get(1));
+        abv1=new ArtistBoxView(wrongArtist1.id, artistBoxViews.get(1));
+        populateArtistImage(wrongArtist2, artistBoxViews.get(2));
+        abv2=new ArtistBoxView(wrongArtist2.id, artistBoxViews.get(2));
+        populateArtistImage(wrongArtist3, artistBoxViews.get(3));
+        abv3=new ArtistBoxView(wrongArtist3.id, artistBoxViews.get(3));
 
         String[] artistNames={rightArtist.name,wrongArtist1.name,wrongArtist2.name,wrongArtist3.name};
 
@@ -595,16 +639,16 @@ public class gameController implements Initializable, ThreadCompleteListener {
             public void run() {
 
                 for(int i=0;i<=3;i++){
-                    if(artistImage0==imageViews.get(i)){
+                    if(artistBox0== artistBoxViews.get(i)){
                         artistLabel0.setText(names[i]);
                     }
-                    else if(artistImage1==imageViews.get(i)){
+                    else if(artistBox1== artistBoxViews.get(i)){
                         artistLabel1.setText(names[i]);
                     }
-                    else if(artistImage2==imageViews.get(i)){
+                    else if(artistBox2== artistBoxViews.get(i)){
                         artistLabel2.setText(names[i]);
                     }
-                    else if(artistImage3==imageViews.get(i)){
+                    else if(artistBox3== artistBoxViews.get(i)){
                         artistLabel3.setText(names[i]);
                     }
                 }
@@ -617,10 +661,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
     /**
      *
      * @param artist - artist Object that the image will represent
-     * @param imgView - the view which will contain the image
+     * @param artistBox - the view which will contain the image
      */
 
-    private void populateArtistImage(ArtistSimple artist, ImageView imgView){
+    private void populateArtistImage(ArtistSimple artist, VBox artistBox){
 
         /*
             We'll need two thread to accomplish this.
@@ -683,7 +727,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
                                     @Override
                                     public void run() {
 
-                                        imgView.setImage(artistImage);
+
+                                        ImageView artistImageView=(ImageView)artistBox.getChildren().get(1);
+                                        artistImageView.setImage(artistImage);
+
                                         System.out.println("placing artist image in ImageView");
                                     }
                                 });
