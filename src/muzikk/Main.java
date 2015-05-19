@@ -19,6 +19,7 @@ public class Main extends Application {
         SceneLoader.initializeScene();
         primaryStage.setTitle("main");
 
+        //Font.loadFont(Main.class.getResource("fonts/HACKED.ttf").toExternalForm(), 80);
 
         LoginScreenController controller = (LoginScreenController) SceneLoader.loginScreenLoader.getController();
         controller.setPrevStage(primaryStage);

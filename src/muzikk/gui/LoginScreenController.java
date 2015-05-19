@@ -70,10 +70,9 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
     private void goToModeSelection(){
         ModeSelectionController controller = SceneLoader.modeSelectionLoader.getController();
         controller.setPrevStage(prevStage);
-        prevStage.hide();
         prevStage.setScene(new Scene(SceneLoader.modeSelectionPane));
         controller.initData();
-        prevStage.show();
+
 
     }
     private void loginSpotify(){
