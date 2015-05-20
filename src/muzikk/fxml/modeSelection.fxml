@@ -11,6 +11,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@../assets/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.ModeSelectionController">
    <children>
+       <Button fx:id="backButton" layoutX="74.0" layoutY="89.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="187.0" text="Back">
+           <font>
+               <Font name="Generica" size="18.0" />
+           </font>
+       </Button>
       <Label id="titleLabel" alignment="CENTER" layoutX="241.0" layoutY="30.0" prefHeight="61.0" prefWidth="369.0" text="MUZIKK" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="HACKED" size="96.0" />

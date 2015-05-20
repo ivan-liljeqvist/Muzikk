@@ -8,6 +8,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@../assets/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.singlePlayerScreenController">
    <children>
+       <Button fx:id="backButton" layoutX="74.0" layoutY="89.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="187.0" text="Back">
+           <font>
+               <Font name="Generica" size="18.0" />
+           </font>
+       </Button>
       <Label text="SinglePlayer" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="BigNoodleTitling" size="84.0" />
@@ -17,7 +22,7 @@
          <font>
             <Font name="Generica" size="19.0" />
          </font></Button>
-      <ToggleButton fx:id="setKeyToggleButton" layoutX="637.0" layoutY="248.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Press to set key" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="637.0" AnchorPane.rightAnchor="44.0">
+      <ToggleButton styleClass="button" fx:id="setKeyToggleButton" layoutX="637.0" layoutY="248.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Press to set key" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="637.0" AnchorPane.rightAnchor="44.0">
          <font>
             <Font name="Generica" size="19.0" />
          </font></ToggleButton>

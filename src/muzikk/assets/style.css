@@ -53,4 +53,32 @@
     -fx-background-color:#CCE6FF;
 }
 
+.button {
+    -fx-text-fill: #e4f3fc;
+
+    -fx-padding: 10;
+    -fx-base: #2d4b8e
+}
+
+.button:hover{
+    -fx-base: #395bae;
+    -fx-cursor:hand;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

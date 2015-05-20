@@ -40,6 +40,7 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * Authors Filip Martinsson and Ivan Liljeqvist.
@@ -569,10 +570,54 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         //if ingo mode - everything is right
         if(abv0.getArtistId().equals(clickedOn.getArtistId()) || MuzikkGlobalInfo.getIngoMode()){
+            toogleColorBackAndForth(ab,true);
             userAnsweredRightResponse();
         }else{
+            toogleColorBackAndForth(ab,false);
             userAnsweredWrongResponse();
         }
+    }
+
+    private void toogleColorBackAndForth(VBox ab,boolean green){
+
+        String greenColor="#99FF99";
+        String redColor="#FF5050";
+
+        /*
+            change color of the box
+         */
+        if(green){
+            ab.setStyle(" -fx-background-color:"+greenColor);
+        }else{
+            ab.setStyle(" -fx-background-color:"+redColor);
+        }
+
+        /*
+            Start a thread that will change the color back in one second.
+         */
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try{
+                    Thread.sleep(1000);
+                }catch(Exception e){
+                    System.out.println("Couldn't sleep..");
+                }
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        ab.setStyle(" -fx-background-color:#FFFFFF");
+                    }
+                });
+
+            }
+        });
+
+        thread.start();
+
+
     }
 
     private void userAnsweredWrongResponse(){

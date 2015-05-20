@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * Created by filip on 2015-05-11.
  */
 public class LoginScreenController implements Initializable, ThreadCompleteListener<String> {
-    Stage prevStage;
+
     @FXML
     private ImageView spotifyLoginImageView;
     @FXML
@@ -77,8 +77,8 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
         thread.addListener(this);
     }
     public void initData(){
-        prevStage.setMinWidth(380);
-        prevStage.setMinHeight(496);
+        MuzikkGlobalInfo.globalStage.setMinWidth(380);
+        MuzikkGlobalInfo.globalStage.setMinHeight(496);
 
     }
 

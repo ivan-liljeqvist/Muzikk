@@ -23,6 +23,8 @@ public class ModeSelectionController implements Initializable {
     private Button singlePlayerButton;
     @FXML
     private Button multiPlayerButton;
+    @FXML
+    private Button backButton;
 
     public void setPrevStage(Stage stage){
         this.prevStage = stage;
@@ -36,7 +38,17 @@ public class ModeSelectionController implements Initializable {
 
         multiPlayerButton.setOnAction((event) -> goToMultiPlayer());
 
+        backButton.setOnAction((event)->backButtonPressed());
+
     }
+
+    private void backButtonPressed(){
+        LoginScreenController c = SceneLoader.loginScreenLoader.getController();
+        c.initData();
+
+        MuzikkGlobalInfo.globalStage.setScene(SceneLoader.loginScene);
+    }
+
     private void goToSinglePlayer(){
         singlePlayerScreenController spC=SceneLoader.spLoader.getController();
         spC.initData();

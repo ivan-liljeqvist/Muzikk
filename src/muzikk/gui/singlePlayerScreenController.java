@@ -51,6 +51,8 @@ public class singlePlayerScreenController implements Initializable {
     private TextField keyTextField = new TextField();
     @FXML
     private ListView<String> playListListView;
+    @FXML
+    private Button backButton;
     
 
     @Override
@@ -71,8 +73,15 @@ public class singlePlayerScreenController implements Initializable {
             }
         });
 
+        backButton.setOnAction((event)->backButtonPressed());
+
 
     }
+
+    private void backButtonPressed(){
+        MuzikkGlobalInfo.globalStage.setScene(SceneLoader.modeSelectionScene);
+    }
+
     public void goTogame(){
         if (nameTextField.getText().toLowerCase().equals("ingemar")){
             MuzikkGlobalInfo.setIngoMode(true);
@@ -203,6 +212,11 @@ public class singlePlayerScreenController implements Initializable {
     public void initData() {
         MuzikkGlobalInfo.globalStage.setMinWidth(841);
         MuzikkGlobalInfo.globalStage.setMinHeight(496);
+
+        observablePlayLists = FXCollections.observableArrayList();
+        playListListView.setItems(observablePlayLists);
+        playListListView.getItems().remove(0,playListListView.getItems().size());
+
         if (MuzikkGlobalInfo.isLoggedIn()) {
 
             for (PlaylistSimple pl : MuzikkGlobalInfo.SpotifyAPI.getAllPlaylists()) {

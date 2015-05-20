@@ -8,6 +8,11 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@../assets/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.multiPlayerScreenController">
    <children>
+       <Button fx:id="backButton" layoutX="74.0" layoutY="89.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="187.0" text="Back">
+           <font>
+               <Font name="Generica" size="18.0" />
+           </font>
+       </Button>
       <Label text="MultiPlayer">
          <font>
             <Font name="BigNoodleTitling" size="89.0" />

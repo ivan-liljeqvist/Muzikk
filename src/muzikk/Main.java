@@ -4,12 +4,13 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import muzikk.gui.LoginScreenController;
 import muzikk.gui.SceneLoader;
 
-import java.awt.event.WindowEvent;
+
 
 public class Main extends Application {
 
@@ -19,9 +20,14 @@ public class Main extends Application {
 
         SceneLoader.initializeScene();
 
-
+        primaryStage.getIcons().add(new Image("http://simkoll.com/muzikk/icon.png"));
 
         primaryStage.setTitle("MUZIKK");
+
+        primaryStage.setResizable(false);
+
+        LoginScreenController c = SceneLoader.loginScreenLoader.getController();
+        c.initData();
 
 
         primaryStage.setScene(SceneLoader.loginScene);
