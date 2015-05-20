@@ -169,7 +169,18 @@ public class multiPlayerScreenController implements Initializable {
             }
         }
 
-        //controller.initData(playerList); //Initializes scene data
+        gameController controller;
+        if (MuzikkGlobalInfo.getIngoMode()){
+            controller = SceneLoader.ingoGameLoader.getController();
+            System.out.println("ingemar");
+        }
+        else{
+            controller = SceneLoader.gameLoader.getController();
+        }
+
+
+        controller.initData(playerList); //Initializes scene data
+
         MuzikkGlobalInfo.globalStage.setScene(SceneLoader.gameScene);
     }
 
