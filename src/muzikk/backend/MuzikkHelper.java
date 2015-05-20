@@ -9,6 +9,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 
@@ -182,9 +183,18 @@ public class MuzikkHelper {
      */
 
     public void playTrack(Track track){
+        playTrack(track.preview_url);
+    }
+
+    /*
+        Plays the file that is given by the URL.
+        @param url - the track url to play
+     */
+
+    public void playTrack(String url){
         URL trackURL=null;
         try{
-            trackURL=new URL(track.preview_url);
+            trackURL=new URL(url);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -196,6 +206,18 @@ public class MuzikkHelper {
 
         player=new MP3Player(trackURL);
         player.play();
+    }
+
+       /*
+        Stop the musik
+     */
+
+    public void stopMusic(){
+
+        if(player!=null){
+            player.stop();
+        }
+
     }
 
     /*

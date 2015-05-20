@@ -197,6 +197,16 @@ public class multiPlayerScreenController implements Initializable {
         key = null;
     }
 
+    /*
+        Resets the filled in forms.
+    */
+    public void resetForms(){
+        nameTextField.setText("");
+        nameList = FXCollections.observableArrayList();
+        playerListView.setItems(nameList);
+
+    }
+
     /**
      * Initializes data for the this scene. Gets playlists from SpotifyAPI.
      */

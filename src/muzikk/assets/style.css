@@ -49,8 +49,8 @@
 .ingoPane .vBox {
     -fx-background-color:white;
 }
-.ingoPane .vBox {
-    -fx-background-color:white;
+.ingoPane .vBox:hover {
+    -fx-background-color:#CCE6FF;
 }
 
 

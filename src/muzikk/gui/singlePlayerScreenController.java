@@ -188,6 +188,14 @@ public class singlePlayerScreenController implements Initializable {
 
     }
 
+    /*
+        Resets the filled in forms.
+     */
+    public void resetForms(){
+        nameTextField.setText("");
+
+    }
+
     /**
      * Initializes data for the this scene. Gets playlists from SpotifyAPI.
      */

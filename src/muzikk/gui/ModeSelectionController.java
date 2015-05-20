@@ -38,11 +38,17 @@ public class ModeSelectionController implements Initializable {
 
     }
     private void goToSinglePlayer(){
+        singlePlayerScreenController spC=SceneLoader.spLoader.getController();
+        spC.initData();
+        spC.resetForms();
         MuzikkGlobalInfo.globalStage.setScene(SceneLoader.spScene);
 
 
     }
     private void goToMultiPlayer(){
+        multiPlayerScreenController mpC=SceneLoader.mpLoader.getController();
+        mpC.initData();
+        mpC.resetForms();
         MuzikkGlobalInfo.globalStage.setScene(SceneLoader.mpScene);
     }
 

@@ -60,12 +60,19 @@ public class gameOverScreen implements Initializable {
      * @param players list of players
      */
     public void initData(List<Player> players){
+        nameList = FXCollections.observableArrayList();
+        scoreList = FXCollections.observableArrayList();
+        playerList = new ArrayList<Player>(10);
+
         for (Player p :players){
             playerList.add(p);
             scoreList.add(p.getScore());
 
             nameList.add(p.getName());
         }
+
+        highScoreNamesListView.setItems(nameList);
+        highScorePointsListView.setItems(scoreList);
     }
 
     /**
@@ -73,10 +80,17 @@ public class gameOverScreen implements Initializable {
      * @param player the player
      */
     public void initData(Player player){
+        nameList = FXCollections.observableArrayList();
+        scoreList = FXCollections.observableArrayList();
+        playerList = new ArrayList<Player>(10);
+
         playerList.add(player);
         scoreList.add(player.getScore());
 
         nameList.add(player.getName());
+
+        highScoreNamesListView.setItems(nameList);
+        highScorePointsListView.setItems(scoreList);
     }
 
     /**

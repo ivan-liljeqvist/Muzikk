@@ -1,5 +1,6 @@
 package muzikk.gui;
 
+import jaco.mp3.player.MP3Player;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,12 +14,16 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import kaaes.spotify.webapi.android.models.Artist;
 import kaaes.spotify.webapi.android.models.ArtistSimple;
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
 import kaaes.spotify.webapi.android.models.Track;
+import muzikk.Main;
+import muzikk.backend.MuzikkHelper;
 import muzikk.backend.ThreadCompleteListener;
 import muzikk.Player;
 import muzikk.MuzikkGlobalInfo;
@@ -29,6 +34,10 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 import java.net.URL;
 import java.util.*;
 
@@ -326,7 +335,16 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
             {
                 //try to play the track.
-                MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
+                //if not ingo - play real track
+                if(MuzikkGlobalInfo.getIngoMode()==false){
+                    MuzikkGlobalInfo.SpotifyAPI.playTrack(currentlyPlayingTrack);
+                }
+                //if ingo - play one of the ingo tracks
+                else{
+                    int track_index=randomGenerator.nextInt(5)+1;
+                    MuzikkGlobalInfo.SpotifyAPI.playTrack("http://simkoll.com/muzikk/k"+track_index+".mp3");
+                }
+
             }
 
             catch(
@@ -549,28 +567,32 @@ public class gameController implements Initializable, ThreadCompleteListener {
             Decide whether right or wrong.
          */
 
-        if(abv0.getArtistId().equals(clickedOn.getArtistId())){
-            System.out.println("CORRECT!!");
-            System.out.println("AIV0 id "+abv0.getArtistId()+"   artist id: "+clickedOn.getArtistId());
-
-            //INCREASE SCORE
-            answeringPlayer.increaseScore();
-            this.startNewQuestion();
-            //UPDATE THE UI TABLE
-            this.refreshObservablePlayerLists();
-
-            questionComplete();
+        //if ingo mode - everything is right
+        if(abv0.getArtistId().equals(clickedOn.getArtistId()) || MuzikkGlobalInfo.getIngoMode()){
+            userAnsweredRightResponse();
         }else{
-            System.out.println("WRONG");
-            answeringPlayer.decreaseScore();
-            this.startNewQuestion();
-
-            //UPDATE UI TABLE
-            this.refreshObservablePlayerLists();
-
-            questionComplete();
-
+            userAnsweredWrongResponse();
         }
+    }
+
+    private void userAnsweredWrongResponse(){
+        answeringPlayer.decreaseScore();
+        this.startNewQuestion();
+
+        //UPDATE UI TABLE
+        this.refreshObservablePlayerLists();
+
+        questionComplete();
+    }
+
+    private void userAnsweredRightResponse(){
+        //INCREASE SCORE
+        answeringPlayer.increaseScore();
+        this.startNewQuestion();
+        //UPDATE THE UI TABLE
+        this.refreshObservablePlayerLists();
+
+        questionComplete();
     }
 
 
@@ -677,19 +699,26 @@ public class gameController implements Initializable, ThreadCompleteListener {
             @Override
             public void run() {
 
-                for(int i=0;i<=3;i++){
-                    if(artistBox0== artistBoxViews.get(i)){
-                        artistLabel0.setText(names[i]);
+                //if ingo mode is false - place the real artist names
+                if(MuzikkGlobalInfo.getIngoMode()==false) {
+                    for (int i = 0; i <= 3; i++) {
+                        if (artistBox0 == artistBoxViews.get(i)) {
+                            artistLabel0.setText(names[i]);
+                        } else if (artistBox1 == artistBoxViews.get(i)) {
+                            artistLabel1.setText(names[i]);
+                        } else if (artistBox2 == artistBoxViews.get(i)) {
+                            artistLabel2.setText(names[i]);
+                        } else if (artistBox3 == artistBoxViews.get(i)) {
+                            artistLabel3.setText(names[i]);
+                        }
                     }
-                    else if(artistBox1== artistBoxViews.get(i)){
-                        artistLabel1.setText(names[i]);
-                    }
-                    else if(artistBox2== artistBoxViews.get(i)){
-                        artistLabel2.setText(names[i]);
-                    }
-                    else if(artistBox3== artistBoxViews.get(i)){
-                        artistLabel3.setText(names[i]);
-                    }
+                }
+                //otherwise put ingo everywhere
+                else{
+                    artistLabel0.setText("INGO");
+                    artistLabel1.setText("INGO");
+                    artistLabel2.setText("INGO");
+                    artistLabel3.setText("INGO");
                 }
 
             }
@@ -759,7 +788,22 @@ public class gameController implements Initializable, ThreadCompleteListener {
                             public void doRun() {
 
                                 //download the image. HÄR ÄR FEL IBLAND!!
-                                Image artistImage=new Image(artistReturned.images.get(0).url);
+                                Image artistImage;
+
+                                /*
+                                    If not ingo mode - set the artist image
+                                 */
+                                if(MuzikkGlobalInfo.getIngoMode()==false){
+                                    artistImage=new Image(artistReturned.images.get(0).url);
+                                }
+                                /*
+                                    If ingo mode - set ingo in all images
+                                 */
+                                else{
+                                    int imgNum=randomGenerator.nextInt(5)+1;
+                                    artistImage=new Image("http://simkoll.com/muzikk/ingo"+imgNum+".jpg");
+                                }
+
 
                                 //go to UI thread and update the image
                                 Platform.runLater(new Runnable() {
@@ -836,7 +880,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
             controller.initData(playersInGame);
         }
 
-
+        MuzikkGlobalInfo.SpotifyAPI.stopMusic();
         MuzikkGlobalInfo.globalStage.setScene(SceneLoader.gameOverScene);
     }
 

@@ -56,7 +56,7 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                prevStage.requestFocus();
+                MuzikkGlobalInfo.globalStage.requestFocus();
                 MuzikkGlobalInfo.setLoggedIn(true);
                 goToModeSelection();
             }
