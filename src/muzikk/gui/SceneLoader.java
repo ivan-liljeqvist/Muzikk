@@ -33,35 +33,35 @@ public class SceneLoader {
 
     public static void initializeScene() throws IOException{
 
-        modeSelectionLoader = new FXMLLoader(ModeSelectionController.class.getResource("../fxml/modeSelection.fxml"));
+        modeSelectionLoader = new FXMLLoader(ModeSelectionController.class.getResource("/muzikk/fxml/modeSelection.fxml"));
         modeSelectionPane = modeSelectionLoader.load();
         modeSelectionScene=new Scene(modeSelectionPane);
 
-        spLoader = new FXMLLoader(singlePlayerScreenController.class.getResource("../fxml/singlePlayerScreen.fxml"));
+        spLoader = new FXMLLoader(singlePlayerScreenController.class.getResource("/muzikk/fxml/singlePlayerScreen.fxml"));
         spPane = spLoader.load();
         singlePlayerScreenController spC=spLoader.getController();
         spC.initData();
         spScene=new Scene(spPane);
 
-        mpLoader = new FXMLLoader(multiPlayerScreenController.class.getResource("../fxml/multiPlayerScreen.fxml"));
+        mpLoader = new FXMLLoader(multiPlayerScreenController.class.getResource("/muzikk/fxml/multiPlayerScreen.fxml"));
         mpPane = mpLoader.load();
         multiPlayerScreenController mpC=mpLoader.getController();
         mpC.initData();
         mpScene=new Scene(mpPane);
 
-        gameLoader = new FXMLLoader(gameController.class.getResource("../fxml/gameScreen.fxml"));
+        gameLoader = new FXMLLoader(gameController.class.getResource("/muzikk/fxml/gameScreen.fxml"));
         gamePane = gameLoader.load();
         gameScene=new Scene(gamePane);
 
-        loginScreenLoader = new FXMLLoader(gameController.class.getResource("../fxml/loginScreen.fxml"));
+        loginScreenLoader = new FXMLLoader(gameController.class.getResource("/muzikk/fxml/loginScreen.fxml"));
         loginScreenPane = loginScreenLoader.load();
         loginScene=new Scene(loginScreenPane);
 
-        ingoGameLoader = new FXMLLoader(gameController.class.getResource("../fxml/ingoGameScreen.fxml"));
+        ingoGameLoader = new FXMLLoader(gameController.class.getResource("/muzikk/fxml/ingoGameScreen.fxml"));
         ingoGamePane = ingoGameLoader.load();
         ingoScene=new Scene(ingoGamePane);
 
-        gameOverLoader = new FXMLLoader(gameOverScreen.class.getResource("../fxml/gameOverScreen.fxml"));
+        gameOverLoader = new FXMLLoader(gameOverScreen.class.getResource("/muzikk/fxml/gameOverScreen.fxml"));
         gameOverPane = gameOverLoader.load();
         gameOverScene=new Scene(gameOverPane);
     }
