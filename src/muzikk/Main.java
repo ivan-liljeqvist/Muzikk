@@ -15,13 +15,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        MuzikkGlobalInfo.globalStage=primaryStage;
+
         SceneLoader.initializeScene();
+
+
+
         primaryStage.setTitle("MUZIKK");
 
-        LoginScreenController controller = (LoginScreenController) SceneLoader.loginScreenLoader.getController();
-        controller.setPrevStage(primaryStage);
-        controller.initData();
-        primaryStage.setScene(new Scene(SceneLoader.loginScreenPane));
+
+        primaryStage.setScene(SceneLoader.loginScene);
         primaryStage.show();
 
 

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import muzikk.MuzikkGlobalInfo;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,24 +38,13 @@ public class ModeSelectionController implements Initializable {
 
     }
     private void goToSinglePlayer(){
-        singlePlayerScreenController controller = SceneLoader.spLoader.getController();
-        controller.setPrevStage(prevStage);
-        prevStage.setScene(new Scene(SceneLoader.spPane));
-        controller.initData();
-
+        MuzikkGlobalInfo.globalStage.setScene(SceneLoader.spScene);
 
 
     }
     private void goToMultiPlayer(){
-        multiPlayerScreenController controller = SceneLoader.mpLoader.getController();
-        controller.setPrevStage(prevStage);
-        controller.initData();
-        prevStage.setScene(new Scene(SceneLoader.mpPane));
+        MuzikkGlobalInfo.globalStage.setScene(SceneLoader.mpScene);
     }
-    public void initData(){
-        prevStage.setMinHeight(496);
-        prevStage.setMinWidth(841);
 
-    }
 
 }

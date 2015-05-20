@@ -63,6 +63,8 @@ public class gameOverScreen implements Initializable {
         for (Player p :players){
             playerList.add(p);
             scoreList.add(p.getScore());
+
+            nameList.add(p.getName());
         }
     }
 
@@ -74,16 +76,16 @@ public class gameOverScreen implements Initializable {
         playerList.add(player);
         scoreList.add(player.getScore());
 
+        nameList.add(player.getName());
     }
 
     /**
      * Takes the user back to the mode selection
      */
     public void backtoModeSelection(){
-        ModeSelectionController controller = SceneLoader.modeSelectionLoader.getController();
-        controller.setPrevStage(prevStage);
-        prevStage.setScene(new Scene(SceneLoader.modeSelectionPane));
-        controller.initData();
+
+        MuzikkGlobalInfo.globalStage.setScene(SceneLoader.modeSelectionScene);
+
     }
 
     /**
@@ -91,9 +93,21 @@ public class gameOverScreen implements Initializable {
      */
     public void goTogame(){
 
+        MuzikkGlobalInfo.shouldResetPlayerTable=true;
 
-        //prevStage.setScene(SceneLoader.gameScene);
+        if (MuzikkGlobalInfo.getIngoMode()){
+            gameController c=SceneLoader.ingoGameLoader.getController();
+            c.startNewQuestion();
 
+
+            MuzikkGlobalInfo.globalStage.setScene(SceneLoader.ingoScene);
+        }
+        else{
+            gameController c=SceneLoader.gameLoader.getController();
+            c.startNewQuestion();
+
+            MuzikkGlobalInfo.globalStage.setScene(SceneLoader.gameScene);
+        }
 
     }
 

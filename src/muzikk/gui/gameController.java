@@ -41,8 +41,6 @@ import java.util.*;
  *
  */
 public class gameController implements Initializable, ThreadCompleteListener {
-    //the parent stage
-    private Stage prevStage;
 
 
     /**
@@ -58,6 +56,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
     private Track currentlyPlayingTrack;
 
     private Timer countdown_timer;
+    private NotifyingThread countdownThread;
 
     /**
      * Controllers defined in the fxml file.
@@ -125,6 +124,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
      */
 
     private int number_of_answered_questions=0;
+
+    private boolean timerStopped=true;
 
     /**
      * Initialize the controller.
@@ -266,6 +267,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     public void startNewQuestion(){
 
+        resetValuesAfterGameOver();
+
         /*
             Reset values.
          */
@@ -353,13 +356,45 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         }
 
-                /**
-                 Runs when the controller has initalized and received game data.
-                 */
+    /**
+     * Called when player hits play again in game over.
+     */
+    private void resetValuesAfterGameOver(){
+        /*
+         * This part handles the resetting of the variables when the player hits Play Again in Game Over screen
+         */
+        if(MuzikkGlobalInfo.shouldResetPlayerTable){
+
+
+            /*
+             * make the ui tables empty.
+             */
+
+             for(Player p : playersInGame){
+                 p.setScore(0);
+             }
+
+            this.refreshObservablePlayerLists();
+
+
+
+
+            MuzikkGlobalInfo.shouldResetPlayerTable=false;
+        }
+
+        if(this.timerStopped){
+            startTimer();
+            System.out.println("STARTING TIMER");
+        }
+    }
+
+    /**
+     Runs when the controller has initalized and received game data.
+     */
 
     private void onShowWindow(){
-        prevStage.setMinWidth(841);
-        prevStage.setMinHeight(496);
+        MuzikkGlobalInfo.globalStage.setMinWidth(841);
+        MuzikkGlobalInfo.globalStage.setMinHeight(496);
 
         /*
            Create a list of playlists used in the game.
@@ -383,13 +418,25 @@ public class gameController implements Initializable, ThreadCompleteListener {
          */
         getAllTracksThread.addListener(this);
 
-        /*
-            Create and start the thread that will manage the countdown.
-            This will update the progress bar at the bottom.
-            Used to set a timer before a player has to answer.
-         */
 
-        NotifyingThread countdownThread=new NotifyingThread() {
+
+
+
+
+
+    }
+
+    /*
+        Create and start the thread that will manage the countdown.
+        This will update the progress bar at the bottom.
+        Used to set a timer before a player has to answer.
+    */
+
+    private void startTimer(){
+        countdown_timer=new Timer();
+        timerStopped=false;
+
+        countdownThread=new NotifyingThread() {
             @Override
             public List extractParams() {
                 //this thread doesn't return anything.
@@ -463,9 +510,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
 
         countdownThread.start();
-
-
-
     }
 
     /**
@@ -776,8 +820,14 @@ public class gameController implements Initializable, ThreadCompleteListener {
     }
 
     private void goToGameOver(){
+
+        number_of_answered_questions=0;
+        countdown_timer.cancel();
+        countdownThread.stop();
+        timerStopped=true;
+
         gameOverScreen controller = SceneLoader.gameOverLoader.getController(); //create the game controller
-        controller.setPrevStage(prevStage);
+
 
         if(playersInGame.size()==1){
             controller.initData(playersInGame.get(0));
@@ -787,16 +837,9 @@ public class gameController implements Initializable, ThreadCompleteListener {
         }
 
 
-        prevStage.setScene(new Scene(SceneLoader.gameOverPane));
+        MuzikkGlobalInfo.globalStage.setScene(SceneLoader.gameOverScene);
     }
 
-    /**
-     * Sets previous stage.
-     * @param stage - the stage to set as previous.
-     */
-    public void setPrevStage(Stage stage){
-        this.prevStage = stage;
-    }
 
 
 

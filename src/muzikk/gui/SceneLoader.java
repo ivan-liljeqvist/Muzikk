@@ -1,6 +1,7 @@
 package muzikk.gui;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class SceneLoader {
     public static Pane gamePane;
     public static Pane loginScreenPane;
 
+    public static Scene modeSelectionScene, spScene, mpScene, gameScene, loginScene,gameOverScene,ingoScene;
 
     public SceneLoader(){
 
@@ -33,23 +35,34 @@ public class SceneLoader {
 
         modeSelectionLoader = new FXMLLoader(ModeSelectionController.class.getResource("../fxml/modeSelection.fxml"));
         modeSelectionPane = modeSelectionLoader.load();
+        modeSelectionScene=new Scene(modeSelectionPane);
 
         spLoader = new FXMLLoader(singlePlayerScreenController.class.getResource("../fxml/singlePlayerScreen.fxml"));
         spPane = spLoader.load();
+        singlePlayerScreenController spC=spLoader.getController();
+        spC.initData();
+        spScene=new Scene(spPane);
 
         mpLoader = new FXMLLoader(multiPlayerScreenController.class.getResource("../fxml/multiPlayerScreen.fxml"));
         mpPane = mpLoader.load();
+        multiPlayerScreenController mpC=mpLoader.getController();
+        mpC.initData();
+        mpScene=new Scene(mpPane);
 
         gameLoader = new FXMLLoader(gameController.class.getResource("../fxml/gameScreen.fxml"));
         gamePane = gameLoader.load();
+        gameScene=new Scene(gamePane);
 
         loginScreenLoader = new FXMLLoader(gameController.class.getResource("../fxml/loginScreen.fxml"));
         loginScreenPane = loginScreenLoader.load();
+        loginScene=new Scene(loginScreenPane);
 
         ingoGameLoader = new FXMLLoader(gameController.class.getResource("../fxml/ingoGameScreen.fxml"));
         ingoGamePane = ingoGameLoader.load();
+        ingoScene=new Scene(ingoGamePane);
 
         gameOverLoader = new FXMLLoader(gameOverScreen.class.getResource("../fxml/gameOverScreen.fxml"));
         gameOverPane = gameOverLoader.load();
+        gameOverScene=new Scene(gameOverPane);
     }
 }

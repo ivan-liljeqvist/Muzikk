@@ -32,7 +32,6 @@ import java.util.ResourceBundle;
  * Created by filip on 2015-05-07.
  */
 public class singlePlayerScreenController implements Initializable {
-    private Stage prevStage;
     private String key;
     private ArrayList<PlaylistSimple> playLists = new ArrayList<>();
     private ObservableList<String> observablePlayLists = FXCollections.observableArrayList();
@@ -52,10 +51,7 @@ public class singlePlayerScreenController implements Initializable {
     private TextField keyTextField = new TextField();
     @FXML
     private ListView<String> playListListView;
-
-    public void setPrevStage(Stage stage){
-        this.prevStage = stage;
-    }
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -179,15 +175,15 @@ public class singlePlayerScreenController implements Initializable {
             controller = SceneLoader.gameLoader.getController();
         }
 
-        controller.setPrevStage(prevStage);
+
         controller.initData(player); //Initializes scene data
         if (MuzikkGlobalInfo.getIngoMode()){
-            prevStage.setScene(new Scene(SceneLoader.ingoGamePane));
+            MuzikkGlobalInfo.globalStage.setScene(SceneLoader.ingoScene);
             System.out.println("ingemar");
 
         }
         else{
-            prevStage.setScene(new Scene(SceneLoader.gamePane));
+            MuzikkGlobalInfo.globalStage.setScene(SceneLoader.gameScene);
         }
 
     }
@@ -197,8 +193,8 @@ public class singlePlayerScreenController implements Initializable {
      */
 
     public void initData() {
-        prevStage.setMinWidth(841);
-        prevStage.setMinHeight(496);
+        MuzikkGlobalInfo.globalStage.setMinWidth(841);
+        MuzikkGlobalInfo.globalStage.setMinHeight(496);
         if (MuzikkGlobalInfo.isLoggedIn()) {
 
             for (PlaylistSimple pl : MuzikkGlobalInfo.SpotifyAPI.getAllPlaylists()) {

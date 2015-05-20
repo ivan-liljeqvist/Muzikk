@@ -1,5 +1,6 @@
 package muzikk;
 
+import javafx.stage.Stage;
 import kaaes.spotify.webapi.android.models.PlaylistSimple;
 import muzikk.backend.MuzikkHelper;
 
@@ -75,4 +76,9 @@ public class MuzikkGlobalInfo {
     public static boolean getIngoMode(){
         return ingoMode;
     }
+
+    public static Stage globalStage;
+
+    public static boolean shouldResetPlayerTable=false;
+
 }

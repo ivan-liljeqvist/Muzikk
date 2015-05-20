@@ -32,9 +32,6 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
     @FXML
     private Label titleLabel;
 
-    public void setPrevStage(Stage stage){
-        this.prevStage = stage;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -68,10 +65,9 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
     }
 
     private void goToModeSelection(){
-        ModeSelectionController controller = SceneLoader.modeSelectionLoader.getController();
-        controller.setPrevStage(prevStage);
-        prevStage.setScene(new Scene(SceneLoader.modeSelectionPane));
-        controller.initData();
+
+        MuzikkGlobalInfo.globalStage.setScene(SceneLoader.modeSelectionScene);
+
 
 
     }

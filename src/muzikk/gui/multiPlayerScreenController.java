@@ -30,7 +30,6 @@ import java.util.ResourceBundle;
  */
 public class multiPlayerScreenController implements Initializable {
 
-    private Stage prevStage;
     private String key;
     private int counter;
     private ObservableList<String> nameList = FXCollections.observableArrayList();
@@ -62,9 +61,6 @@ public class multiPlayerScreenController implements Initializable {
     private ListView<String> playListListView;
 
 
-    public void setPrevStage(Stage stage) {
-        this.prevStage = stage;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -98,7 +94,7 @@ public class multiPlayerScreenController implements Initializable {
      * Starts the game
      */
     private void goTogame() {
-        gameController controller = SceneLoader.gameLoader.getController();
+       // gameController controller = SceneLoader.gameLoader.getController();
         MuzikkGlobalInfo.setNumberOfQuestions(numberOfQuestionsChoiceBox.getSelectionModel().getSelectedItem().intValue());
         String genreKey=playListListView.getSelectionModel().getSelectedItem();
         String playlistID=observableMapGenres.get(genreKey);
@@ -173,9 +169,8 @@ public class multiPlayerScreenController implements Initializable {
             }
         }
 
-        controller.initData(playerList); //Initializes scene data
-        controller.setPrevStage(prevStage);
-        prevStage.setScene(new Scene(SceneLoader.gamePane));
+        //controller.initData(playerList); //Initializes scene data
+        MuzikkGlobalInfo.globalStage.setScene(SceneLoader.gameScene);
     }
 
     /**
@@ -206,8 +201,8 @@ public class multiPlayerScreenController implements Initializable {
      * Initializes data for the this scene. Gets playlists from SpotifyAPI.
      */
     public void initData() {
-        prevStage.setMinWidth(841);
-        prevStage.setMinHeight(496);
+        MuzikkGlobalInfo.globalStage.setMinWidth(841);
+        MuzikkGlobalInfo.globalStage.setMinHeight(496);
         if (MuzikkGlobalInfo.isLoggedIn()) {
             for (PlaylistSimple pl : MuzikkGlobalInfo.SpotifyAPI.getAllPlaylists()) {
                 playLists.add(pl);
