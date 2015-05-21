@@ -410,7 +410,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
     /**
      Runs when the controller has initalized and received game data.
      */
-
     private void onShowWindow(){
         MuzikkGlobalInfo.globalStage.setMinWidth(841);
         MuzikkGlobalInfo.globalStage.setMinHeight(496);
@@ -445,12 +444,11 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
-    /*
+    /**
         Create and start the thread that will manage the countdown.
         This will update the progress bar at the bottom.
         Used to set a timer before a player has to answer.
     */
-
     private void startTimer(){
         countdown_timer=new Timer();
         timerStopped=false;
@@ -578,6 +576,11 @@ public class gameController implements Initializable, ThreadCompleteListener {
         }
     }
 
+    /**
+     * Will toggle the color of the artistbox when an answer is correct or incorrect.
+     * @param ab the VBox containing the artist
+     * @param green true if the answer was correct
+     */
     private void toogleColorBackAndForth(VBox ab,boolean green){
 
         String greenColor="#99FF99";
@@ -620,6 +623,9 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     }
 
+    /**
+     * Will decrease the players score and start next question if the answer was incorrect.
+     */
     private void userAnsweredWrongResponse(){
         answeringPlayer.decreaseScore();
         this.startNewQuestion();
@@ -630,6 +636,9 @@ public class gameController implements Initializable, ThreadCompleteListener {
         questionComplete();
     }
 
+    /**
+     * Will increase the players score and start next question if the answer was correct.
+     */
     private void userAnsweredRightResponse(){
         //INCREASE SCORE
         answeringPlayer.increaseScore();

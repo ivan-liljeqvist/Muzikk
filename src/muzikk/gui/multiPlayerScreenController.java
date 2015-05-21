@@ -194,7 +194,7 @@ public class multiPlayerScreenController implements Initializable {
     }
 
     /**
-     * Will create and add a new player to the game
+     * Will create and add a new player to the game.
      */
     private void addPlayer() {
         counter++;
@@ -208,7 +208,7 @@ public class multiPlayerScreenController implements Initializable {
     }
 
     /**
-     * Will reset the add player form
+     * Will reset the add player form when a new player is added.
      */
     private void resetForm(){
         nameTextField.setText("");
@@ -217,11 +217,12 @@ public class multiPlayerScreenController implements Initializable {
         key = null;
     }
 
-    /*
-        Resets the filled in forms.
+    /**
+        Resets the filled in forms when returning from other scenes.
     */
     public void resetForms(){
         nameTextField.setText("");
+        keyTextField.setText("");
         nameList = FXCollections.observableArrayList();
         playerListView.setItems(nameList);
 

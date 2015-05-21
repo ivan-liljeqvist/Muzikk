@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 /**
  * Created by filip on 2015-05-07.
+ * Controls the ModeSelectionScreen
  */
 public class ModeSelectionController implements Initializable {
     private Stage prevStage;
@@ -42,6 +43,9 @@ public class ModeSelectionController implements Initializable {
 
     }
 
+    /**
+     * Takes the user to the previous scene if the back button is pressed.
+     */
     private void backButtonPressed(){
         LoginScreenController c = SceneLoader.loginScreenLoader.getController();
         c.initData();
@@ -49,6 +53,9 @@ public class ModeSelectionController implements Initializable {
         MuzikkGlobalInfo.globalStage.setScene(SceneLoader.loginScene);
     }
 
+    /**
+     * Takes the user to the singleplayer scene.
+     */
     private void goToSinglePlayer(){
         singlePlayerScreenController spC=SceneLoader.spLoader.getController();
         spC.initData();
@@ -57,6 +64,10 @@ public class ModeSelectionController implements Initializable {
 
 
     }
+
+    /**
+     * Takes the user to the multiplayer scene.
+     */
     private void goToMultiPlayer(){
         multiPlayerScreenController mpC=SceneLoader.mpLoader.getController();
         mpC.initData();

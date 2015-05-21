@@ -2,6 +2,7 @@ package muzikk;
 
 /**
  * Created by filip on 2015-05-07.
+ * Holds all the information about the player.
  */
 public class Player {
     private String name;

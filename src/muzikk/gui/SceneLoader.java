@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * Created by filip on 2015-05-07.
+ * Initializes all the scenes and creates all the loaders, panes and controllers.
  */
 public class SceneLoader {
     public static FXMLLoader modeSelectionLoader;
@@ -31,6 +32,10 @@ public class SceneLoader {
 
     }
 
+    /**
+     * Initializes all the scenes and creates all the loaders, panes and controllers.
+     * @throws IOException
+     */
     public static void initializeScene() throws IOException{
 
         modeSelectionLoader = new FXMLLoader(ModeSelectionController.class.getResource("/muzikk/fxml/modeSelection.fxml"));

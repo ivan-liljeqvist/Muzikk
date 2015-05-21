@@ -64,21 +64,26 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
 
     }
 
+    /**
+     * Takes the user to the next stage.
+     */
     private void goToModeSelection(){
-
         MuzikkGlobalInfo.globalStage.setScene(SceneLoader.modeSelectionScene);
-
-
-
     }
+
+    /**
+     * Initializes the login process.
+     */
     private void loginSpotify(){
         MuzikkAccessFetcher.initiateLogin();
         NotifyingThread thread = MuzikkAccessFetcher.keepPingingServerUntilUserLoggedIn();
         thread.addListener(this);
     }
+
+    /**
+     * Initializes game data.
+     */
     public void initData(){
-        MuzikkGlobalInfo.globalStage.setMinWidth(380);
-        MuzikkGlobalInfo.globalStage.setMinHeight(496);
 
     }
 

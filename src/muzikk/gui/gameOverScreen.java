@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 
 /**
  * Created by Filip on 2015-05-12.
+ * Controls the gameOverScreen
  */
 public class gameOverScreen implements Initializable {
 

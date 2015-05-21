@@ -78,10 +78,16 @@ public class singlePlayerScreenController implements Initializable {
 
     }
 
+    /**
+     * Takes the user back to the previous scene if the back button is pressed.
+     */
     private void backButtonPressed(){
         MuzikkGlobalInfo.globalStage.setScene(SceneLoader.modeSelectionScene);
     }
 
+    /**
+     * Starts the game
+     */
     public void goTogame(){
         if (nameTextField.getText().toLowerCase().equals("ingemar")){
             MuzikkGlobalInfo.setIngoMode(true);
@@ -197,11 +203,12 @@ public class singlePlayerScreenController implements Initializable {
 
     }
 
-    /*
-        Resets the filled in forms.
+    /**
+        Resets the player form.
      */
     public void resetForms(){
         nameTextField.setText("");
+        keyTextField.setText("");
 
     }
 
