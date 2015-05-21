@@ -28,19 +28,19 @@
          </font></ToggleButton>
       <TextField fx:id="nameTextField" layoutX="241.0" layoutY="274.0" prefHeight="22.0" prefWidth="160.0" promptText="Namn" AnchorPane.bottomAnchor="197.0" AnchorPane.leftAnchor="238.0" AnchorPane.topAnchor="274.0" />
       <TextField fx:id="keyTextField" editable="false" layoutX="678.0" layoutY="453.0" opacity="0.0" />
-      <ListView fx:id="playListListView" layoutX="18.0" layoutY="141.0" prefHeight="254.0" prefWidth="200.0" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="141.0" />
+      <ListView fx:id="playListListView" styleClass="" layoutX="18.0" layoutY="141.0" prefHeight="254.0" prefWidth="200.0" AnchorPane.bottomAnchor="101.0" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="141.0" />
       <Label fx:id="playListLabel" layoutX="23.0" layoutY="91.0" prefHeight="32.0" prefWidth="200.0" text="Choose a playlist" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="91.0">
          <font>
             <Font name="Garuda Bold" size="25.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="numberOfQuestionsChoiceBox" layoutX="234.0" layoutY="156.0" prefWidth="150.0" AnchorPane.leftAnchor="237.0" AnchorPane.topAnchor="141.0" />
-      <Label fx:id="numberOfQuestionsLabel" layoutX="237.0" layoutY="106.0" prefHeight="32.0" prefWidth="200.0" text="Questions" AnchorPane.leftAnchor="237.0" AnchorPane.topAnchor="91.0">
+      <ChoiceBox fx:id="numberOfQuestionsChoiceBox" styleClass="button" layoutX="234.0" layoutY="156.0" prefWidth="150.0" AnchorPane.leftAnchor="237.0" AnchorPane.topAnchor="141.0" />
+      <Label fx:id="numberOfQuestionsLabel" layoutX="237.0" layoutY="106.0" prefHeight="32.0" prefWidth="200.0" text="Number of questions" AnchorPane.leftAnchor="237.0" AnchorPane.topAnchor="91.0">
          <font>
-            <Font name="Garuda Bold" size="25.0" />
+            <Font name="Garuda Bold" size="17.0" />
          </font>
       </Label>
-      <Label fx:id="numberOfQuestionsLabel1" layoutX="238.0" layoutY="217.0" prefHeight="32.0" prefWidth="200.0" text="Player" AnchorPane.leftAnchor="238.0">
+      <Label fx:id="numberOfQuestionsLabel1" layoutX="238.0" layoutY="217.0" prefHeight="32.0" prefWidth="200.0" text="Your name" AnchorPane.leftAnchor="238.0">
          <font>
             <Font name="Garuda Bold" size="25.0" />
          </font>

@@ -277,6 +277,17 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
     public void startNewQuestion(){
 
+        /*
+            Set loading animations on all artist boxes.
+            Do this on the UI thread.
+         */
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                setLoadingAnimationToAllBoxes();
+            }
+        });
+
         resetValuesAfterGameOver();
 
         /*
@@ -412,8 +423,6 @@ public class gameController implements Initializable, ThreadCompleteListener {
      */
 
     private void onShowWindow(){
-        MuzikkGlobalInfo.globalStage.setMinWidth(841);
-        MuzikkGlobalInfo.globalStage.setMinHeight(496);
 
         /*
            Create a list of playlists used in the game.
@@ -531,6 +540,18 @@ public class gameController implements Initializable, ThreadCompleteListener {
         countdownThread.start();
     }
 
+    private void setLoadingAnimationToAllBoxes(){
+        ImageView imgV0=(ImageView)artistBox0.getChildren().get(1);
+        ImageView imgV1=(ImageView)artistBox1.getChildren().get(1);
+        ImageView imgV2=(ImageView)artistBox2.getChildren().get(1);
+        ImageView imgV3=(ImageView)artistBox3.getChildren().get(1);
+
+        imgV0.setImage(new Image(getClass().getResourceAsStream("/muzikk/assets/loading.png")));
+        imgV1.setImage(new Image(getClass().getResourceAsStream("/muzikk/assets/loading.png")));
+        imgV2.setImage(new Image(getClass().getResourceAsStream("/muzikk/assets/loading.png")));
+        imgV3.setImage(new Image(getClass().getResourceAsStream("/muzikk/assets/loading.png")));
+    }
+
     /**
      * Decides whether the clicked artist box is right or wrong and acts accordingly.
      * If right - increase score and start new question.
@@ -600,7 +621,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
             public void run() {
 
                 try{
-                    Thread.sleep(1000);
+                    Thread.sleep(400);
                 }catch(Exception e){
                     System.out.println("Couldn't sleep..");
                 }
@@ -608,7 +629,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        ab.setStyle(" -fx-background-color:#FFFFFF");
+
+                        ab.setStyle("-fx-background-color:transparent");
+                        ab.setStyle("");
+                        System.out.println(ab.getStyleClass());
                     }
                 });
 
