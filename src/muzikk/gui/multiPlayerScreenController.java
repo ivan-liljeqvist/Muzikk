@@ -231,8 +231,6 @@ public class multiPlayerScreenController implements Initializable {
      * Initializes data for the this scene. Gets playlists from SpotifyAPI.
      */
     public void initData() {
-        MuzikkGlobalInfo.globalStage.setMinWidth(841);
-        MuzikkGlobalInfo.globalStage.setMinHeight(496);
 
         observablePlayLists = FXCollections.observableArrayList();
         playListListView.setItems(observablePlayLists);

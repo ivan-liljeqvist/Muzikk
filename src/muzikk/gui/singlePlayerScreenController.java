@@ -210,8 +210,6 @@ public class singlePlayerScreenController implements Initializable {
      */
 
     public void initData() {
-        MuzikkGlobalInfo.globalStage.setMinWidth(841);
-        MuzikkGlobalInfo.globalStage.setMinHeight(496);
 
         observablePlayLists = FXCollections.observableArrayList();
         playListListView.setItems(observablePlayLists);
