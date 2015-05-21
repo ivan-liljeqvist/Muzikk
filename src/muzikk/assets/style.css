@@ -1,14 +1,5 @@
 
 
-.buttonSpot {
-    -fx-background-color:
-    -fx-shadow-highlight-color,
-    -fx-outer-border,
-    -fx-inner-border,
-    -fx-body-color;
-    -fx-background-insets: 0 0 0 0, 0, 0, 0;
-    -fx-background-radius: 0px, 0px, 0px, 0px;
-}
 .vBox{
     -fx-border-radius:3px;
     -fx-padding:8px;
@@ -32,7 +23,7 @@
 .button:focused {
     -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
     -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 5, 4, 3;
+
 
 }
 
@@ -55,7 +46,7 @@
 
 .button {
     -fx-text-fill: #e4f3fc;
-
+    -fx-background-radius: 7, 6, 5;
     -fx-padding: 10;
     -fx-base: #2d4b8e
 }
@@ -65,9 +56,26 @@
     -fx-cursor:hand;
 }
 
+.button:selected{
+    -fx-base: #223768;
+     -fx-background-color: -fx-inner-border, -fx-outer-border, -fx-body-color;
+}
 
 
 
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#3A5080 0%, #3A5080 25%, #284480 75%, #284480 100%);
+    -fx-text-fill: white;
+}
+
+.list-cell:even { /* <=== changed to even */
+    -fx-background-color: white;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #3D578D;
+    -fx-text-fill: white;
+}
 
 
 
