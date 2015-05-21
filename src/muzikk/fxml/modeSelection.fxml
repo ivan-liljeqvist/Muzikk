@@ -9,24 +9,24 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@../assets/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.ModeSelectionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="380.0" styleClass="whitePane" stylesheets="@../assets/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.ModeSelectionController">
    <children>
-       <Button fx:id="backButton" layoutX="74.0" layoutY="89.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="187.0" text="Back">
+       <Button fx:id="backButton" layoutX="87.0" layoutY="421.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="191.0" text="Back" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
            <font>
                <Font name="Generica" size="18.0" />
            </font>
        </Button>
-      <Label id="titleLabel" alignment="CENTER" layoutX="241.0" layoutY="30.0" prefHeight="61.0" prefWidth="369.0" text="MUZIKK" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0">
+      <Label id="titleLabel" alignment="CENTER" layoutX="18.0" layoutY="30.0" prefHeight="107.0" prefWidth="324.0" text="MUZIKK" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="HACKED" size="96.0" />
          </font>
       </Label>
-      <Button fx:id="multiPlayerButton" layoutX="474.0" layoutY="289.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="187.0" text="Multiplayer" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="474.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="290.0">
+      <Button fx:id="multiPlayerButton" layoutX="90.0" layoutY="288.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="191.0" text="Multiplayer" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
          <font>
             <Font name="Generica" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="singlePlayerButton" layoutX="180.0" layoutY="290.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="191.0" text="Singleplayer" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="290.0">
+      <Button fx:id="singlePlayerButton" layoutX="87.0" layoutY="201.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="191.0" text="Singleplayer" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
          <font>
             <Font name="Generica" size="28.0" />
          </font>

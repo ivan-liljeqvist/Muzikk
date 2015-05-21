@@ -43,6 +43,9 @@
 .ingoPane .vBox:hover {
     -fx-background-color:#CCE6FF;
 }
+.ingoPane .artistImage {
+    -fx-background-image: url(ingo1.jpg);
+}
 
 .button {
     -fx-text-fill: #e4f3fc;

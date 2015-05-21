@@ -6,65 +6,66 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="841.0" styleClass="whitePane" stylesheets="@../assets/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.multiPlayerScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="688.0" styleClass="whitePane" stylesheets="@../assets/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="muzikk.gui.multiPlayerScreenController">
    <children>
-       <Button fx:id="backButton" layoutX="74.0" layoutY="89.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="187.0" text="Back">
+       <Button fx:id="backButton" layoutX="22.0" layoutY="426.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="187.0" text="Back" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="8.0">
            <font>
                <Font name="Generica" size="18.0" />
            </font>
        </Button>
-      <Label text="MultiPlayer">
+      <Label text="MultiPlayer" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font name="BigNoodleTitling" size="89.0" />
          </font>
       </Label>
-      <Button fx:id="startGameButton" layoutX="588.0" layoutY="360.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Start game">
+      <Button fx:id="startGameButton" layoutX="247.0" layoutY="414.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="187.0" text="Start game" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="8.0">
          <font>
             <Font name="Generica" size="16.0" />
-         </font></Button>
-      <ToggleButton fx:id="setKeyToggleButton" layoutX="361.0" layoutY="248.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="136.0" text="Press to set key">
+         </font>
+      </Button>
+      <ToggleButton fx:id="setKeyToggleButton" styleClass="button" layoutX="496.0" layoutY="186.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Press to set key" AnchorPane.rightAnchor="40.0">
          <font>
             <Font name="Generica" size="16.0" />
          </font></ToggleButton>
-      <TextField fx:id="nameTextField" layoutX="363.0" layoutY="194.0" promptText="Name" />
+      <TextField fx:id="nameTextField" layoutX="494.0" layoutY="141.0" prefHeight="25.0" prefWidth="160.0" promptText="Name" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="141.0" />
       <TextField fx:id="keyTextField" editable="false" layoutX="678.0" layoutY="453.0" opacity="0.0" />
-      <Label layoutX="364.0" layoutY="152.0" text="Add a player">
+      <Label layoutX="243.0" layoutY="175.0" prefHeight="41.0" prefWidth="160.0" text="Add a player" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="91.0">
          <font>
             <Font name="Garuda Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="633.0" layoutY="46.0" text="Players">
+      <Label layoutX="312.0" layoutY="89.0" text="Players" AnchorPane.topAnchor="91.0">
          <font>
             <Font name="Garuda Bold" size="21.0" />
          </font>
       </Label>
-      <Button fx:id="addPlayerButton" layoutX="361.0" layoutY="317.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="136.0" text="Add player">
+      <Button fx:id="addPlayerButton" layoutX="494.0" layoutY="269.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="160.0" text="Add player" AnchorPane.rightAnchor="40.0">
          <font>
             <Font name="Generica" size="16.0" />
          </font></Button>
-      <ListView fx:id="playerListView" layoutX="563.0" layoutY="105.0" prefHeight="200.0" prefWidth="105.0" />
-      <ListView fx:id="keyListView" layoutX="668.0" layoutY="105.0" prefHeight="200.0" prefWidth="105.0" />
-      <Label layoutX="598.0" layoutY="82.0" text="Name" textFill="#00000083">
+      <ListView fx:id="playerListView" layoutX="243.0" layoutY="142.0" prefHeight="200.0" prefWidth="105.0" AnchorPane.topAnchor="141.0" />
+      <ListView fx:id="keyListView" layoutX="347.0" layoutY="143.0" prefHeight="200.0" prefWidth="105.0" AnchorPane.topAnchor="141.0" />
+      <Label layoutX="270.0" layoutY="122.0" text="Name" textFill="#00000083">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="709.0" layoutY="82.0" text="Key" textFill="#00000083">
+      <Label layoutX="386.0" layoutY="125.0" text="Key" textFill="#00000083">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ListView fx:id="playListListView" layoutX="73.0" layoutY="172.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label fx:id="playListLabel" layoutX="71.0" layoutY="132.0" prefHeight="30.0" prefWidth="200.0" text="Choose a playlist">
+      <ListView fx:id="playListListView" layoutX="73.0" layoutY="172.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="141.0" />
+      <Label fx:id="playListLabel" layoutX="56.0" layoutY="117.0" prefHeight="30.0" prefWidth="200.0" text="Choose a playlist" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="91.0">
          <font>
             <Font name="Garuda Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="numberOfQuestionsLabel" layoutX="75.0" layoutY="373.0" prefHeight="36.0" prefWidth="192.0" text="Number of questions">
+      <Label fx:id="numberOfQuestionsLabel" layoutX="258.0" layoutY="412.0" prefHeight="41.0" prefWidth="160.0" text="Questions" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="345.0">
          <font>
             <Font name="Garuda Bold" size="21.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="numberOfQuestionsChoiceBox" layoutX="73.0" layoutY="405.0" prefHeight="22.0" prefWidth="200.0" />
+      <ChoiceBox fx:id="numberOfQuestionsChoiceBox" layoutX="258.0" layoutY="457.0" prefHeight="25.0" prefWidth="160.0" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="385.0" />
    </children>
-</Pane>
+</AnchorPane>
