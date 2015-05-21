@@ -36,7 +36,7 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         spotifyLoginImageView.setOnMouseClicked((event) -> loginSpotify()); //start the game
-        noLoginButton.setOnAction(event -> goToModeSelection());
+        noLoginButton.setOnAction(event -> playWithoutLoggingIn());
 
         //Font.loadFont(LoginScreenController.class.getResource("../gui/HACKED:TTF").toExternalForm(), 80);
         //titleLabel.setStyle("-fx-font-family: HACKED");
@@ -64,26 +64,26 @@ public class LoginScreenController implements Initializable, ThreadCompleteListe
 
     }
 
-    /**
-     * Takes the user to the next stage.
-     */
     private void goToModeSelection(){
+
         MuzikkGlobalInfo.globalStage.setScene(SceneLoader.modeSelectionScene);
+
     }
 
-    /**
-     * Initializes the login process.
-     */
+    private void playWithoutLoggingIn(){
+        MuzikkGlobalInfo.setLoggedIn(false);
+        goToModeSelection();
+    }
+
     private void loginSpotify(){
         MuzikkAccessFetcher.initiateLogin();
         NotifyingThread thread = MuzikkAccessFetcher.keepPingingServerUntilUserLoggedIn();
         thread.addListener(this);
     }
-
-    /**
-     * Initializes game data.
-     */
     public void initData(){
+
+        MuzikkGlobalInfo.globalStage.setMinWidth(380);
+        MuzikkGlobalInfo.globalStage.setMinHeight(496);
 
     }
 

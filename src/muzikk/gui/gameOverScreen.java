@@ -31,7 +31,6 @@ import java.util.ResourceBundle;
  */
 public class gameOverScreen implements Initializable {
 
-    private Stage prevStage;
     private ObservableList<String> nameList = FXCollections.observableArrayList();
     private ObservableList<Integer> scoreList = FXCollections.observableArrayList();
     private ArrayList<Player> playerList = new ArrayList<Player>(10);
@@ -130,15 +129,11 @@ public class gameOverScreen implements Initializable {
      * Exits the game
      */
     private void quit(){
-        prevStage.setOnCloseRequest(e -> Platform.exit());
-    }
 
-    /**
-     * Sets previous stage.
-     * @param stage - the stage to set as previous.
-     */
-    public void setPrevStage(Stage stage){
-        this.prevStage = stage;
+        Platform.exit();
+        System.exit(0);
+        com.sun.javafx.application.PlatformImpl.tkExit();
+
     }
 
 }

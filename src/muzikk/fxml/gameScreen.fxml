@@ -29,7 +29,7 @@
             <VBox fx:id="artistBox0" alignment="CENTER" styleClass="vBox">
                <children>
                   <Label fx:id="artistLabel0" alignment="CENTER" prefHeight="15.0" prefWidth="170.0" text="Label" textAlignment="CENTER" />
-                  <ImageView fx:id="artistImage0" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="artistImage" />
+                  <ImageView fx:id="artistImage0"  fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="artistImage"></ImageView>
                </children>
             </VBox>
             <VBox fx:id="artistBox1" alignment="CENTER" styleClass="vBox">

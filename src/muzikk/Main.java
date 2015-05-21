@@ -2,14 +2,10 @@ package muzikk;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import muzikk.gui.LoginScreenController;
 import muzikk.gui.SceneLoader;
-
 
 
 public class Main extends Application {
