@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class MuzikkAccessFetcher {
 
-    /*
+    /**
         This method fetches the access token to access Spotify API for this app.
         @return Spotify Access Token for this app. The token will be active for 3600 seconds.
      */
@@ -38,7 +38,7 @@ public class MuzikkAccessFetcher {
 
     }
 
-    /*
+    /**
         Sends a request to hasUserInfo.php and checks if there are any user details.
         @return an array of String where the first element is the id of the user and the second is the email of the user.
         Returns null if no user information is found.
@@ -67,14 +67,14 @@ public class MuzikkAccessFetcher {
         }
     }
 
-    /*
+    /**
         Starts a thread and keeps pinging server until a user is logged in.
         @return a Notifying Thread instance that runs the pinging.
      */
 
     public static NotifyingThread<String> keepPingingServerUntilUserLoggedIn(){
 
-        /*
+        /**
             This method will ping the server forever until a user is logged in.
             We don't want the entire program to freeze during that time.
             We start a thread.
@@ -118,7 +118,7 @@ public class MuzikkAccessFetcher {
 
     }
 
-    /*
+    /**
         Sends user to the login webpage.
      */
     public static void initiateLogin(){
@@ -138,7 +138,7 @@ public class MuzikkAccessFetcher {
 
     }
 
-    /*
+    /**
         Cleans up old information on the server.
         Should be used before trying to log in.
         So the old user information wont be mistaken for new user info.
@@ -150,7 +150,7 @@ public class MuzikkAccessFetcher {
         executePost(CLEAN_UP_URL,"");
     }
 
-    /*
+    /**
         This private method executes an HTTP post request.
      */
     private static String executePost(String targetURL, String urlParameters) {
@@ -201,7 +201,7 @@ public class MuzikkAccessFetcher {
         }
     }
 
-    /*
+    /**
         Opens a webpage in the default browser on the system.
         @param uri - the URI you want to open in the browser
      */

@@ -36,7 +36,7 @@ public class MuzikkHelper {
 
     }
 
-    /*
+    /**
         @return a List of SimplePlaylist consisting of all of the logged in user's
          playlists that are public.
      */
@@ -44,7 +44,7 @@ public class MuzikkHelper {
         return spotify.getPlaylists(MuzikkGlobalInfo.getUserId()).items;
     }
 
-    /*
+    /**
         @return a List of Track with all the Tracks from all public Playlists
         that the user has.
      */
@@ -142,14 +142,14 @@ public class MuzikkHelper {
         return thread;
     }
 
-    /*
+    /**
         Returns SpotifyService object.
      */
     public SpotifyService getService(){
         return spotify;
     }
 
-    /*
+    /**
         Takes a string as a parameter and returns a list with Track objects.
         @param name - a string yuu want to use to search
         @return List with Tracks. null if the search fails.
@@ -177,7 +177,7 @@ public class MuzikkHelper {
 
     }
 
-    /*
+    /**
         Plays the 30-seconds preview of the Track you pass in.
         @param track - a Track object you want to play 30-second preview of.
      */
@@ -186,7 +186,7 @@ public class MuzikkHelper {
         playTrack(track.preview_url);
     }
 
-    /*
+    /**
         Plays the file that is given by the URL.
         @param url - the track url to play
      */
@@ -208,7 +208,7 @@ public class MuzikkHelper {
         player.play();
     }
 
-       /*
+       /**
         Stop the musik
      */
 
@@ -220,7 +220,7 @@ public class MuzikkHelper {
 
     }
 
-    /*
+    /**
         This method updates the access token so that the Spotify API can be used.
      */
     private void updateAccessToken(){
