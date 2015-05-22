@@ -204,6 +204,9 @@ public class gameController implements Initializable, ThreadCompleteListener {
         this.onShowWindow();
         this.playersInGame=playerList;
 
+        playerObsList.remove(0,playerObsList.size());
+        scoreObsList.remove(0,scoreObsList.size());
+
         /*
             Populate the UI table with players names and scores.
          */
@@ -223,6 +226,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         this.onShowWindow();
         this.playersInGame=new ArrayList<>();
+
+        playerObsList.remove(0,playerObsList.size());
+        scoreObsList.remove(0,scoreObsList.size());
+        
         playersInGame.add(player);
 
         /*
