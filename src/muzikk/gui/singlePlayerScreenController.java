@@ -222,6 +222,8 @@ public class singlePlayerScreenController implements Initializable {
         playListListView.setItems(observablePlayLists);
         playListListView.getItems().remove(0,playListListView.getItems().size());
 
+        setKeyToggleButton.setText("Press to set key");
+
         if (MuzikkGlobalInfo.isLoggedIn()) {
 
             for (PlaylistSimple pl : MuzikkGlobalInfo.SpotifyAPI.getAllPlaylists()) {

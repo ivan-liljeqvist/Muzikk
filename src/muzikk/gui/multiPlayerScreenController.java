@@ -237,6 +237,8 @@ public class multiPlayerScreenController implements Initializable {
         playerList = new ArrayList<>();
         counter=0;
 
+        setKeyToggleButton.setText("Press to set key");
+
         observablePlayLists = FXCollections.observableArrayList();
         playListListView.setItems(observablePlayLists);
         playListListView.getItems().remove(0, playListListView.getItems().size());
