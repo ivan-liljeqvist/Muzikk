@@ -204,13 +204,17 @@ public class gameController implements Initializable, ThreadCompleteListener {
         this.onShowWindow();
         this.playersInGame=playerList;
 
-        playerObsList.remove(0,playerObsList.size());
-        scoreObsList.remove(0,scoreObsList.size());
+        playerObsList= FXCollections.observableArrayList();
+        scoreObsList= FXCollections.observableArrayList();
+
+        nameListView.setItems(playerObsList);
+        scoreListView.setItems(scoreObsList);
 
         /*
             Populate the UI table with players names and scores.
          */
         for(Player p:playersInGame){
+            System.out.println("ADDING PLAYER "+p.getName());
             playerObsList.add(p.getName());
             scoreObsList.add(p.getScore());
         }
@@ -223,6 +227,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
      * @param player The player
      */
     public void initData(Player player){
+
 
         this.onShowWindow();
         this.playersInGame=new ArrayList<>();

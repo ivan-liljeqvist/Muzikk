@@ -84,6 +84,8 @@ public class gameOverScreen implements Initializable {
         scoreList = FXCollections.observableArrayList();
         playerList = new ArrayList<Player>(10);
 
+
+
         playerList.add(player);
         scoreList.add(player.getScore());
 
@@ -98,6 +100,7 @@ public class gameOverScreen implements Initializable {
      */
     public void backtoModeSelection(){
 
+        MuzikkGlobalInfo.setIngoMode(false);
         MuzikkGlobalInfo.globalStage.setScene(SceneLoader.modeSelectionScene);
 
     }

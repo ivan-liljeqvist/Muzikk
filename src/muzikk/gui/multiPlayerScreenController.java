@@ -233,9 +233,16 @@ public class multiPlayerScreenController implements Initializable {
      */
     public void initData() {
 
+        startGameButton.disableProperty().setValue(true);
+        playerList = new ArrayList<>();
+        counter=0;
+
         observablePlayLists = FXCollections.observableArrayList();
         playListListView.setItems(observablePlayLists);
-        playListListView.getItems().remove(0,playListListView.getItems().size());
+        playListListView.getItems().remove(0, playListListView.getItems().size());
+
+        keyList = FXCollections.observableArrayList();
+        keyListView.setItems(keyList);
 
         if (MuzikkGlobalInfo.isLoggedIn()) {
             for (PlaylistSimple pl : MuzikkGlobalInfo.SpotifyAPI.getAllPlaylists()) {
