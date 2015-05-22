@@ -229,7 +229,7 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         playerObsList.remove(0,playerObsList.size());
         scoreObsList.remove(0,scoreObsList.size());
-        
+
         playersInGame.add(player);
 
         /*

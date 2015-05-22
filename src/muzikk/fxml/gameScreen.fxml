@@ -28,25 +28,25 @@
          <children>
             <VBox fx:id="artistBox0" alignment="CENTER" styleClass="vBox">
                <children>
-                  <Label fx:id="artistLabel0" alignment="CENTER" prefHeight="15.0" prefWidth="170.0" text="Label" textAlignment="CENTER" />
+                  <Label fx:id="artistLabel0" alignment="CENTER" prefHeight="15.0" prefWidth="170.0" text="" textAlignment="CENTER" />
                   <ImageView fx:id="artistImage0"  fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="artistImage"></ImageView>
                </children>
             </VBox>
             <VBox fx:id="artistBox1" alignment="CENTER" styleClass="vBox">
                <children>
-                  <Label fx:id="artistLabel1" alignment="CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="171.0" text="Label" />
+                  <Label fx:id="artistLabel1" alignment="CENTER" contentDisplay="CENTER" prefHeight="15.0" prefWidth="171.0" text="" />
                   <ImageView fx:id="artistImage1" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="artistImage" />
                </children>
             </VBox>
             <VBox fx:id="artistBox2" alignment="CENTER" styleClass="vBox">
                <children>
-                  <Label fx:id="artistLabel2" alignment="CENTER" prefHeight="15.0" prefWidth="168.0" text="Label" />
+                  <Label fx:id="artistLabel2" alignment="CENTER" prefHeight="15.0" prefWidth="168.0" text="" />
                   <ImageView fx:id="artistImage2" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="artistImage" />
                </children>
             </VBox>
             <VBox fx:id="artistBox3" alignment="CENTER" styleClass="vBox">
                <children>
-                  <Label fx:id="artistLabel3" alignment="CENTER" prefHeight="15.0" prefWidth="168.0" text="Label" />
+                  <Label fx:id="artistLabel3" alignment="CENTER" prefHeight="15.0" prefWidth="168.0" text="" />
                   <ImageView fx:id="artistImage3" fitHeight="150.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" styleClass="artistImage" />
                </children>
             </VBox>
