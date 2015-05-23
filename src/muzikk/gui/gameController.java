@@ -173,6 +173,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
         pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
 
+                if(answeringPlayer!=null){
+                    return;
+                }
+
                 /*
                     Check if the button pressed matches any action button
                  */
@@ -210,6 +214,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
         nameListView.setItems(playerObsList);
         scoreListView.setItems(scoreObsList);
 
+        answeringPlayer=null;
+
         /*
             Populate the UI table with players names and scores.
          */
@@ -234,6 +240,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
 
         playerObsList.remove(0,playerObsList.size());
         scoreObsList.remove(0,scoreObsList.size());
+
+        answeringPlayer=null;
 
         playersInGame.add(player);
 
@@ -288,6 +296,8 @@ public class gameController implements Initializable, ThreadCompleteListener {
      */
 
     public void startNewQuestion(){
+
+        answeringPlayer=null;
 
         /*
             Set loading animations on all artist boxes.
@@ -365,6 +375,10 @@ public class gameController implements Initializable, ThreadCompleteListener {
                 }
                 //if ingo - play one of the ingo tracks
                 else{
+                    /*
+                        Säg bara till om du vill att vi tar bort dina
+                        låtar eller bilder från servern så gör vi det direkt!
+                     */
                     int track_index=randomGenerator.nextInt(5)+1;
                     MuzikkGlobalInfo.SpotifyAPI.playTrack("http://simkoll.com/muzikk/k"+track_index+".mp3");
                 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="Muzikk">
+    <archive path="/Users/IvanLiljeqvist/Success/KTH/Introduktion till Datalogi/Muzikk/spotify-web-api-android-all-0.1.0.jar" />
+    <archive path="/Users/IvanLiljeqvist/Success/KTH/Introduktion till Datalogi/Muzikk/jaco-mp3-player-0.9.3.jar" />
+  </library>
+</eclipse-userlibraries>
+
